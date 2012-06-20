@@ -1,0 +1,8 @@
+﻿Code version: 6.1.37.86
+Assembly name Microsoft.Office.Interop.Word, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c mvid {af994f35-3ad3-4401-a7ba-3d9bd9fe42cc}
+* ref mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  mvid {8d72cd66-3505-496d-9c29-6f5111d4d831}
+* ref office, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+  mvid {f14bac9e-f760-4393-b078-c52f4c296837}
+* ref Microsoft.Vbe.Interop, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+  mvid {b61e71ae-0bf0-437b-9194-f58f8f679a11}

@@ -1,0 +1,1 @@
+﻿C:\Projects\Conversation\packages\Prism.4.1.0.0\lib\NET40\Microsoft.Practices.Prism.dll

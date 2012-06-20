@@ -1,0 +1,10 @@
+<Modules>
+  <Module PersistentId="BA556704-FAEB-444B-8307-F888BA5B45C8" ModuleId="Conversation" />
+  <Module PersistentId="CF0D9185-68EC-45B6-A830-CEA9B02D9604" ModuleId="Microsoft.Office.Interop.Word" />
+  <Module PersistentId="4FBA0676-7A05-4716-B111-1701427921E3" ModuleId="ConversationTree" />
+  <Module PersistentId="C9201F49-4FD0-4C77-BD03-A6B999A7443C" ModuleId="Conversation.Core" />
+  <Module PersistentId="D8E2CEBD-C84E-46FF-9510-382B18F52AFC" ModuleId="Conversation.Infrastructure" />
+  <Module PersistentId="9756383D-73C8-42B1-85FA-B3B9F9086807" ModuleId="Conversation.Word.Ui" />
+  <Module PersistentId="CF0D9185-68EC-45B6-A830-CEA9B02D9604/d:Setup" ModuleId="Microsoft.Office.Interop.Word_1" />
+  <Module PersistentId="Microsoft.Office.Interop.Outlook, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" ModuleId="Microsoft.Office.Interop.Outlook" />
+</Modules>

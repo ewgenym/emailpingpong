@@ -1,0 +1,8 @@
+﻿Code version: 6.1.37.86
+Assembly name Microsoft.Office.Interop.Outlook, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c mvid {523e6d4b-bd33-4308-9fff-41c92641da84}
+* ref mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  mvid {b2dd7fad-f33e-483a-8e08-5d9b09c1f0fb}
+* ref stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
+  mvid {1df05181-e8b1-41e5-9e16-182d6b591d92}
+* ref office, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+  mvid {f14bac9e-f760-4393-b078-c52f4c296837}

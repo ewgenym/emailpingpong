@@ -1,0 +1,61 @@
+﻿Outlook add-in:
+--------------
+
+v1.0
+----
++ Hierarchy - One level hierarchy support only
+- Conversation tree panel:
+	+ Conersation tree with Author, Date, Body columns (Use WPF DevExpress control)
+	- Refresh (add\update\remove) the conversation tree after send\receive\save
+	- Locate (but not open in a separate window) e-mail on double click in the conversation tree
+	- Monitor all the folders in all the accounts
+	- Add "Show\Hide conversation pane" button to View ribbon
+	- Group by (Mail subject, Folder) (simultaniously)
+	- Search In (All folders, current folder, current mail)
+	- Comments from unread e-mails styled with bold
+	- Preserve the tree nodes state per each folder\item (on each selection change). The history should be in memory. After the outlook is closed only the current state (for current selection) is persisted.
+	- Persist the selected settings (group by, search in, expanded\collapsed nodes... for the current profile, use database)
+	- Conversation tree tools (toolbar) (???):
+		- Refresh |
+		- Expand\Collapse all |
+		- Previous\Next (question\comment nodes navigation only, excluding grouping nodes)
+		- Filter
+- Mail tagging:
+	+ Question tag removal after the second click
+	+ Ctrl+Z support
+	+ Hot keys
+	- Баг = выделил Квечин, под ним написал текст, выделил, нажал Ансвер. Вставился опять Квесчин (What is the expected beaviour?)
+	- Can't press Enter in comments (Standard behaviour)
+- Change terminology. Use ping\pong instead of q\a
+- Administrative interface:
+  - List of accounts\folders to monitor
+- Final answer
+- Bugs:
+	- Баг = когда на ответе клацаешь вопрос, после этого нельзя добавить вопрос вообще в письмо
+- Technical:
+	+ database file location (use account profile folder)
+	+ elementhost for WPF controls doesn't work correctly with ctors with arguments. Make use of service locator pattern instead of DI
+	+ Separate core conversation features over Outlook specifics
+	- Signing key name - change
+	- Global refactoring after the prtototype phase but before the beta
+	- Support for multiple select in Outlook
+
+vNext+
+----
+- Smart search
+- Configurable reminder
+- Handle conversation with the following structure:
+	ФИНАЛЬНЫЙ ОТВЕТ - mail6
+	ОТВЕТ4 - mail5
+	ОТВЕТ3 - mail4
+	ОТВЕТ2 - mail3
+	ОТВЕТ1 - mail2
+	ВОПРОС - mail1
+- Search by the conversation tree (smart filter by the tree)
+- Mail subject parsing (key words extraction)????
+- Jira integration add-in
+- Cool Date&Time representation like in face book (e.g. 19 hours ago, Yesterdat at 6:45pm, etc.)
+- Skype add-in
+- Mobile devices
+- Technical:
+	- Migration tool

@@ -1,0 +1,25 @@
+﻿Outlook:
+
+- VSTO: My Favorite Feature - Custom Task Panes
+http://weblogs.asp.net/paulballard/archive/2007/05/23/vsto-my-favorite-feature-custom-task-panes.aspx
+
+- Outlook View Regions (forum post)
+http://social.msdn.microsoft.com/Forums/eu/vsto/thread/6543d100-4456-4966-b17a-0d622a763fbf
+
+- Advanced Regions for Microsoft Outlook:
+http://www.ablebits.com/outlook-forms-views/index.php
+
+- Creating Outlook Form Regions
+http://msdn.microsoft.com/en-us/library/bb386301.aspx
+
+- Outlook 2010 Development
+http://msdn.microsoft.com/en-US/office/ff683575.aspx
+
+
+Entity Framework:
+
+- EF Feature CTP5: Pluggable Conventions
+http://blogs.msdn.com/b/adonet/archive/2011/01/10/ef-feature-ctp5-pluggable-conventions.aspx
+
+- Inheritance with EF Code First: Part 1 – Table per Hierarchy (TPH)
+http://weblogs.asp.net/manavi/archive/2010/12/24/inheritance-mapping-strategies-with-entity-framework-code-first-ctp5-part-1-table-per-hierarchy-tph.aspx

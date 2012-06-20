@@ -1,0 +1,63 @@
+﻿<RecentFiles>
+  <RecentFiles>
+    <File id="BA556704-FAEB-444B-8307-F888BA5B45C8/d:Installers/f:ViewModelInstaller.cs" caret="0" fromTop="0" />
+    <File id="BA556704-FAEB-444B-8307-F888BA5B45C8/d:Installers/f:ViewInstaller.cs" caret="0" fromTop="0" />
+    <File id="D8E2CEBD-C84E-46FF-9510-382B18F52AFC/f:ServiceLocator.cs" caret="102" fromTop="4" />
+    <File id="BA556704-FAEB-444B-8307-F888BA5B45C8/d:Installers/f:RepositoriesInstaller.cs" caret="359" fromTop="9" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:GroupBy.cs" caret="154" fromTop="7" />
+    <File id="BA556704-FAEB-444B-8307-F888BA5B45C8/d:Installers/f:EventsInstaller.cs" caret="720" fromTop="17" />
+    <File id="D8E2CEBD-C84E-46FF-9510-382B18F52AFC/d:Repositories/f:ConversationContext.cs" caret="430" fromTop="16" />
+    <File id="D8E2CEBD-C84E-46FF-9510-382B18F52AFC/d:Repositories/f:ICommentRepository.cs" caret="356" fromTop="13" />
+    <File id="D8E2CEBD-C84E-46FF-9510-382B18F52AFC/d:Repositories/d:Implementation/f:CommentRepository.cs" caret="233" fromTop="7" />
+    <File id="9756383D-73C8-42B1-85FA-B3B9F9086807/f:PingPongParser.cs" caret="564" fromTop="17" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationHost.Designer.cs" caret="1711" fromTop="22" />
+    <File id="BA556704-FAEB-444B-8307-F888BA5B45C8/f:OutlookConnectionStringProvider.cs" caret="18" fromTop="1" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationHost.cs" caret="197" fromTop="11" />
+    <File id="D8E2CEBD-C84E-46FF-9510-382B18F52AFC/d:Configuration/f:IApplicationConfigurator.cs" caret="193" fromTop="8" />
+    <File id="D8E2CEBD-C84E-46FF-9510-382B18F52AFC/d:Configuration/d:Implementation/f:GenericApplicationConfigurator.cs" caret="535" fromTop="22" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationTree.xaml.cs" caret="316" fromTop="12" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:CommentsViewModel.cs" caret="2396" fromTop="12" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Utils/f:EnumToFriendlyNameConverter.cs" caret="987" fromTop="16" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:SearchIn.cs" caret="308" fromTop="13" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationTree.xaml" caret="5864" fromTop="12" />
+    <File id="BA556704-FAEB-444B-8307-F888BA5B45C8/d:Configuration/f:EmailPingPongAddInConfigurator.cs" caret="404" fromTop="14" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Utils/f:DisplayStringAttribute.cs" caret="303" fromTop="14" />
+    <File id="9756383D-73C8-42B1-85FA-B3B9F9086807/d:Utils/f:ContentControlExtensions.cs" caret="163" fromTop="6" />
+    <File id="9756383D-73C8-42B1-85FA-B3B9F9086807/d:Controls/f:PingPongControl.cs" caret="2797" fromTop="44" />
+    <File id="9756383D-73C8-42B1-85FA-B3B9F9086807/d:Controls/f:PongControl.cs" caret="1341" fromTop="21" />
+    <File id="BA556704-FAEB-444B-8307-F888BA5B45C8/f:ThisAddIn.cs" caret="9138" fromTop="34" />
+    <File id="9756383D-73C8-42B1-85FA-B3B9F9086807/d:Controls/f:PingControl.cs" caret="131" fromTop="5" />
+  </RecentFiles>
+  <RecentEdits>
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Utils/f:EnumToFriendlyNameConverter.cs" caret="567" fromTop="11" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Utils/f:EnumToFriendlyNameConverter.cs" caret="884" fromTop="20" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationTree.xaml" caret="1533" fromTop="22" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Utils/f:EnumToFriendlyNameConverter.cs" caret="2278" fromTop="33" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationTree.xaml" caret="5963" fromTop="28" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationTree.xaml" caret="1499" fromTop="16" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationTree.xaml" caret="1357" fromTop="12" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Utils/f:EnumToFriendlyNameConverter.cs" caret="1381" fromTop="29" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Utils/f:EnumToFriendlyNameConverter.cs" caret="1382" fromTop="36" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Utils/f:EnumToFriendlyNameConverter.cs" caret="1087" fromTop="32" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Utils/f:EnumToFriendlyNameConverter.cs" caret="1269" fromTop="40" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Utils/f:EnumToFriendlyNameConverter.cs" caret="1525" fromTop="12" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationTree.xaml" caret="5864" fromTop="12" />
+    <File id="BA556704-FAEB-444B-8307-F888BA5B45C8/f:ThisAddIn.cs" caret="731" fromTop="21" />
+    <File id="BA556704-FAEB-444B-8307-F888BA5B45C8/f:ThisAddIn.cs" caret="4594" fromTop="27" />
+    <File id="BA556704-FAEB-444B-8307-F888BA5B45C8/f:ThisAddIn.cs" caret="4602" fromTop="35" />
+    <File id="BA556704-FAEB-444B-8307-F888BA5B45C8/f:ThisAddIn.cs" caret="4602" fromTop="19" />
+    <File id="BA556704-FAEB-444B-8307-F888BA5B45C8/f:ThisAddIn.cs" caret="4382" fromTop="18" />
+    <File id="BA556704-FAEB-444B-8307-F888BA5B45C8/f:ThisAddIn.cs" caret="5288" fromTop="20" />
+    <File id="BA556704-FAEB-444B-8307-F888BA5B45C8/f:ThisAddIn.cs" caret="5403" fromTop="11" />
+    <File id="BA556704-FAEB-444B-8307-F888BA5B45C8/f:ThisAddIn.cs" caret="9203" fromTop="35" />
+    <File id="BA556704-FAEB-444B-8307-F888BA5B45C8/f:ThisAddIn.cs" caret="9203" fromTop="36" />
+    <File id="9756383D-73C8-42B1-85FA-B3B9F9086807/d:Controls/f:PongControl.cs" caret="1341" fromTop="51" />
+    <File id="9756383D-73C8-42B1-85FA-B3B9F9086807/d:Controls/f:PongControl.cs" caret="1341" fromTop="29" />
+    <File id="9756383D-73C8-42B1-85FA-B3B9F9086807/d:Controls/f:PingPongControl.cs" caret="2849" fromTop="51" />
+    <File id="9756383D-73C8-42B1-85FA-B3B9F9086807/d:Controls/f:PingPongControl.cs" caret="2184" fromTop="24" />
+    <File id="9756383D-73C8-42B1-85FA-B3B9F9086807/d:Controls/f:PingPongControl.cs" caret="2490" fromTop="33" />
+    <File id="9756383D-73C8-42B1-85FA-B3B9F9086807/d:Controls/f:PongControl.cs" caret="1341" fromTop="21" />
+    <File id="9756383D-73C8-42B1-85FA-B3B9F9086807/d:Controls/f:PingControl.cs" caret="559" fromTop="11" />
+    <File id="9756383D-73C8-42B1-85FA-B3B9F9086807/d:Controls/f:PingControl.cs" caret="131" fromTop="5" />
+  </RecentEdits>
+</RecentFiles>

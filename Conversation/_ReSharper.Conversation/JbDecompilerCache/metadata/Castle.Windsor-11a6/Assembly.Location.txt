@@ -1,0 +1,1 @@
+﻿C:\Projects\Conversation\Conversation\bin\Debug\Castle.Windsor.dll
