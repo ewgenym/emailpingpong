@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.UI.Desktop", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.Core", "Conversation.Core\EmailPingPong.Core.csproj", "{C9201F49-4FD0-4C77-BD03-A6B999A7443C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7B44EA58-B629-48EE-BB45-83CE6272A434}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Key", "Key", "{7B44EA58-B629-48EE-BB45-83CE6272A434}"
 	ProjectSection(SolutionItems) = preProject
 		EmailPingPong.snk = EmailPingPong.snk
 	EndProjectSection
@@ -17,8 +17,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.Infrastructure", "Conversation.Infrastructure\EmailPingPong.Infrastructure.csproj", "{D8E2CEBD-C84E-46FF-9510-382B18F52AFC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.UI.Word", "Conversation.Word.Ui\EmailPingPong.UI.Word.csproj", "{9756383D-73C8-42B1-85FA-B3B9F9086807}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8EAC6925-1537-433F-9618-E5E397735E27}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setup", "Setup", "{CF0D9185-68EC-45B6-A830-CEA9B02D9604}"
 EndProject
