@@ -1,6 +1,0 @@
-<Modules>
-  <Module PersistentId="BA556704-FAEB-444B-8307-F888BA5B45C8" ModuleId="EmailPingPong.Outlook" />
-  <Module PersistentId="4FBA0676-7A05-4716-B111-1701427921E3" ModuleId="EmailPingPong.UI.Desktop" />
-  <Module PersistentId="D8E2CEBD-C84E-46FF-9510-382B18F52AFC" ModuleId="EmailPingPong.Infrastructure" />
-  <Module PersistentId="9756383D-73C8-42B1-85FA-B3B9F9086807" ModuleId="EmailPingPong.UI.Word" />
-</Modules>
