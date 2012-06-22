@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace Conversation.Word.Ui.Utils
+namespace EmailPingPong.UI.Word.Utils
 {
 	public class InterceptKeys
 	{

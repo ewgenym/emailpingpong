@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Markup;
-using ConversationTree.ViewModels;
 
-namespace ConversationTree.Utils
+namespace EmailPingPong.UI.Desktop.Utils
 {
 	public class EnumerationExtension : MarkupExtension
 	{

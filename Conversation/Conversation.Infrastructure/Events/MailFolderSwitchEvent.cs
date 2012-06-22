@@ -1,6 +1,6 @@
 ﻿using Microsoft.Practices.Prism.Events;
 
-namespace Conversation.Infrastructure.Events
+namespace EmailPingPong.Infrastructure.Events
 {
 	public class MailFolderSwitchEvent : CompositePresentationEvent<string>
 	{

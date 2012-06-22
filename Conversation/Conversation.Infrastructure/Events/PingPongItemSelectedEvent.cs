@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Conversation.Core.Domain;
+﻿using EmailPingPong.Core.Domain;
 using Microsoft.Practices.Prism.Events;
 
-namespace Conversation.Infrastructure.Events
+namespace EmailPingPong.Infrastructure.Events
 {
 	public class PingPongItemSelectedEvent : CompositePresentationEvent<PingPongMailItem>
 	{

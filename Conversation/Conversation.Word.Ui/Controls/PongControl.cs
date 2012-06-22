@@ -1,8 +1,7 @@
-﻿using System;
-using Conversation.Word.Ui.Utils;
+﻿using EmailPingPong.UI.Word.Utils;
 using Microsoft.Office.Interop.Word;
 
-namespace Conversation.Word.Ui.Controls
+namespace EmailPingPong.UI.Word.Controls
 {
 	public class PongControl : PingPongControl
 	{

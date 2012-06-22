@@ -18,7 +18,7 @@ namespace Conversation.Installers
 		/// <param name="container">The container.</param><param name="store">The configuration store.</param>
 		public void Install(IWindsorContainer container, IConfigurationStore store)
 		{
-			container.Register(Component.For<ConversationTree.Views.ConversationTree>());
+			container.Register(Component.For<EmailPingPong.UI.Desktop.Views.ConversationTree>());
 		}
 
 		#endregion

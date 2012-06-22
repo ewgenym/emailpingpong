@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Castle.Windsor;
-using Conversation.Infrastructure.Configuration.Implementation;
+using EmailPingPong.Infrastructure.Configuration.Implementation;
 
 namespace Conversation.Configuration
 {

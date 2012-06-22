@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Conversation.Core.Domain
+namespace EmailPingPong.Core.Domain
 {
 	public class Comment
 	{

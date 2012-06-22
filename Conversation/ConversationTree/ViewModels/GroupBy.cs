@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ConversationTree.ViewModels
+﻿namespace EmailPingPong.UI.Desktop.ViewModels
 {
 	public enum GroupBy
 	{

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Conversation.Core.Domain;
-using Conversation.Word.Ui.Utils;
+using EmailPingPong.Core.Domain;
+using EmailPingPong.UI.Word.Utils;
 using Microsoft.Office.Interop.Word;
-using Comment = Conversation.Core.Domain.Comment;
+using Comment = EmailPingPong.Core.Domain.Comment;
 
-namespace Conversation.Word.Ui
+namespace EmailPingPong.UI.Word
 {
 	public class PingPongParser
 	{

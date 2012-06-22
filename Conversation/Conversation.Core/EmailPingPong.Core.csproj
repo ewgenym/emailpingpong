@@ -8,8 +8,8 @@
     <ProjectGuid>{C9201F49-4FD0-4C77-BD03-A6B999A7443C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Conversation.Core</RootNamespace>
-    <AssemblyName>Conversation.Core</AssemblyName>
+    <RootNamespace>EmailPingPong.Core</RootNamespace>
+    <AssemblyName>EmailPingPong.Core</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -34,7 +34,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\Conversation.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\EmailPingPong.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core">
@@ -62,8 +62,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Conversation.snk">
-      <Link>Conversation.snk</Link>
+    <None Include="..\EmailPingPong.snk">
+      <Link>EmailPingPong.snk</Link>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

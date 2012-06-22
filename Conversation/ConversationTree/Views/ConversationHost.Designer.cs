@@ -1,4 +1,4 @@
-﻿namespace ConversationTree.Views
+﻿namespace EmailPingPong.UI.Desktop.Views
 {
 	partial class ConversationHost
 	{
@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
-			this.conversationTree1 = new ConversationTree();
+			this.conversationTree1 = new EmailPingPong.UI.Desktop.Views.ConversationTree();
 			this.SuspendLayout();
 			// 
 			// elementHost1
@@ -56,7 +56,7 @@
 		#endregion
 
 		private System.Windows.Forms.Integration.ElementHost elementHost1;
-		private ConversationTree conversationTree1;
+		private EmailPingPong.UI.Desktop.Views.ConversationTree conversationTree1;
 
 	}
 }

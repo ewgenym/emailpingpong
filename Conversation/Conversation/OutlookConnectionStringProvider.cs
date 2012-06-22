@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using Conversation.Infrastructure;
+using EmailPingPong.Infrastructure;
 
 namespace Conversation
 {

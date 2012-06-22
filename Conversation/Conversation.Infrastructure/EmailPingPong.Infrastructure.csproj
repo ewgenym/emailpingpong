@@ -8,8 +8,8 @@
     <ProjectGuid>{D8E2CEBD-C84E-46FF-9510-382B18F52AFC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Conversation.Infrastructure</RootNamespace>
-    <AssemblyName>Conversation.Infrastructure</AssemblyName>
+    <RootNamespace>EmailPingPong.Infrastructure</RootNamespace>
+    <AssemblyName>EmailPingPong.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -34,7 +34,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Conversation.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\EmailPingPong.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core">
@@ -90,7 +90,9 @@
     <Compile Include="ServiceLocator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Conversation.snk" />
+    <None Include="..\EmailPingPong.snk">
+      <Link>EmailPingPong.snk</Link>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

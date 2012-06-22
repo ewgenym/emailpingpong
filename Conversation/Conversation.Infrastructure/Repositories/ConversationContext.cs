@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using Conversation.Core.Domain;
+﻿using System.Data.Entity;
+using EmailPingPong.Core.Domain;
 
-namespace Conversation.Infrastructure.Repositories
+namespace EmailPingPong.Infrastructure.Repositories
 {
 	public class ConversationContext : DbContext
 	{

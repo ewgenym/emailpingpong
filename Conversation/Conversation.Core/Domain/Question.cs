@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Conversation.Core.Domain
+﻿namespace EmailPingPong.Core.Domain
 {
 	public class Question : Comment
 	{

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace ConversationTree.Views
+namespace EmailPingPong.UI.Desktop.Views
 {
 	public partial class ConversationHost : UserControl
 	{

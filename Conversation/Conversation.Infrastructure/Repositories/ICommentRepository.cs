@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Conversation.Core.Domain;
+﻿using System.Collections.Generic;
+using EmailPingPong.Core.Domain;
 
-namespace Conversation.Infrastructure.Repositories
+namespace EmailPingPong.Infrastructure.Repositories
 {
 	public interface ICommentRepository
 	{

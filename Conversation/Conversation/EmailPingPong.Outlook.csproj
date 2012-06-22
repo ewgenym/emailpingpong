@@ -25,7 +25,7 @@
     <OutputType>Library</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
     <RootNamespace>Conversation</RootNamespace>
-    <AssemblyName>Conversation</AssemblyName>
+    <AssemblyName>EmailPingPong.Outlook</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -162,16 +162,16 @@ xcopy /s /y "$(SolutionDir)packages\SqlServerCompact.4.0.8482.1\NativeBinaries\a
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Conversation_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>EmailPingPong.Outlook_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>ECAA6F08A11FAA4D018363DB06BA24D135C96018</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>C5A903A1ADE37A00B47FD8C2C1F9F6197A331B6F</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Conversation_1_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>EmailPingPong.Outlook_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <!--
     This section specifies references for the project.
@@ -322,8 +322,7 @@ xcopy /s /y "$(SolutionDir)packages\SqlServerCompact.4.0.8482.1\NativeBinaries\a
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="App.config" />
-    <None Include="Conversation_1_TemporaryKey.pfx" />
-    <None Include="Conversation_TemporaryKey.pfx" />
+    <None Include="EmailPingPong.Outlook_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Conversation.Models.Comment.datasource" />
     <None Include="Properties\Settings.settings">

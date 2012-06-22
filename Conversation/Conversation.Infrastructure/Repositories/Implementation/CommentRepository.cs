@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using Conversation.Core.Domain;
+using EmailPingPong.Core.Domain;
 
-namespace Conversation.Infrastructure.Repositories.Implementation
+namespace EmailPingPong.Infrastructure.Repositories.Implementation
 {
 	public class CommentRepository : ICommentRepository
 	{

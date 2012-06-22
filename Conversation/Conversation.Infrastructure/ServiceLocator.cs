@@ -1,6 +1,6 @@
 ﻿using Castle.Windsor;
 
-namespace Conversation.Infrastructure
+namespace EmailPingPong.Infrastructure
 {
 	public static class ServiceLocator
 	{

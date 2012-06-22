@@ -1,6 +1,6 @@
 ﻿using Microsoft.Office.Interop.Word;
 
-namespace Conversation.Word.Ui.Controls
+namespace EmailPingPong.UI.Word.Controls
 {
 	public class PingControl : PingPongControl
 	{

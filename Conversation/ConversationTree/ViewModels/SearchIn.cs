@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using EmailPingPong.UI.Desktop.Utils;
 
-namespace ConversationTree.ViewModels
+namespace EmailPingPong.UI.Desktop.ViewModels
 {
 	public enum SearchIn
 	{

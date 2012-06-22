@@ -8,8 +8,8 @@
     <ProjectGuid>{4FBA0676-7A05-4716-B111-1701427921E3}</ProjectGuid>
     <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConversationTree</RootNamespace>
-    <AssemblyName>ConversationTree</AssemblyName>
+    <RootNamespace>EmailPingPong.UI.Desktop</RootNamespace>
+    <AssemblyName>EmailPingPong.UI.Desktop</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -37,7 +37,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Conversation.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\EmailPingPong.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core">
@@ -126,10 +126,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ConversationHost.resx">
-      <DependentUpon>ConversationHost.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="Conversation.snk" />
+    <None Include="..\EmailPingPong.snk">
+      <Link>EmailPingPong.snk</Link>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -153,9 +152,7 @@
       <Name>EmailPingPong.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Events\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

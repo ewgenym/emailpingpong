@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ConversationTree.ViewModels
+namespace EmailPingPong.UI.Desktop.Utils
 {
 	[AttributeUsage(AttributeTargets.Field)]
 	public sealed class DisplayStringAttribute : Attribute

@@ -6,5 +6,5 @@
   <Module PersistentId="D8E2CEBD-C84E-46FF-9510-382B18F52AFC" ModuleId="Conversation.Infrastructure" />
   <Module PersistentId="9756383D-73C8-42B1-85FA-B3B9F9086807" ModuleId="Conversation.Word.Ui" />
   <Module PersistentId="CF0D9185-68EC-45B6-A830-CEA9B02D9604/d:Setup" ModuleId="Microsoft.Office.Interop.Word_1" />
-  <Module PersistentId="Microsoft.Office.Interop.Outlook, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" ModuleId="Microsoft.Office.Interop.Outlook" />
+  <Module PersistentId="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" ModuleId="System.Windows.Forms" />
 </Modules>

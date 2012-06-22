@@ -1,6 +1,6 @@
 ﻿using Microsoft.Office.Interop.Word;
 
-namespace Conversation.Word.Ui.Utils
+namespace EmailPingPong.UI.Word.Utils
 {
 	public static class RangeExtensions
 	{

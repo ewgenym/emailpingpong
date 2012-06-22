@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Castle.MicroKernel.Registration;
+﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using ConversationTree;
-using ConversationTree.ViewModels;
+using EmailPingPong.UI.Desktop.ViewModels;
 
 namespace Conversation.Installers
 {

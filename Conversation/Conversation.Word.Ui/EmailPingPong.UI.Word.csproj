@@ -8,8 +8,8 @@
     <ProjectGuid>{9756383D-73C8-42B1-85FA-B3B9F9086807}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Conversation.Word.Ui</RootNamespace>
-    <AssemblyName>Conversation.Word.Ui</AssemblyName>
+    <RootNamespace>EmailPingPong.UI.Word</RootNamespace>
+    <AssemblyName>EmailPingPong.UI.Word</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -34,7 +34,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Conversation.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\EmailPingPong.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Expression.Interactions">
@@ -75,7 +75,9 @@
     <Compile Include="Utils\RangeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Conversation.snk" />
+    <None Include="..\EmailPingPong.snk">
+      <Link>EmailPingPong.snk</Link>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

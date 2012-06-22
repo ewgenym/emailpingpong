@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Windows.Input;
-using Conversation.Core.Domain;
-using Conversation.Infrastructure;
-using Conversation.Infrastructure.Events;
-using Conversation.Infrastructure.Repositories;
 using DevExpress.Xpf.Grid;
+using EmailPingPong.Core.Domain;
+using EmailPingPong.Infrastructure;
+using EmailPingPong.Infrastructure.Events;
+using EmailPingPong.Infrastructure.Repositories;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Prism.ViewModel;
 
-namespace ConversationTree.ViewModels
+namespace EmailPingPong.UI.Desktop.ViewModels
 {
 	public class CommentsViewModel : NotificationObject
 	{

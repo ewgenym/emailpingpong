@@ -1,8 +1,6 @@
 ﻿using System.Windows.Controls;
-using Conversation.Infrastructure;
-using ConversationTree.ViewModels;
 
-namespace ConversationTree.Views
+namespace EmailPingPong.UI.Desktop.Views
 {
 	/// <summary>
 	/// Interaction logic for ConversationTree.xaml

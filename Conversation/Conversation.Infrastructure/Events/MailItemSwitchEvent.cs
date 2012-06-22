@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Conversation.Core.Domain;
+using EmailPingPong.Core.Domain;
 using Microsoft.Practices.Prism.Events;
 
-namespace Conversation.Infrastructure.Events
+namespace EmailPingPong.Infrastructure.Events
 {
 	public class MailItemSwitchEvent : CompositePresentationEvent<IEnumerable<PingPongMailItem>>
 	{

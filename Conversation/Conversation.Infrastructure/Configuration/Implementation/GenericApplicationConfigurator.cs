@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Castle.Windsor;
+﻿using Castle.Windsor;
 
-namespace Conversation.Infrastructure.Configuration.Implementation
+namespace EmailPingPong.Infrastructure.Configuration.Implementation
 {
 	public abstract class GenericApplicationConfigurator : IApplicationConfigurator
 	{

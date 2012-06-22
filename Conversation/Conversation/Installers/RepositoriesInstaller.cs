@@ -1,9 +1,9 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using Conversation.Infrastructure;
-using Conversation.Infrastructure.Repositories;
-using Conversation.Infrastructure.Repositories.Implementation;
+using EmailPingPong.Infrastructure;
+using EmailPingPong.Infrastructure.Repositories;
+using EmailPingPong.Infrastructure.Repositories.Implementation;
 
 namespace Conversation.Installers
 {
