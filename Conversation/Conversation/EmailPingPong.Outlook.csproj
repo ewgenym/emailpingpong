@@ -290,6 +290,12 @@ xcopy /s /y "$(SolutionDir)packages\SqlServerCompact.4.0.8482.1\NativeBinaries\a
     <Compile Include="ConversationRibbon.Designer.cs">
       <DependentUpon>ConversationRibbon.cs</DependentUpon>
     </Compile>
+    <Compile Include="HomeRibbon.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="HomeRibbon.Designer.cs">
+      <DependentUpon>HomeRibbon.cs</DependentUpon>
+    </Compile>
     <Compile Include="Installers\EventsInstaller.cs" />
     <Compile Include="Installers\RepositoriesInstaller.cs" />
     <Compile Include="Installers\ViewInstaller.cs" />
@@ -300,6 +306,9 @@ xcopy /s /y "$(SolutionDir)packages\SqlServerCompact.4.0.8482.1\NativeBinaries\a
     </Compile>
     <EmbeddedResource Include="ConversationRibbon.resx">
       <DependentUpon>ConversationRibbon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HomeRibbon.resx">
+      <DependentUpon>HomeRibbon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -361,7 +370,9 @@ xcopy /s /y "$(SolutionDir)packages\SqlServerCompact.4.0.8482.1\NativeBinaries\a
       <Name>EmailPingPong.UI.Desktop</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Actions-view-conversation-balloon-icon.png" />
+  </ItemGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- Include additional build rules for an Office application add-in. -->

@@ -313,5 +313,15 @@ namespace Conversation
         }
         
         #endregion
-	}
+
+    	public void ToggleConversation()
+    	{
+			_conversationPane.Visible = !_conversationPane.Visible;
+    	}
+
+		public bool ConversationChecked
+		{
+			get { return _conversationPane.Visible; }
+    	}
+    }
 }

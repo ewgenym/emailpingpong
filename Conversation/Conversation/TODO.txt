@@ -6,29 +6,22 @@ v1.0
 + Hierarchy - One level hierarchy support only
 - Conversation tree panel:
 	+ Conersation tree with Author, Date, Body columns (Use WPF DevExpress control)
-	- Refresh (add\update\remove) the conversation tree after send\receive\save
-	- Locate (but not open in a separate window) e-mail on double click in the conversation tree
+	+ Refresh (add\update\remove) the conversation tree after send\receive\save
+	+ Locate (but not open in a separate window) e-mail on double click in the conversation tree
 	- Monitor all the folders in all the accounts
-	- Add "Show\Hide conversation pane" button to View ribbon
-	- Group by (Mail subject, Folder) (simultaniously)
-	- Search In (All folders, current folder, current mail)
+	+ Add "Show\Hide conversation pane" button to View ribbon
+	- Group by (Mail subject, Folder) (simultaniously?)
+	+ Search In (All folders, current folder, current mail)
 	- Comments from unread e-mails styled with bold
 	- Preserve the tree nodes state per each folder\item (on each selection change). The history should be in memory. After the outlook is closed only the current state (for current selection) is persisted.
 	- Persist the selected settings (group by, search in, expanded\collapsed nodes... for the current profile, use database)
-	- Conversation tree tools (toolbar) (???):
-		- Refresh |
-		- Expand\Collapse all |
-		- Previous\Next (question\comment nodes navigation only, excluding grouping nodes)
-		- Filter
-- Mail tagging:
++ Mail tagging:
 	+ Question tag removal after the second click
 	+ Ctrl+Z support
 	+ Hot keys
 	- Баг = выделил Квечин, под ним написал текст, выделил, нажал Ансвер. Вставился опять Квесчин (What is the expected beaviour?)
 	- Can't press Enter in comments (Standard behaviour)
-- Change terminology. Use ping\pong instead of q\a
-- Administrative interface:
-  - List of accounts\folders to monitor
++ Change terminology. Use ping\pong instead of q\a
 - Final answer
 - Bugs:
 	- Баг = когда на ответе клацаешь вопрос, после этого нельзя добавить вопрос вообще в письмо
@@ -38,11 +31,19 @@ v1.0
 	+ Separate core conversation features over Outlook specifics
 	- Signing key name - change
 	- Global refactoring after the prtototype phase but before the beta
-	- Support for multiple select in Outlook
+	- Support for multiple select in Outlook (when use selects several folders or e-mails we should filter accrodingly)
 
 vNext+
 ----
 - Smart search
+- Support for more tags, including custom ones
+- Conversation tree tools (toolbar) (???):
+	- Refresh |
+	- Expand\Collapse all |
+	- Previous\Next (question\comment nodes navigation only, excluding grouping nodes)
+	- Filter
+- Administrative interface:
+  - List of accounts\folders to monitor
 - Configurable reminder
 - Handle conversation with the following structure:
 	ФИНАЛЬНЫЙ ОТВЕТ - mail6
