@@ -94,7 +94,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Utils\EnumerationExtension.cs" />
-    <Compile Include="Utils\EnumToFriendlyNameConverter.cs" />
     <Compile Include="ViewModels\CommentsViewModel.cs" />
     <Compile Include="Utils\DisplayStringAttribute.cs" />
     <Compile Include="ViewModels\GroupBy.cs" />

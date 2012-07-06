@@ -59,7 +59,7 @@
 			this.toggleConversationButton.Checked = true;
 			this.toggleConversationButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
 			this.toggleConversationButton.Image = global::EmailPingPong.Outlook.Properties.Resources.Actions_view_conversation_balloon_icon;
-			this.toggleConversationButton.Label = "Find Conversation";
+			this.toggleConversationButton.Label = "Conversations";
 			this.toggleConversationButton.Name = "toggleConversationButton";
 			this.toggleConversationButton.ShowImage = true;
 			this.toggleConversationButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.toggleButton1_Click);

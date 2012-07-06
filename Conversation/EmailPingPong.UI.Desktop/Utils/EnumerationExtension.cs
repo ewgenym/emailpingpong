@@ -27,8 +27,8 @@ namespace EmailPingPong.UI.Desktop.Utils
 
 				var enumType = Nullable.GetUnderlyingType(value) ?? value;
 
-				if (enumType.IsEnum == false)
-					throw new ArgumentException("Type must be an Enum.");
+				if (!enumType.IsEnum)
+					throw new ArgumentException("Enum type is expected.");
 
 				_enumType = value;
 			}
@@ -38,13 +38,14 @@ namespace EmailPingPong.UI.Desktop.Utils
 		{
 			var enumValues = Enum.GetValues(EnumType);
 
-			return (
-			  from object enumValue in enumValues
-			  select new EnumerationMember
-			  {
-				  Value = enumValue,
-				  Description = GetDescription(enumValue)
-			  }).ToArray();
+			return enumValues
+				.Cast<object>()
+				.Select(enumValue => new EnumerationMember
+			       		{
+			       			Value = enumValue,
+			       			Description = GetDescription(enumValue)
+			       		})
+				.ToArray();
 		}
 
 		private string GetDescription(object enumValue)
@@ -54,10 +55,9 @@ namespace EmailPingPong.UI.Desktop.Utils
 			  .GetCustomAttributes(typeof(DisplayStringAttribute), false)
 			  .FirstOrDefault() as DisplayStringAttribute;
 
-
 			return descriptionAttribute != null
-			  ? descriptionAttribute.Value
-			  : enumValue.ToString();
+			       	? descriptionAttribute.Value
+			       	: enumValue.ToString();
 		}
 
 		public class EnumerationMember
@@ -66,5 +66,4 @@ namespace EmailPingPong.UI.Desktop.Utils
 			public object Value { get; set; }
 		}
 	}
-
 }

@@ -140,16 +140,11 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 					break;
 			}
 
-			//TODO: grouping
-			//switch (_groupBy)
-			//{
-			//    case GroupBy.EmailSuject:
-			//        comments.GroupBy(c => c.ItemSubject);
-			//        break;
-			//    case GroupBy.Folder:
-			//        comments.GroupBy(c => c.FolderName);
-			//        break;
-			//}
+			switch (_groupBy)
+			{
+				case GroupBy.EmailSuject:
+					break;
+			}
 
 			return comments;
 		}

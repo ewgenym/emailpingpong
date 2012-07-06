@@ -52,7 +52,10 @@
 			</StackPanel>
 		</DataTemplate>
 		<DataTemplate x:Key="DateTemplate">
-			<TextBlock Text="{Binding Path=RowData.Row.Created, StringFormat={}{0:MMMM dd\, yyyy} at {0:t}}" Padding="3,3,3,3" />
+			<TextBlock Text="{Binding Path=RowData.Row.Created, StringFormat={}{0:MMMM dd\, yyyy} at {0:t}}" Padding="3,3,3,3" Foreground="DarkGray"/>
+		</DataTemplate>
+		<DataTemplate x:Key="AuthorTemplate">
+			<TextBlock Text="{Binding Path=RowData.Row.Author}" Padding="3,3,3,3" FontStyle="Italic" Foreground="DarkGray"/>
 		</DataTemplate>
 	</UserControl.Resources>
 	<Grid>
@@ -74,11 +77,29 @@
 		<dxe:ComboBoxEdit Name="groupByComboBox" 
 						  Grid.Row="1" 
 						  Grid.Column="0"
-						  Margin="3" IsTextEditable="False">
-			<dxe:ComboBoxEditItem Content="None" IsSelected="True"/>
-			<dxe:ComboBoxEditItem Content="Mail Subject" />
-			<dxe:ComboBoxEditItem Content="Folder" />
+						  Margin="3" 
+						  IsTextEditable="False"
+						  DataContext="{StaticResource сommentsViewModel}"
+						  ItemsSource="{Binding Source={Utils:Enumeration {x:Type ViewModels:GroupBy}}}"
+						  EditValue="{Binding Path=GroupBy, UpdateSourceTrigger=PropertyChanged}"
+						  DisplayMember="Description"
+						  ValueMember="Value">
 		</dxe:ComboBoxEdit>
+		<TextBlock Text="Search in:" 
+				   Grid.Row="3" 
+				   Grid.Column="0"
+				   Margin="3"/>
+		<dxe:ComboBoxEdit Name="searchInLookup"
+						Grid.Row="4" 
+						Grid.Column="0"
+						Margin="3"
+						IsTextEditable="False"
+						DataContext="{StaticResource сommentsViewModel}"
+						ItemsSource="{Binding Source={Utils:Enumeration {x:Type ViewModels:SearchIn}}}"
+						EditValue="{Binding Path=SearchIn, UpdateSourceTrigger=PropertyChanged}"
+						DisplayMember="Description"
+						ValueMember="Value">
+		</dxe:ComboBoxEdit>		
 		<dxg:TreeListControl Name="ConversationTreeList" 
 							 DataContext="{StaticResource сommentsViewModel}"  
 							 ItemsSource="{Binding Path=Comments, Mode=OneWay}" 
@@ -89,7 +110,7 @@
 			<dxg:TreeListControl.Columns>
 				<dxg:TreeListColumn FieldName="Id" Visible="False" />
 				<dxg:TreeListColumn FieldName="ParentId" Visible="False" />
-				<dxg:TreeListColumn FieldName="Author" Header="Author" />
+				<dxg:TreeListColumn FieldName="Author" Header="Author" CellTemplate="{StaticResource AuthorTemplate}"/>
 				<dxg:TreeListColumn FieldName="Created" Header="Date" CellTemplate="{StaticResource DateTemplate}" />
 			</dxg:TreeListControl.Columns>
 			<dxg:TreeListControl.View>
@@ -111,19 +132,5 @@
 				</i:EventTrigger>
 			</i:Interaction.Triggers>
 		</dxg:TreeListControl>
-		<TextBlock Text="Search in:" 
-				   Grid.Row="3" 
-				   Grid.Column="0"
-				   Margin="3"/>
-		<ComboBox Name="searchInByComboBox"
-				  Grid.Row="4" 
-				  Grid.Column="0"
-				  Margin="3"
-				  ItemsSource="{Binding Source={Utils:Enumeration {x:Type ViewModels:SearchIn}}}"
-				  DisplayMemberPath="Description"
-				  DataContext="{StaticResource сommentsViewModel}"
-				  SelectedValue="{Binding Path=SearchIn}"
-				  SelectedValuePath="Value">
-		</ComboBox>
 	</Grid>
 </UserControl>
