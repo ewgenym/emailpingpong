@@ -43,6 +43,14 @@
 						   Text="{Binding Path=Row.Body}"></TextBlock>
 			</Grid>
 		</DataTemplate>
+		<DataTemplate x:Key="detailGroupTemplate">
+			<TextBlock Grid.ColumnSpan="2"
+						Grid.Row="1"
+						TextWrapping="Wrap"
+						TextTrimming="CharacterEllipsis"
+						Text="{Binding Path=Row.GroupName}" 
+						FontWeight="Bold"></TextBlock>
+		</DataTemplate>
 		<DataTemplate x:Key="nodeDetailTemplate">
 			<StackPanel Orientation="Vertical" >
 				<dx:MeasurePixelSnapper>
@@ -57,6 +65,25 @@
 		<DataTemplate x:Key="AuthorTemplate">
 			<TextBlock Text="{Binding Path=RowData.Row.Author}" Padding="3,3,3,3" FontStyle="Italic" Foreground="DarkGray"/>
 		</DataTemplate>
+
+		<DataTemplate x:Key="pingPongGroupTemplate">
+			<StackPanel Orientation="Vertical" >
+				<ContentControl Template="{StaticResource detailContainerTemplate}" Content="{Binding}" ContentTemplate="{DynamicResource detailGroupTemplate}" />
+			</StackPanel>			
+		</DataTemplate>
+
+		<ViewModels:ObjectTemplateSelector x:Key="templateSelector">
+			<ViewModels:ObjectTemplateSelector.PingPongGroupTemplate>
+				<HierarchicalDataTemplate>
+					<ContentPresenter ContentTemplate="{StaticResource pingPongGroupTemplate}" Content="{Binding}" />
+				</HierarchicalDataTemplate>
+			</ViewModels:ObjectTemplateSelector.PingPongGroupTemplate>
+			<ViewModels:ObjectTemplateSelector.PingPongTemplate>
+				<HierarchicalDataTemplate>
+					<ContentPresenter ContentTemplate="{StaticResource nodeDetailTemplate}" Content="{Binding}" />
+				</HierarchicalDataTemplate>
+			</ViewModels:ObjectTemplateSelector.PingPongTemplate>
+		</ViewModels:ObjectTemplateSelector>
 	</UserControl.Resources>
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -102,7 +129,7 @@
 		</dxe:ComboBoxEdit>		
 		<dxg:TreeListControl Name="ConversationTreeList" 
 							 DataContext="{StaticResource сommentsViewModel}"  
-							 ItemsSource="{Binding Path=Comments, Mode=OneWay}" 
+							 ItemsSource="{Binding Path=EmailPingPong, Mode=OneWay}" 
 							 ShowLoadingPanel="False" 
 							 Grid.Row="2"
 							 Grid.ColumnSpan="2"
@@ -120,11 +147,13 @@
 								  NavigationStyle="Row" 
 								  AllowColumnFiltering="False" 
 								  ParentFieldName="ParentId" 
-								  DataRowTemplate="{StaticResource nodeDetailTemplate}"
-								  AutoWidth="True" AllowPerPixelScrolling="True" 
+								  AutoWidth="True" 
+								  AllowPerPixelScrolling="True" 
 								  DataContext="{Binding}" 
 								  ShowIndicator="False" 
-								  AllowEditing="False" />
+								  AllowEditing="False" 
+								  DataRowTemplateSelector="{StaticResource templateSelector}"
+								  />
 			</dxg:TreeListControl.View>
 			<i:Interaction.Triggers>
 				<i:EventTrigger EventName="MouseDoubleClick">

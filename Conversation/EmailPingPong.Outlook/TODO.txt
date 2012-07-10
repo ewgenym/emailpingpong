@@ -25,6 +25,7 @@ v1.0
 - Final answer
 - Bugs:
 	- Баг = когда на ответе клацаешь вопрос, после этого нельзя добавить вопрос вообще в письмо
+	- SearchIn deropdown: have to click it twice for the first time
 - Technical:
 	+ database file location (use account profile folder)
 	+ elementhost for WPF controls doesn't work correctly with ctors with arguments. Make use of service locator pattern instead of DI

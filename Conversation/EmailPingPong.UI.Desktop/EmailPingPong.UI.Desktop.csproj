@@ -97,6 +97,9 @@
     <Compile Include="ViewModels\CommentsViewModel.cs" />
     <Compile Include="Utils\DisplayStringAttribute.cs" />
     <Compile Include="ViewModels\GroupBy.cs" />
+    <Compile Include="ViewModels\PingPongBinder.cs" />
+    <Compile Include="ViewModels\PingPongDto.cs" />
+    <Compile Include="ViewModels\PingPongGroupDto.cs" />
     <Compile Include="ViewModels\SearchIn.cs" />
     <Compile Include="Views\ConversationHost.cs">
       <SubType>UserControl</SubType>

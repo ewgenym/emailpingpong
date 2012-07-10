@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using DevExpress.Xpf.Grid;
+using DevExpress.Xpf.Grid.TreeList;
 using EmailPingPong.Core.Domain;
 using EmailPingPong.Infrastructure;
 using EmailPingPong.Infrastructure.Events;
@@ -23,7 +26,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			{
 				_commentRepository = ServiceLocator.Container.Resolve<ICommentRepository>();
 				//TODO: piece of ugly workaround
-				Comments = new List<Comment>(_commentRepository.Comments);
+				//Comments = new List<Comment>(_commentRepository.Comments);
 
 				_searchIn = SearchIn.CurrentFolder;
 
@@ -49,14 +52,9 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			}
 		}
 
-		private void BindComments()
-		{
-			Comments = new List<Comment>(GetComments());
-		}
-
 		private void OnItemAdded(PingPongMailItem obj)
 		{
-			BindComments();
+			BindEmailPingPong();
 		}
 
 		private void OnItemSwitched(IEnumerable<PingPongMailItem> items)
@@ -64,7 +62,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			_itemIds = new List<string>(items.Select(i => i.ItemId));
 			if (_searchIn == SearchIn.CurrentEmail)
 			{
-				BindComments();
+				BindEmailPingPong();
 			}
 		}
 
@@ -73,18 +71,18 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			_folderId = folder;
 			if (_searchIn == SearchIn.CurrentFolder)
 			{
-				BindComments();
+				BindEmailPingPong();
 			}
 		}
 
-		private IList<Comment> _comments;
-		public IList<Comment> Comments 
-		{ 
-			get { return _comments; }
+		private IList<PingPongDto> _emailPingPong;
+		public IList<PingPongDto> EmailPingPong 
+		{
+			get { return _emailPingPong; }
 			private set 
 			{ 
-				_comments = value;
-				RaisePropertyChanged(() => Comments);
+				_emailPingPong = value;
+				RaisePropertyChanged(() => EmailPingPong);
 			}
 		}
 
@@ -99,7 +97,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 				if (_searchIn != value)
 				{
 					_searchIn = value;
-					BindComments();
+					BindEmailPingPong();
 				}
 			}
 		}
@@ -112,46 +110,109 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 				if (_groupBy != value)
 				{
 					_groupBy = value;
-					BindComments();
+					BindEmailPingPong();
 				}
 			}
 		}
 		
 		private List<string> _itemIds = new List<string>();
+
+		//TODO: accept list of folders (that actually could include child folders in case of search in == current folder + childs)
 		private string _folderId;
 		
 		private GroupBy _groupBy = GroupBy.None;
 		
-		private IEnumerable<Comment> GetComments()
+		private void BindEmailPingPong()
 		{
+			// TODO: refactor the entire method. This is fucking mess
 			IEnumerable<Comment> comments = null;
 			
 			switch (_searchIn)
 			{
 				case SearchIn.CurrentEmail:
-					comments = _commentRepository.Comments.Where(c => _itemIds.Contains(c.ItemId)).OrderBy(c => c.Order);
+					comments = _commentRepository.Comments
+						.Where(c => _itemIds.Contains(c.ItemId))
+						.OrderBy(c => c.Order);
 					break;
 				case SearchIn.CurrentFolder:
 					if (!string.IsNullOrEmpty(_folderId))
-						comments = _commentRepository.Comments.Where(c => c.FolderId == _folderId).OrderBy(c => c.Order);
+						comments = _commentRepository.Comments
+							.Where(c => c.FolderId == _folderId)
+							.OrderBy(c => c.Order);
 					break;
 				default:
 					comments = _commentRepository.Comments;
 					break;
 			}
 
+			IEnumerable<IGrouping<string, Comment>> commentGroups = null;
 			switch (_groupBy)
 			{
 				case GroupBy.EmailSuject:
+					commentGroups = comments.GroupBy(c => c.ItemSubject);
+					break;
+				case GroupBy.Folder:
+					commentGroups = comments.GroupBy(c => c.FolderName);
 					break;
 			}
 
-			return comments;
-		}
+			var nodes = new List<PingPongDto>();
+			if (commentGroups != null)
+			{
+				int groupId = -1;
+				foreach (var @group in commentGroups)
+				{
+					var groupDto = new PingPongGroupDto {GroupName = group.Key, Id = groupId};
+					nodes.Add(groupDto);
+					foreach (var comment in group)
+					{
+						var pingPongDto = new PingPongDto()
+							{
+								Author = comment.Author,
+								Body = comment.Body,
+								Created = comment.Created,
+								Id = comment.Id,
+								ParentId = comment.ParentId.HasValue ? comment.ParentId.Value : groupId,
+							};
+						nodes.Add(pingPongDto);
+					}
 
-		public void CommentsChanged()
-		{
-			RaisePropertyChanged(() => Comments);
+					groupId--;
+				}
+			}
+			else
+			{
+				nodes.AddRange(comments.Select(comment => new PingPongDto()
+					{
+						Author = comment.Author,
+						Body = comment.Body,
+						Created = comment.Created,
+						Id = comment.Id,
+						ParentId = comment.ParentId,
+					}));
+			}
+
+			EmailPingPong = nodes;
 		}
 	}
+
+	public class ObjectTemplateSelector : DataTemplateSelector
+	{
+		public DataTemplate PingPongGroupTemplate { get; set; }
+		public DataTemplate PingPongTemplate { get; set; }
+		
+		public override DataTemplate SelectTemplate(object item, DependencyObject container)
+		{
+			var rowData = item as TreeListRowData;
+			if (rowData != null)
+			{
+				if (rowData.Row is PingPongGroupDto)
+					return PingPongGroupTemplate;
+				if (rowData.Row is PingPongDto)
+					return PingPongTemplate;
+			}
+			return null;			
+		}
+	}
+
 }

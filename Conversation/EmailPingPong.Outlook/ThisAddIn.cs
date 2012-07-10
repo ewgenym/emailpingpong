@@ -246,8 +246,7 @@ namespace EmailPingPong.Outlook
 			var parser = new PingPongParser();
 			var folder = (Folder)mailItem.Parent;
 
-
-			return parser.Parse(document, mailItem.EntryID, storeId/*folder.StoreID*/, folderId/*folder.EntryID*/);
+			return parser.Parse(document, mailItem.EntryID, storeId/*folder.StoreID*/, folderId/*folder.EntryID*/, mailItem.Subject, folder.Name);
     	}
 
     	private void ThisAddIn_Shutdown(object sender, System.EventArgs e)

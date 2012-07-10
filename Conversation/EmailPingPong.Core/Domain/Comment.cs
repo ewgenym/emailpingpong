@@ -32,7 +32,10 @@ namespace EmailPingPong.Core.Domain
 		// Filter by
 		public string FolderId { get; set; }
 
-		public string FakeFieldToRecreateModel { get; set; }
+		// Group by
+		public string FolderName { get; set; }
+
+		public string FakeFieldToRecreateModel2 { get; set; }
 
 		#endregion
 

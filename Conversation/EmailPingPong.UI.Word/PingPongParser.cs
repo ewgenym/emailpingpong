@@ -9,7 +9,7 @@ namespace EmailPingPong.UI.Word
 {
 	public class PingPongParser
 	{
-		public IList<Question> Parse(Document document, string itemId, string storeId, string folder)
+		public IList<Question> Parse(Document document, string itemId, string storeId, string folder, string itemSubject, string folderName)
 		{
 			var questions = new List<Question>();
 			Question lastQuestion = null;
@@ -36,8 +36,10 @@ namespace EmailPingPong.UI.Word
 						               		Body = control.Range.Text,
 						               		Created = creationDate,
 						               		ItemId = itemId,
+											ItemSubject = itemSubject,
 											StoreId = storeId,
 											FolderId = folder,
+											FolderName = folderName,
 						               	};
 
 						questions.Add(question);
@@ -54,8 +56,10 @@ namespace EmailPingPong.UI.Word
 						          		Body = control.Range.Text,
 										Created = creationDate,
 						          		ItemId = itemId,
+										ItemSubject = itemSubject,
 										StoreId = storeId,
 										FolderId = folder,
+										FolderName = folderName,
 						          	};
 
 						if (lastQuestion != null)
