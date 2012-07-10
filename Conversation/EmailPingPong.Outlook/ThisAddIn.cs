@@ -129,30 +129,35 @@ namespace EmailPingPong.Outlook
 			// -New e-mail is received (monitor all the mail folders, including subfolders of course)
 
 			_folderItems = new Dictionary<Folder, Items>();
-			var inbox = (Folder)this.Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderInbox);
-			GetFolderWithChild(inbox);
-
-			foreach (var folderItem in _folderItems)
+			foreach (Account account in this.Application.Session.Accounts)
 			{
-				var folder = folderItem.Key;
-				var items = folderItem.Value;
 
-				items.ItemAdd += SyncConversation;
-				items.ItemChange += ItemChange;
-				//items.ItemRemove += RemoveConversation;
-				folder.BeforeItemMove += ItemRemove;
+				var inbox = (Folder)account.DeliveryStore.GetDefaultFolder(OlDefaultFolders.olFolderInbox);
+				GetFolderWithChild(inbox);
+
+				foreach (var folderItem in _folderItems)
+				{
+					var folder = folderItem.Key;
+					var items = folderItem.Value;
+
+					items.ItemAdd += SyncConversation;
+					items.ItemChange += ItemChange;
+					//items.ItemRemove += RemoveConversation;
+					folder.BeforeItemMove += ItemRemove;
+				}
+
+				// -E-mail was created but not sent. It was saved to draft folders instead.
+				var draft = (Folder)account.DeliveryStore.GetDefaultFolder(OlDefaultFolders.olFolderDrafts);
+				_folderItems.Add(draft, draft.Items);
+				var draftItems = draft.Items;
+				draftItems.ItemAdd += SyncConversation;
+				draftItems.ItemChange += SyncConversation;
+
+				// -New e-mail is sent. When there is no connection with server as well. (Two options here: 1) monitor Sent folder 2) monitor Application.ItemSend event)
+				//var sent = this.Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderSentMail);
+				//_sentItems = sent.Items;
+				//_sentItems.ItemAdd += SyncConversation;
 			}
-
-			// -New e-mail is sent. When there is no connection with server as well. (Two options here: 1) monitor Sent folder 2) monitor Application.ItemSend event)
-			//var sent = this.Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderSentMail);
-			//_sentItems = sent.Items;
-			//_sentItems.ItemAdd += SyncConversation;
-
-			// -E-mail was created but not sent. It was saved to draft folders instead.
-			var draft = this.Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderDrafts);
-			_draftItems = draft.Items;
-			_draftItems.ItemAdd += SyncConversation;
-			_draftItems.ItemChange += SyncConversation;
 		}
 
     	private void GetFolderWithChild(Folder root)

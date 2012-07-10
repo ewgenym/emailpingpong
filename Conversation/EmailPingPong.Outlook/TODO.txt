@@ -8,9 +8,9 @@ v1.0
 	+ Conersation tree with Author, Date, Body columns (Use WPF DevExpress control)
 	+ Refresh (add\update\remove) the conversation tree after send\receive\save
 	+ Locate (but not open in a separate window) e-mail on double click in the conversation tree
-	- Monitor all the folders in all the accounts
+	+ Monitor all the folders in all the accounts
 	+ Add "Show\Hide conversation pane" button to View ribbon
-	- Group by (Mail subject, Folder) (simultaniously?)
+	+ Group by (Mail subject, Folder)
 	+ Search In (All folders, current folder, current mail)
 	- Comments from unread e-mails styled with bold
 	- Preserve the tree nodes state per each folder\item (on each selection change). The history should be in memory. After the outlook is closed only the current state (for current selection) is persisted.
