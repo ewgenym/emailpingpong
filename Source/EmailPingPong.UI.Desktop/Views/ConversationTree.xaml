@@ -67,7 +67,7 @@
 		</DataTemplate>
 
 		<DataTemplate x:Key="pingPongGroupTemplate">
-			<StackPanel Orientation="Vertical" >
+			<StackPanel Orientation="Vertical" Background="#FFE3E6EB">
 				<ContentControl Template="{StaticResource detailContainerTemplate}" Content="{Binding}" ContentTemplate="{DynamicResource detailGroupTemplate}" />
 			</StackPanel>			
 		</DataTemplate>
