@@ -1,0 +1,32 @@
+﻿<RecentFiles>
+  <RecentFiles>
+    <File id="BA556704-FAEB-444B-8307-F888BA5B45C8/f:ThisAddIn.Designer.xml" caret="0" fromTop="0" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Utils/f:EnumerationExtension.cs" caret="806" fromTop="39" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:PingPongBinder.cs" caret="230" fromTop="10" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationTree.xaml.cs" caret="0" fromTop="0" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:CommentsViewModel.cs" caret="1405" fromTop="9" />
+    <File id="9756383D-73C8-42B1-85FA-B3B9F9086807/f:PingPongParser.cs" caret="2329" fromTop="21" />
+    <File id="D8E2CEBD-C84E-46FF-9510-382B18F52AFC/d:Repositories/f:ICommentRepository.cs" caret="205" fromTop="8" />
+    <File id="D8E2CEBD-C84E-46FF-9510-382B18F52AFC/d:Repositories/d:Implementation/f:CommentRepository.cs" caret="236" fromTop="7" />
+    <File id="C9201F49-4FD0-4C77-BD03-A6B999A7443C/d:Domain/f:Comment.cs" caret="586" fromTop="25" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:PingPongGroupDto.cs" caret="96" fromTop="3" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:PingPongDto.cs" caret="167" fromTop="7" />
+    <File id="BA556704-FAEB-444B-8307-F888BA5B45C8/f:ThisAddIn.cs" caret="5142" fromTop="30" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:GroupBy.cs" caret="249" fromTop="13" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:SearchIn.cs" caret="120" fromTop="6" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationTree.xaml" caret="1" fromTop="0" />
+  </RecentFiles>
+  <RecentEdits>
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationTree.xaml.cs" caret="286" fromTop="13" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Utils/f:EnumerationExtension.cs" caret="1549" fromTop="47" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:PingPongDto.cs" caret="167" fromTop="7" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:PingPongGroupDto.cs" caret="96" fromTop="3" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:PingPongBinder.cs" caret="230" fromTop="10" />
+    <File id="C9201F49-4FD0-4C77-BD03-A6B999A7443C/d:Domain/f:Comment.cs" caret="847" fromTop="31" />
+    <File id="9756383D-73C8-42B1-85FA-B3B9F9086807/f:PingPongParser.cs" caret="415" fromTop="11" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:CommentsViewModel.cs" caret="4286" fromTop="13" />
+    <File id="BA556704-FAEB-444B-8307-F888BA5B45C8/f:ThisAddIn.cs" caret="4918" fromTop="25" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:GroupBy.cs" caret="228" fromTop="10" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationTree.xaml" caret="3416" fromTop="21" />
+  </RecentEdits>
+</RecentFiles>
