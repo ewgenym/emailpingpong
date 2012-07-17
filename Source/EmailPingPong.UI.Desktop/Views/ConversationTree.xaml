@@ -112,6 +112,8 @@
 						  DisplayMember="Description"
 						  ValueMember="Value">
 		</dxe:ComboBoxEdit>
+		<Button Name="Save" Content="Save" Click="Save_Click" Grid.Column="0"></Button>
+		<Button Name="Restore" Content="Restore" Grid.Column="1" Click="Restore_Click"></Button>
 		<TextBlock Text="Search in:" 
 				   Grid.Row="3" 
 				   Grid.Column="0"

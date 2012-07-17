@@ -16,5 +16,15 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		public string Body { get; set; }
 
 		public DateTime Created { get; set; }
+
+		public override int GetHashCode()
+		{
+			return (int)Id;
+		}
+
+		public override bool Equals(object obj)
+		{
+			return this.Id == ((PingPongDto) obj).Id;
+		}
 	}
 }

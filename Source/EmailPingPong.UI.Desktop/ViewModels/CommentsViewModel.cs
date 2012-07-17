@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,7 +18,7 @@ using Microsoft.Practices.Prism.ViewModel;
 
 namespace EmailPingPong.UI.Desktop.ViewModels
 {
-	public class CommentsViewModel : NotificationObject
+	public class CommentsViewModel : NotificationObject, INotifyPropertyChanging
 	{
 		private readonly ICommentRepository _commentRepository;
 		private readonly IEventAggregator _eventAggregator;
@@ -25,12 +28,9 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			if (ServiceLocator.Container != null)
 			{
 				_commentRepository = ServiceLocator.Container.Resolve<ICommentRepository>();
-				//TODO: piece of ugly workaround
-				//Comments = new List<Comment>(_commentRepository.Comments);
-
 				_searchIn = SearchIn.CurrentFolder;
-
 				_eventAggregator = ServiceLocator.Container.Resolve<IEventAggregator>();
+
 				_eventAggregator.GetEvent<MailFolderSwitchEvent>().Subscribe(OnItemFolderChanged, ThreadOption.PublisherThread);
 				_eventAggregator.GetEvent<MailItemAddedEvent>().Subscribe(OnItemAdded, ThreadOption.PublisherThread);
 				_eventAggregator.GetEvent<MailItemSwitchEvent>().Subscribe(OnItemSwitched, ThreadOption.PublisherThread);
@@ -39,12 +39,12 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 					new DelegateCommand<TreeListNode>(
 						node =>
 							{
-								var comment = (Comment) node.Content;
+								var dto = (PingPongDto) node.Content;
 								var item = new PingPongMailItem
 								           	{
-								           		FolderId = comment.FolderId,
-												ItemId = comment.ItemId,
-												StoreId = comment.StoreId,
+												//FolderId = dto.FolderId,
+												//ItemId = dto.ItemId,
+												//StoreId = dto.StoreId,
 								           	};
 								_eventAggregator.GetEvent<PingPongItemSelectedEvent>().Publish(item);
 							}
@@ -52,25 +52,54 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			}
 		}
 
+		//TODO: these events are piece of shit. Learn MVVM pattern!
+		public event EventHandler<StateEventArgs> OnSaveState;
+
+		private void RaiseOnSaveState(string key)
+		{
+			if (key == null) return;
+			
+			if (OnSaveState != null)
+				OnSaveState(this, new StateEventArgs(key));
+		}
+
+		public event EventHandler<StateEventArgs> OnRestoreState;
+
+		private void RaiseOnRestoreState(string key)
+		{
+			if (key == null) return;
+
+			if (OnRestoreState != null)
+			{
+				OnRestoreState(this, new StateEventArgs(key));
+			}
+		}
+
 		private void OnItemAdded(PingPongMailItem obj)
 		{
+			var key = CalculateLayoutKey();
+			RaiseOnSaveState(key);
 			BindEmailPingPong();
 		}
 
 		private void OnItemSwitched(IEnumerable<PingPongMailItem> items)
 		{
+			var key = CalculateLayoutKey();
 			_itemIds = new List<string>(items.Select(i => i.ItemId));
 			if (_searchIn == SearchIn.CurrentEmail)
 			{
+				RaiseOnSaveState(key);
 				BindEmailPingPong();
 			}
 		}
 
 		public void OnItemFolderChanged(string folder)
 		{
+			var key = CalculateLayoutKey();
 			_folderId = folder;
 			if (_searchIn == SearchIn.CurrentFolder)
 			{
+				RaiseOnSaveState(key);
 				BindEmailPingPong();
 			}
 		}
@@ -80,7 +109,8 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		{
 			get { return _emailPingPong; }
 			private set 
-			{ 
+			{
+				RaisePropertyChanging(() => EmailPingPong);
 				_emailPingPong = value;
 				RaisePropertyChanged(() => EmailPingPong);
 			}
@@ -96,6 +126,8 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			{
 				if (_searchIn != value)
 				{
+					var key = CalculateLayoutKey();
+					RaiseOnSaveState(key);
 					_searchIn = value;
 					BindEmailPingPong();
 				}
@@ -109,12 +141,20 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			{
 				if (_groupBy != value)
 				{
+					var key = CalculateLayoutKey();
+					RaiseOnSaveState(key);
 					_groupBy = value;
 					BindEmailPingPong();
 				}
 			}
 		}
-		
+
+		private string CalculateLayoutKey()
+		{
+			//var items = _itemIds.Aggregate(string.Empty, (current, itemId) => current + ("_" + itemId));
+			return SearchIn + "_" + GroupBy + "_" + _folderId;
+		}
+
 		private List<string> _itemIds = new List<string>();
 
 		//TODO: accept list of folders (that actually could include child folders in case of search in == current folder + childs)
@@ -125,6 +165,9 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		private void BindEmailPingPong()
 		{
 			// TODO: refactor the entire method. This is fucking mess
+			// TODO: must be asynch
+			// TODO: what about grouping by means of built-in feature of the treeList control
+
 			IEnumerable<Comment> comments = null;
 			
 			switch (_searchIn)
@@ -193,6 +236,25 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			}
 
 			EmailPingPong = nodes;
+
+			RaiseOnRestoreState(CalculateLayoutKey());
+		}
+
+		public event PropertyChangingEventHandler PropertyChanging;
+
+		protected virtual void RaisePropertyChanging(string propertyName)
+		{
+			var handler = this.PropertyChanging;
+			if (handler != null)
+			{
+				handler(this, new PropertyChangingEventArgs(propertyName));
+			}
+		}
+
+		protected void RaisePropertyChanging<T>(Expression<Func<T>> propertyExpression)
+		{
+			var propertyName = PropertySupport.ExtractPropertyName(propertyExpression);
+			RaisePropertyChanging(propertyName);
 		}
 	}
 
@@ -213,6 +275,16 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			}
 			return null;			
 		}
+	}
+
+	public class StateEventArgs : EventArgs
+	{
+		public StateEventArgs(string key)
+		{
+			Key = key;
+		}
+
+		public string Key { get; private set; }
 	}
 
 }
