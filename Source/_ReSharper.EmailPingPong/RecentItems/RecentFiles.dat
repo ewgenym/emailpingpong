@@ -12,9 +12,10 @@
     <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:SearchIn.cs" caret="120" fromTop="6" />
     <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:PingPongGroupDto.cs" caret="0" fromTop="0" />
     <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:PingPongDto.cs" caret="535" fromTop="27" />
-    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationTree.xaml" caret="0" fromTop="0" />
-    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationTree.xaml.cs" caret="2638" fromTop="25" />
-    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:CommentsViewModel.cs" caret="2476" fromTop="27" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationTree.xaml" caret="6739" fromTop="26" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Utils/f:TreeListViewExtensions.cs" caret="600" fromTop="15" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationTree.xaml.cs" caret="1421" fromTop="18" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:CommentsViewModel.cs" caret="1727" fromTop="20" />
   </RecentFiles>
   <RecentEdits>
     <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Utils/f:EnumerationExtension.cs" caret="1549" fromTop="47" />
@@ -26,7 +27,8 @@
     <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:GroupBy.cs" caret="228" fromTop="10" />
     <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationTree.xaml" caret="5354" fromTop="39" />
     <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:PingPongDto.cs" caret="530" fromTop="26" />
-    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationTree.xaml.cs" caret="2702" fromTop="27" />
-    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:CommentsViewModel.cs" caret="3794" fromTop="28" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Utils/f:TreeListViewExtensions.cs" caret="132" fromTop="4" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:Views/f:ConversationTree.xaml.cs" caret="2415" fromTop="49" />
+    <File id="4FBA0676-7A05-4716-B111-1701427921E3/d:ViewModels/f:CommentsViewModel.cs" caret="1964" fromTop="29" />
   </RecentEdits>
 </RecentFiles>

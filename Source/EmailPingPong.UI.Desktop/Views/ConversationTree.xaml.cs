@@ -30,49 +30,27 @@ namespace EmailPingPong.UI.Desktop.Views
 				};
 		}
 
-		private void Save_Click(object sender, System.Windows.RoutedEventArgs e)
-		{
-			SaveNodesState("someKey");
-		}
-
-		private void Restore_Click(object sender, System.Windows.RoutedEventArgs e)
-		{
-			RestoreNodesState("someKey");
-		}
-
 		private readonly Dictionary<string, TreeListNodesState> _treeListNodesStateRepo = new Dictionary<string, TreeListNodesState>();
 
 		private void SaveNodesState(string key)
 		{
+			//TODO: move to view model
 			var nodesState = new TreeListNodesState(ConversationTreeListView.GetTreeListDataProvider());
 			nodesState.SaveNodesState();
+			nodesState.SaveCurrentFocus();
 			_treeListNodesStateRepo[key] = nodesState;
 		}
 
 		private void RestoreNodesState(string key)
 		{
+			//TODO: move to view model
 			TreeListNodesState nodesState;
 			if (_treeListNodesStateRepo.TryGetValue(key, out nodesState))
 			{
 				nodesState.RestoreNodesState();
+				nodesState.RestoreCurrentFocus();
 				SaveNodesState(key);
 			}
 		}
-
-		//private void PersistNodesState()
-		//{
-		//    var serializer = new DataContractSerializer(typeof(TreeListNodesStateRepo));
-		//    string xmlString;
-		//    using (var sw = new StringWriter())
-		//    {
-		//        using (var writer = new XmlTextWriter(sw))
-		//        {
-		//            writer.Formatting = Formatting.Indented; // indent the Xml so it's human readable
-		//            serializer.WriteObject(writer, _treeListNodesStateRepo);
-		//            writer.Flush();
-		//            xmlString = sw.ToString();
-		//        }
-		//    }			
-		//}
 	}
 }
