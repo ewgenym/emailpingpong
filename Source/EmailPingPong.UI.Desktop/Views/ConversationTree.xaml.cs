@@ -34,7 +34,6 @@ namespace EmailPingPong.UI.Desktop.Views
 
 		private void SaveNodesState(string key)
 		{
-			//TODO: move to view model
 			var nodesState = new TreeListNodesState(ConversationTreeListView.GetTreeListDataProvider());
 			nodesState.SaveNodesState();
 			nodesState.SaveCurrentFocus();
@@ -43,7 +42,6 @@ namespace EmailPingPong.UI.Desktop.Views
 
 		private void RestoreNodesState(string key)
 		{
-			//TODO: move to view model
 			TreeListNodesState nodesState;
 			if (_treeListNodesStateRepo.TryGetValue(key, out nodesState))
 			{

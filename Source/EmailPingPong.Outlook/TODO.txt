@@ -13,14 +13,16 @@ v1.0
 	+ Group by (Mail subject, Folder)
 	+ Search In (All folders, current folder, current mail)
 	- Comments from unread e-mails styled with bold
-	- Preserve the tree nodes state per each folder\item (on each selection change). The history should be in memory. After the outlook is closed only the current state (for current selection) is persisted.
+	+ Preserve the tree nodes state per each folder\item (on each selection change). The history should be in memory. After the outlook is closed only the current state (for current selection) is persisted.
 	- Persist the selected settings (group by, search in, expanded\collapsed nodes... for the current profile, use database)
+	- Remove "RE: " series from the mail subject when grouping by mail subject
 + Mail tagging:
 	+ Question tag removal after the second click
 	+ Ctrl+Z support
 	+ Hot keys
 	- Баг = выделил Квечин, под ним написал текст, выделил, нажал Ансвер. Вставился опять Квесчин (What is the expected beaviour?)
 	- Can't press Enter in comments (Standard behaviour)
+- Tag the entire mail as the one conversation (like the native outlook conversation feature)
 + Change terminology. Use ping\pong instead of q\a
 - Final answer
 - Bugs:
