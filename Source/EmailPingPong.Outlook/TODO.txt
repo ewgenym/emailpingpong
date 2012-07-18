@@ -15,7 +15,7 @@ v1.0
 	- Comments from unread e-mails styled with bold
 	+ Preserve the tree nodes state per each folder\item (on each selection change). The history should be in memory. After the outlook is closed only the current state (for current selection) is persisted.
 	- Persist the selected settings (group by, search in, expanded\collapsed nodes... for the current profile, use database)
-	- Remove "RE: " series from the mail subject when grouping by mail subject
+	- Remove "RE: " series from the mail subject when grouping by mail subject (like in native outlook conversation feature)
 + Mail tagging:
 	+ Question tag removal after the second click
 	+ Ctrl+Z support
