@@ -1,17 +1,72 @@
-# Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
-[Oo]bj
+#OS junk files
+[Tt]humbs.db
+*.DS_Store
+
+#Visual Studio files
+*.[Oo]bj
+*.user
+*.aps
+*.eto
+*.pch
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.[Cc]ache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.sdf
+*.opensdf
+*.unsuccessfulbuild
+ipch/
+obj/
 [Bb]in
 [Dd]ebug*/
 [Rr]elease*/
+Ankh.NoLoad
 
 #Visual Studio
 *.sln.cache
 *.suo
 *.csproj.user
 
+#MonoDevelop
+*.pidb
+*.userprefs
+
 # mstest test results
 TestResults
 
-# Resharper
-*[Rr]e[Ss]harper.user
-_ReSharper*
+#Tooling
+_ReSharper*/
+*.resharper
+[Tt]est[Rr]esult*
+
+#Project files
+[Bb]uild/
+
+#Subversion files
+.svn
+
+# Office Temp Files
+~$*
+
+
+#ncrunch
+*ncrunch*
+*crunch*.local.xml
+
+# visual studio database projects
+*.dbmdl
+
+
+# /
+/@Stuff
+/TestCoverage
