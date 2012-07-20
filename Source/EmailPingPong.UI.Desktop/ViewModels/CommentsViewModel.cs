@@ -42,9 +42,9 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 								var dto = (PingPongDto) node.Content;
 								var item = new PingPongMailItem
 								           	{
-												//FolderId = dto.FolderId,
-												//ItemId = dto.ItemId,
-												//StoreId = dto.StoreId,
+												FolderId = dto.FolderId,
+												ItemId = dto.ItemId,
+												StoreId = dto.StoreId,
 								           	};
 								_eventAggregator.GetEvent<PingPongItemSelectedEvent>().Publish(item);
 							}
@@ -216,6 +216,10 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 								Created = comment.Created,
 								Id = comment.Id,
 								ParentId = comment.ParentId.HasValue ? comment.ParentId.Value : groupId,
+
+								FolderId = comment.FolderId,
+								ItemId = comment.ItemId,
+								StoreId = comment.StoreId,
 							};
 						nodes.Add(pingPongDto);
 					}
@@ -232,6 +236,10 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 						Created = comment.Created,
 						Id = comment.Id,
 						ParentId = comment.ParentId,
+
+						FolderId = comment.FolderId,
+						ItemId = comment.ItemId,
+						StoreId = comment.StoreId,
 					}));
 			}
 

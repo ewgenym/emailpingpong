@@ -26,5 +26,9 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		{
 			return this.Id == ((PingPongDto) obj).Id;
 		}
+
+		public string ItemId { get; set; }
+		public string StoreId { get; set; }
+		public string FolderId { get; set; }
 	}
 }
