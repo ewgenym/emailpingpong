@@ -15,7 +15,3 @@
 *.png binary
 
 *.cs diff=csharp 
-*.csproj merge=union 
-*.resx merge=union
-*.vbproj merge=union 
-*.sln merge=union 

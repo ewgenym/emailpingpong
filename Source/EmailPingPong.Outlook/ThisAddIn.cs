@@ -49,7 +49,7 @@ namespace EmailPingPong.Outlook
 			_explorer = this.Application.ActiveExplorer();
 			_explorer.FolderSwitch += ThisAddIn_FolderSwitch;
 			_explorer.SelectionChange += _explorer_SelectionChange;
-			_eventAggregator.GetEvent<PingPongItemSelectedEvent>().Subscribe((mailItem) =>
+			_eventAggregator.GetEvent<PingPongItemSelectedEvent>().Subscribe(mailItem =>
 			                                                         	{
 
 			                                                         		_explorer.ClearSelection();
