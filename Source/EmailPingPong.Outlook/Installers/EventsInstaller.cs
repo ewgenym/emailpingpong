@@ -7,8 +7,6 @@ namespace EmailPingPong.Outlook.Installers
 {
 	public class EventsInstaller : IWindsorInstaller
 	{
-		#region Implementation of IWindsorInstaller
-
 		/// <summary>
 		/// Performs the installation in the <see cref="T:Castle.Windsor.IWindsorContainer"/>.
 		/// </summary>
@@ -17,7 +15,5 @@ namespace EmailPingPong.Outlook.Installers
 		{
 			container.Register(Component.For<IEventAggregator>().ImplementedBy<EventAggregator>().LifestyleSingleton());
 		}
-
-		#endregion
 	}
 }

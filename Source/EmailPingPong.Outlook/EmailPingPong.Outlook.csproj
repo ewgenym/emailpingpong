@@ -309,6 +309,7 @@ xcopy /s /y "$(SolutionDir)packages\SqlServerCompact.4.0.8482.1\NativeBinaries\a
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Utils\ExplorerExtensions.cs" />
     <EmbeddedResource Include="ConversationRibbon.resx">
       <DependentUpon>ConversationRibbon.cs</DependentUpon>
     </EmbeddedResource>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
@@ -8,6 +9,7 @@ using EmailPingPong.Core.Domain;
 using EmailPingPong.Infrastructure;
 using EmailPingPong.Infrastructure.Events;
 using EmailPingPong.Infrastructure.Repositories;
+using EmailPingPong.Outlook.Utils;
 using EmailPingPong.UI.Desktop.Views;
 using EmailPingPong.UI.Word;
 using EmailPingPong.UI.Word.Controls;
@@ -15,6 +17,7 @@ using EmailPingPong.UI.Word.Utils;
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Practices.Prism.Events;
+using Exception = System.Exception;
 
 namespace EmailPingPong.Outlook
 {
@@ -48,11 +51,25 @@ namespace EmailPingPong.Outlook
 			_explorer.SelectionChange += _explorer_SelectionChange;
 			_eventAggregator.GetEvent<PingPongItemSelectedEvent>().Subscribe((mailItem) =>
 			                                                         	{
-			                                                         		_explorer.ClearSelection(); 
+
+			                                                         		_explorer.ClearSelection();
 																			var olns = Application.GetNamespace("MAPI");
 																			var item = (MailItem)olns.GetItemFromID(mailItem.ItemId, mailItem.StoreId);
-			                                                         		_explorer.AddToSelection(item);
-
+																			try
+																			{
+																				
+																				if (_explorer.IsItemSelectableInView(item))
+																				{
+																					_explorer.AddToSelection(item);
+																					_explorer.ScrollToSelection();
+																				}
+																			}
+																			finally
+																			{
+																				Marshal.ReleaseComObject(olns);
+																				if (item != null)
+																					Marshal.ReleaseComObject(item);
+																			}
 			                                                         	}, ThreadOption.PublisherThread);
 
 			//Key board shorcuts
