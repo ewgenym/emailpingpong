@@ -1,14 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "EmailPingPong", "Setup\Setup.vdproj", "{FEE861C8-4047-4387-AABE-7C6840A0D626}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Key", "Key", "{7B44EA58-B629-48EE-BB45-83CE6272A434}"
 	ProjectSection(SolutionItems) = preProject
 		EmailPingPong.snk = EmailPingPong.snk
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setup", "Setup", "{CF0D9185-68EC-45B6-A830-CEA9B02D9604}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.Core", "EmailPingPong.Core\EmailPingPong.Core.csproj", "{C9201F49-4FD0-4C77-BD03-A6B999A7443C}"
 EndProject
@@ -28,8 +24,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FEE861C8-4047-4387-AABE-7C6840A0D626}.Debug|Any CPU.ActiveCfg = Debug
-		{FEE861C8-4047-4387-AABE-7C6840A0D626}.Release|Any CPU.ActiveCfg = Release
 		{C9201F49-4FD0-4C77-BD03-A6B999A7443C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C9201F49-4FD0-4C77-BD03-A6B999A7443C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9201F49-4FD0-4C77-BD03-A6B999A7443C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,8 +49,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{FEE861C8-4047-4387-AABE-7C6840A0D626} = {CF0D9185-68EC-45B6-A830-CEA9B02D9604}
 	EndGlobalSection
 EndGlobal
