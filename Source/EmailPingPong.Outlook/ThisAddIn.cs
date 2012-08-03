@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Castle.Windsor;
@@ -51,17 +52,24 @@ namespace EmailPingPong.Outlook
 			_explorer.SelectionChange += _explorer_SelectionChange;
 			_eventAggregator.GetEvent<PingPongItemSelectedEvent>().Subscribe(mailItem =>
 			                                                         	{
-
-			                                                         		_explorer.ClearSelection();
 																			var olns = Application.GetNamespace("MAPI");
 																			var item = (MailItem)olns.GetItemFromID(mailItem.ItemId, mailItem.StoreId);
 																			try
 																			{
-																				
 																				if (_explorer.IsItemSelectableInView(item))
 																				{
+																					_explorer.ClearSelection();
 																					_explorer.AddToSelection(item);
 																					_explorer.ScrollToSelection();
+																				} 
+																				else
+																				{
+																					_explorer.ClearSelection();
+
+																					var folder = (Folder) item.Parent;
+																					_explorer.SelectFolder(folder);
+																					_explorer.FolderSwitch += () => 
+																						Application.ActiveExplorer().AddToSelection(item);
 																				}
 																			}
 																			finally
@@ -79,6 +87,7 @@ namespace EmailPingPong.Outlook
 
     	private void BootsrtrapPersistanceStorage()
     	{
+			Database.DefaultConnectionFactory = new SqlCeConnectionFactory("System.Data.SqlServerCe.4.0");
     		Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ConversationContext>());
     	}
 

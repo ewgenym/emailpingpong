@@ -351,6 +351,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_7B93211C2CC14798A8B85C90F57953ED"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_7F4EC64EB80742559E193C4BB39CA688"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -533,6 +539,12 @@
         {
         "MsmKey" = "8:_A341AB3D1D5FD3014A81AB9CFBA59715"
         "OwnerKey" = "8:_BBF4FF4A14C9493AA61B26867B18F691"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A341AB3D1D5FD3014A81AB9CFBA59715"
+        "OwnerKey" = "8:_7B93211C2CC14798A8B85C90F57953ED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -953,6 +965,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_BBF4FF4A14C9493AA61B26867B18F691"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_7B93211C2CC14798A8B85C90F57953ED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1496,6 +1514,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
         "Release"
@@ -1601,6 +1632,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraTreeList.v11.2.resources, Version=11.2.0.0, Culture=es, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_11B0358898E8491CB39F962A496E8FEC"
+                    {
+                    "Name" = "8:DevExpress.XtraTreeList.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\es\\DevExpress.XtraTreeList.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -1627,6 +1663,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Printing.v11.2.resources, Version=11.2.0.0, Culture=ru, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_22DF64FDD8C74C6B9608E00CA14D0FC9"
+                    {
+                    "Name" = "8:DevExpress.Xpf.Printing.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ru\\DevExpress.Xpf.Printing.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -1715,6 +1756,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Utils.v11.2.resources, Version=11.2.0.0, Culture=ru, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_3087807C1AA845C49B6D82A09F96FECC"
+                    {
+                    "Name" = "8:DevExpress.Utils.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ru\\DevExpress.Utils.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -1741,6 +1787,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Data.v11.2.resources, Version=11.2.0.0, Culture=ja, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_30E19B3AD7784251BCE98DE0F43F22EB"
+                    {
+                    "Name" = "8:DevExpress.Data.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ja\\DevExpress.Data.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -1798,6 +1849,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraRichEdit.v11.2.resources, Version=11.2.0.0, Culture=es, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_32BAF3B47F7B4B518196E6CD192903AC"
+                    {
+                    "Name" = "8:DevExpress.XtraRichEdit.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\es\\DevExpress.XtraRichEdit.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -1886,6 +1942,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraLayout.v11.2.resources, Version=11.2.0.0, Culture=de, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_3D39F0EEA42C4459A1E697816F623257"
+                    {
+                    "Name" = "8:DevExpress.XtraLayout.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\de\\DevExpress.XtraLayout.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -1974,6 +2035,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraBars.v11.2.resources, Version=11.2.0.0, Culture=de, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_42E17DE70FA3467A806D96B45E4A9097"
+                    {
+                    "Name" = "8:DevExpress.XtraBars.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\de\\DevExpress.XtraBars.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -2031,6 +2097,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraEditors.v11.2.resources, Version=11.2.0.0, Culture=es, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_47AC2E90DBFA40A284670B64C4578AE3"
+                    {
+                    "Name" = "8:DevExpress.XtraEditors.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\es\\DevExpress.XtraEditors.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -2119,6 +2190,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Utils.v11.2.resources, Version=11.2.0.0, Culture=ja, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_4C4CE079FE2F4721943A40DCE35F40B2"
+                    {
+                    "Name" = "8:DevExpress.Utils.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ja\\DevExpress.Utils.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -2145,6 +2221,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraLayout.v11.2.resources, Version=11.2.0.0, Culture=es, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_5167C7B894CA49EEBABE0FC748BDA908"
+                    {
+                    "Name" = "8:DevExpress.XtraLayout.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\es\\DevExpress.XtraLayout.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -2171,6 +2252,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Docking.v11.2.resources, Version=11.2.0.0, Culture=ja, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_5425D5D583FD4A66BC343F7954253F75"
+                    {
+                    "Name" = "8:DevExpress.Xpf.Docking.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ja\\DevExpress.Xpf.Docking.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -2228,6 +2314,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraBars.v11.2.resources, Version=11.2.0.0, Culture=ru, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_59A1B2A3333F4A6C851EFF3B41424398"
+                    {
+                    "Name" = "8:DevExpress.XtraBars.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ru\\DevExpress.XtraBars.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -2254,6 +2345,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Grid.v11.2.Core.resources, Version=11.2.0.0, Culture=ru, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_5A39B5AD94BC4DEF909157A7C0798F85"
+                    {
+                    "Name" = "8:DevExpress.Xpf.Grid.v11.2.Core.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ru\\DevExpress.Xpf.Grid.v11.2.Core.resources.dll"
             "TargetName" = "8:"
@@ -2342,6 +2438,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Printing.v11.2.resources, Version=11.2.0.0, Culture=ja, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_601EAE2FBBD04DA3AF1F7AFB9932C45E"
+                    {
+                    "Name" = "8:DevExpress.Xpf.Printing.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ja\\DevExpress.Xpf.Printing.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -2399,6 +2500,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.RichEdit.v11.2.Core.resources, Version=11.2.0.0, Culture=ja, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_6A8D02DD8F984201B1ED942F53B6B945"
+                    {
+                    "Name" = "8:DevExpress.RichEdit.v11.2.Core.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ja\\DevExpress.RichEdit.v11.2.Core.resources.dll"
             "TargetName" = "8:"
@@ -2476,11 +2582,47 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Docking.v11.2.resources, Version=11.2.0.0, Culture=ru, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_7B06A410A8DE44EF870159E6AE10C714"
+                    {
+                    "Name" = "8:DevExpress.Xpf.Docking.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ru\\DevExpress.Xpf.Docking.v11.2.resources.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_822CA658DF10470AA30A2BC22EAEAB80"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7B93211C2CC14798A8B85C90F57953ED"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Themes.Office2007Silver.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_7B93211C2CC14798A8B85C90F57953ED"
+                    {
+                    "Name" = "8:DevExpress.Xpf.Themes.Office2007Silver.v11.2.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:C:\\Program Files (x86)\\DevExpress 2011.2\\Components\\Bin\\Framework\\DevExpress.Xpf.Themes.Office2007Silver.v11.2.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_0D554876952F4F20B132961C6BCD165E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2502,6 +2644,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.RichEdit.v11.2.Core.resources, Version=11.2.0.0, Culture=de, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_7F4EC64EB80742559E193C4BB39CA688"
+                    {
+                    "Name" = "8:DevExpress.RichEdit.v11.2.Core.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\de\\DevExpress.RichEdit.v11.2.Core.resources.dll"
             "TargetName" = "8:"
@@ -2528,6 +2675,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraRichEdit.v11.2.resources, Version=11.2.0.0, Culture=ru, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_7FC3EE3E199D4CF3911658BAA264497D"
+                    {
+                    "Name" = "8:DevExpress.XtraRichEdit.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ru\\DevExpress.XtraRichEdit.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -2554,6 +2706,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.RichEdit.v11.2.Core.resources, Version=11.2.0.0, Culture=es, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_7FD3384487C44B55B7B3846D6B9477D9"
+                    {
+                    "Name" = "8:DevExpress.RichEdit.v11.2.Core.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\es\\DevExpress.RichEdit.v11.2.Core.resources.dll"
             "TargetName" = "8:"
@@ -2580,6 +2737,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Grid.v11.2.Core.resources, Version=11.2.0.0, Culture=es, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_802F57E4BC1947D1AF2C6DE9E748EA7D"
+                    {
+                    "Name" = "8:DevExpress.Xpf.Grid.v11.2.Core.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\es\\DevExpress.Xpf.Grid.v11.2.Core.resources.dll"
             "TargetName" = "8:"
@@ -2606,6 +2768,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Core.v11.2.resources, Version=11.2.0.0, Culture=es, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_81067471FC19487D9258276C35F97783"
+                    {
+                    "Name" = "8:DevExpress.Xpf.Core.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\es\\DevExpress.Xpf.Core.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -2694,6 +2861,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraEditors.v11.2.resources, Version=11.2.0.0, Culture=ja, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_8CCEDB53A5FD4EE88251BEB6346A3D47"
+                    {
+                    "Name" = "8:DevExpress.XtraEditors.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ja\\DevExpress.XtraEditors.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -2720,6 +2892,11 @@
             "AssemblyAsmDisplayName" = "8:EmailPingPong.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bdbf9522044047c8, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_8D043B0EADA41EF1FB3281D9F1CEE770"
+                    {
+                    "Name" = "8:EmailPingPong.Core.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:EmailPingPong.Core.dll"
             "TargetName" = "8:"
@@ -2746,6 +2923,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Core.v11.2.resources, Version=11.2.0.0, Culture=ru, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_91B67FAE062949AEBD92727B72C69B0B"
+                    {
+                    "Name" = "8:DevExpress.Xpf.Core.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ru\\DevExpress.Xpf.Core.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -2772,6 +2954,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Printing.v11.2.resources, Version=11.2.0.0, Culture=de, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_91D3FFA0AA4D4D7D8DCDD73E22706AFB"
+                    {
+                    "Name" = "8:DevExpress.Xpf.Printing.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\de\\DevExpress.Xpf.Printing.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -2798,6 +2985,11 @@
             "AssemblyAsmDisplayName" = "8:EmailPingPong.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bdbf9522044047c8, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_92F5A0BDBEBF08FAE9948D0D10912F5F"
+                    {
+                    "Name" = "8:EmailPingPong.Infrastructure.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:EmailPingPong.Infrastructure.dll"
             "TargetName" = "8:"
@@ -2855,6 +3047,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraBars.v11.2.resources, Version=11.2.0.0, Culture=ja, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_9838F547733E437884D06459EADD998E"
+                    {
+                    "Name" = "8:DevExpress.XtraBars.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ja\\DevExpress.XtraBars.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -2881,6 +3078,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraEditors.v11.2.resources, Version=11.2.0.0, Culture=ru, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_9E1509DFCCC148558E9059F847899E36"
+                    {
+                    "Name" = "8:DevExpress.XtraEditors.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ru\\DevExpress.XtraEditors.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -2969,6 +3171,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Utils.v11.2.resources, Version=11.2.0.0, Culture=es, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_A3AF3ADE59D84235AC114D4C00729E1B"
+                    {
+                    "Name" = "8:DevExpress.Utils.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\es\\DevExpress.Utils.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -3057,6 +3264,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraTreeList.v11.2.resources, Version=11.2.0.0, Culture=ja, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_AF65BD364DEA4986A285A20734FE41AC"
+                    {
+                    "Name" = "8:DevExpress.XtraTreeList.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ja\\DevExpress.XtraTreeList.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -3083,6 +3295,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Docking.v11.2.resources, Version=11.2.0.0, Culture=es, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_B19814B985E34C82A9D1BA8C6287265B"
+                    {
+                    "Name" = "8:DevExpress.Xpf.Docking.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\es\\DevExpress.Xpf.Docking.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -3109,6 +3326,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Grid.v11.2.Core.resources, Version=11.2.0.0, Culture=de, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_B69FCFA6F08D47E697BA6B54A9239365"
+                    {
+                    "Name" = "8:DevExpress.Xpf.Grid.v11.2.Core.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\de\\DevExpress.Xpf.Grid.v11.2.Core.resources.dll"
             "TargetName" = "8:"
@@ -3135,6 +3357,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Data.v11.2.resources, Version=11.2.0.0, Culture=ru, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_BC6CFAB9FF7B4D00B5C3A48593B6483B"
+                    {
+                    "Name" = "8:DevExpress.Data.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ru\\DevExpress.Data.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -3223,6 +3450,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Data.v11.2.resources, Version=11.2.0.0, Culture=de, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_C4BD523B857D4829B4BCEDC9035CAC00"
+                    {
+                    "Name" = "8:DevExpress.Data.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\de\\DevExpress.Data.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -3300,6 +3532,11 @@
             "AssemblyAsmDisplayName" = "8:EmailPingPong.UI.Desktop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bdbf9522044047c8, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_CB78D48002837073A58B8AFC617712DD"
+                    {
+                    "Name" = "8:EmailPingPong.UI.Desktop.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:EmailPingPong.UI.Desktop.dll"
             "TargetName" = "8:"
@@ -3326,6 +3563,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraLayout.v11.2.resources, Version=11.2.0.0, Culture=ja, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_CCD2292282414B0EBE27C7171BA408C2"
+                    {
+                    "Name" = "8:DevExpress.XtraLayout.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ja\\DevExpress.XtraLayout.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -3476,6 +3718,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Utils.v11.2.resources, Version=11.2.0.0, Culture=de, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_D1F4DF55B46B4DE180D867B0D7C43DD6"
+                    {
+                    "Name" = "8:DevExpress.Utils.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\de\\DevExpress.Utils.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -3502,6 +3749,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.RichEdit.v11.2.Core.resources, Version=11.2.0.0, Culture=ru, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_D4B7D2140C87479181B3B297AB9EDF23"
+                    {
+                    "Name" = "8:DevExpress.RichEdit.v11.2.Core.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ru\\DevExpress.RichEdit.v11.2.Core.resources.dll"
             "TargetName" = "8:"
@@ -3528,6 +3780,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Grid.v11.2.Core.resources, Version=11.2.0.0, Culture=ja, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_DC74EC965C834AA893C64C518748FE87"
+                    {
+                    "Name" = "8:DevExpress.Xpf.Grid.v11.2.Core.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ja\\DevExpress.Xpf.Grid.v11.2.Core.resources.dll"
             "TargetName" = "8:"
@@ -3554,6 +3811,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Core.v11.2.resources, Version=11.2.0.0, Culture=de, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_DF41BE0AAF1546B6BE2D2FAC0BEE2DAA"
+                    {
+                    "Name" = "8:DevExpress.Xpf.Core.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\de\\DevExpress.Xpf.Core.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -3580,6 +3842,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraEditors.v11.2.resources, Version=11.2.0.0, Culture=de, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_DF89720BE7D4455F8346150B69137520"
+                    {
+                    "Name" = "8:DevExpress.XtraEditors.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\de\\DevExpress.XtraEditors.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -3606,6 +3873,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraLayout.v11.2.resources, Version=11.2.0.0, Culture=ru, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_E3D435667FD54E1AA4CF6E9B12644C67"
+                    {
+                    "Name" = "8:DevExpress.XtraLayout.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ru\\DevExpress.XtraLayout.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -3632,6 +3904,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraTreeList.v11.2.resources, Version=11.2.0.0, Culture=de, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_E4E617EBD26842D083151417F5CB1D85"
+                    {
+                    "Name" = "8:DevExpress.XtraTreeList.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\de\\DevExpress.XtraTreeList.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -3658,6 +3935,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Docking.v11.2.resources, Version=11.2.0.0, Culture=de, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_E64D625482C640CFBEA9FB3CD672A1EE"
+                    {
+                    "Name" = "8:DevExpress.Xpf.Docking.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\de\\DevExpress.Xpf.Docking.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -3684,6 +3966,11 @@
             "AssemblyAsmDisplayName" = "8:EmailPingPong.UI.Word, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bdbf9522044047c8, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_E795C42CD031EB6EDEBFF2D4F72BDDF7"
+                    {
+                    "Name" = "8:EmailPingPong.UI.Word.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:EmailPingPong.UI.Word.dll"
             "TargetName" = "8:"
@@ -3741,6 +4028,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraTreeList.v11.2.resources, Version=11.2.0.0, Culture=ru, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_EAEDB28432E0447BB5200702BF80215F"
+                    {
+                    "Name" = "8:DevExpress.XtraTreeList.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ru\\DevExpress.XtraTreeList.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -3767,6 +4059,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraRichEdit.v11.2.resources, Version=11.2.0.0, Culture=de, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_ED4691C29E4F41A8B13998C0C370E8B5"
+                    {
+                    "Name" = "8:DevExpress.XtraRichEdit.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\de\\DevExpress.XtraRichEdit.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -3824,6 +4121,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraRichEdit.v11.2.resources, Version=11.2.0.0, Culture=ja, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_F176B8DE8A6E43C9A66D8A164D663752"
+                    {
+                    "Name" = "8:DevExpress.XtraRichEdit.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ja\\DevExpress.XtraRichEdit.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -3850,6 +4152,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Data.v11.2.resources, Version=11.2.0.0, Culture=es, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_F2736B13AA304EB8BD59315F049F2D72"
+                    {
+                    "Name" = "8:DevExpress.Data.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\es\\DevExpress.Data.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -3876,6 +4183,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.XtraBars.v11.2.resources, Version=11.2.0.0, Culture=es, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_F72AED8C3FDE4C1DA15CB43C0D0C9554"
+                    {
+                    "Name" = "8:DevExpress.XtraBars.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\es\\DevExpress.XtraBars.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -3902,6 +4214,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Core.v11.2.resources, Version=11.2.0.0, Culture=ja, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_F794D7B67DE74D2CA5556A4F7EC9B12A"
+                    {
+                    "Name" = "8:DevExpress.Xpf.Core.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\ja\\DevExpress.Xpf.Core.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -3959,6 +4276,11 @@
             "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Printing.v11.2.resources, Version=11.2.0.0, Culture=es, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_F8922976F1894E0CBF1CA1DA87F99B96"
+                    {
+                    "Name" = "8:DevExpress.Xpf.Printing.v11.2.resources.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:..\\EmailPingPong.Outlook\\bin\\Release\\es\\DevExpress.Xpf.Printing.v11.2.resources.dll"
             "TargetName" = "8:"
@@ -4110,7 +4432,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:EmailPingPong"
         "ProductCode" = "8:{2B351737-47DA-4EC2-BD53-DC59A17057AE}"
-        "PackageCode" = "8:{A2987D37-05C6-43A0-9E1E-B0D172C52F57}"
+        "PackageCode" = "8:{6B3E6E78-6591-409C-8400-011B8879F81C}"
         "UpgradeCode" = "8:{489A708B-4D66-4CAC-8D80-8D950E1D5794}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -4131,7 +4453,7 @@
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
-        "TargetPlatform" = "3:0"
+        "TargetPlatform" = "3:1"
         "PreBuildEvent" = "8:"
         "PostBuildEvent" = "8:"
         "RunPostBuildEvent" = "3:0"
