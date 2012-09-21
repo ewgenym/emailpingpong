@@ -136,7 +136,10 @@ namespace EmailPingPong.Outlook
 
     	void ThisAddIn_FolderSwitch()
     	{
-			_eventAggregator.GetEvent<MailFolderSwitchEvent>().Publish(_explorer.CurrentFolder.EntryID);
+			if (_explorer.CurrentFolder != null)
+			{
+				_eventAggregator.GetEvent<MailFolderSwitchEvent>().Publish(_explorer.CurrentFolder.EntryID);
+			}
     	}
 
 		private void _explorer_SelectionChange()
