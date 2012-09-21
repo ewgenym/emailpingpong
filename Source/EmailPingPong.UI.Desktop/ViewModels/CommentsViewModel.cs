@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -77,31 +79,69 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 
 		private void OnItemAdded(PingPongMailItem obj)
 		{
-			var key = CalculateLayoutKey();
-			RaiseOnSaveState(key);
-			BindEmailPingPong();
+			try
+			{
+				var key = CalculateLayoutKey();
+				RaiseOnSaveState(key);
+				BindEmailPingPong();
+			}
+			catch (Exception e)
+			{
+				ShowExceptionMsg(e);
+			}
 		}
 
 		private void OnItemSwitched(IEnumerable<PingPongMailItem> items)
 		{
-			var key = CalculateLayoutKey();
-			_itemIds = new List<string>(items.Select(i => i.ItemId));
-			if (_searchIn == SearchIn.CurrentEmail)
+			try
 			{
-				RaiseOnSaveState(key);
-				BindEmailPingPong();
+				var key = CalculateLayoutKey();
+				_itemIds = new List<string>(items.Select(i => i.ItemId));
+				if (_searchIn == SearchIn.CurrentEmail)
+				{
+					RaiseOnSaveState(key);
+					BindEmailPingPong();
+				}
+			}
+			catch (Exception e)
+			{
+				ShowExceptionMsg(e);
 			}
 		}
 
 		public void OnItemFolderChanged(string folder)
 		{
-			var key = CalculateLayoutKey();
-			_folderId = folder;
-			if (_searchIn == SearchIn.CurrentFolder)
+			try
 			{
-				RaiseOnSaveState(key);
-				BindEmailPingPong();
+				var key = CalculateLayoutKey();
+				_folderId = folder;
+				if (_searchIn == SearchIn.CurrentFolder)
+				{
+					RaiseOnSaveState(key);
+					BindEmailPingPong();
+				}
 			}
+			catch(Exception e)
+			{
+				ShowExceptionMsg(e);
+			}
+		}
+
+		private void ShowExceptionMsg(Exception e)
+		{
+			var message = new StringBuilder();
+
+			var exception = e;
+			while (exception != null)
+			{
+				message.AppendLine(exception.GetType().Name);
+				message.AppendLine(exception.Message);
+				message.AppendLine(exception.StackTrace);
+				message.AppendLine();
+				exception = e.InnerException;
+			}
+
+			MessageBox.Show(message.ToString());
 		}
 
 		private IList<PingPongDto> _emailPingPong;

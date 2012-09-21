@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using EmailPingPong.Core.Domain;
@@ -22,17 +24,17 @@ using Exception = System.Exception;
 
 namespace EmailPingPong.Outlook
 {
-    public partial class ThisAddIn
-    {
-    	private Items _inboxItems;
-    	private Dictionary<Folder, Items> _folderItems;
+	public partial class ThisAddIn
+	{
+		private Items _inboxItems;
+		private Dictionary<Folder, Items> _folderItems;
 		private Items _sentItems;
-    	private Items _draftItems;
-    	private Explorer _explorer;
-    	private ICommentRepository _commentRepository;
-    	private Microsoft.Office.Tools.CustomTaskPane _conversationPane;
-    	private WindsorContainer _container;
-    	private IEventAggregator _eventAggregator;
+		private Items _draftItems;
+		private Explorer _explorer;
+		private ICommentRepository _commentRepository;
+		private Microsoft.Office.Tools.CustomTaskPane _conversationPane;
+		private WindsorContainer _container;
+		private IEventAggregator _eventAggregator;
 
 		private void ThisAddIn_Startup(object sender, EventArgs e)
 		{
@@ -51,47 +53,47 @@ namespace EmailPingPong.Outlook
 			_explorer.FolderSwitch += ThisAddIn_FolderSwitch;
 			_explorer.SelectionChange += _explorer_SelectionChange;
 			_eventAggregator.GetEvent<PingPongItemSelectedEvent>().Subscribe(mailItem =>
-			                                                         	{
-																			var olns = Application.GetNamespace("MAPI");
-																			var item = (MailItem)olns.GetItemFromID(mailItem.ItemId, mailItem.StoreId);
-																			try
-																			{
-																				if (_explorer.IsItemSelectableInView(item))
-																				{
-																					_explorer.ClearSelection();
-																					_explorer.AddToSelection(item);
-																					_explorer.ScrollToSelection();
-																				} 
-																				else
-																				{
-																					_explorer.ClearSelection();
+				{
+					var olns = Application.GetNamespace("MAPI");
+					var item = (MailItem)olns.GetItemFromID(mailItem.ItemId, mailItem.StoreId);
+					try
+					{
+						if (_explorer.IsItemSelectableInView(item))
+						{
+							_explorer.ClearSelection();
+							_explorer.AddToSelection(item);
+							_explorer.ScrollToSelection();
+						}
+						else
+						{
+							_explorer.ClearSelection();
 
-																					var folder = (Folder) item.Parent;
-																					_explorer.SelectFolder(folder);
-																					_explorer.FolderSwitch += () => 
-																						Application.ActiveExplorer().AddToSelection(item);
-																				}
-																			}
-																			finally
-																			{
-																				Marshal.ReleaseComObject(olns);
-																				if (item != null)
-																					Marshal.ReleaseComObject(item);
-																			}
-			                                                         	}, ThreadOption.PublisherThread);
+							var folder = (Folder)item.Parent;
+							_explorer.SelectFolder(folder);
+							_explorer.FolderSwitch += () =>
+													  Application.ActiveExplorer().AddToSelection(item);
+						}
+					}
+					finally
+					{
+						Marshal.ReleaseComObject(olns);
+						if (item != null)
+							Marshal.ReleaseComObject(item);
+					}
+				}, ThreadOption.PublisherThread);
 
 			//Key board shorcuts
 			InterceptKeys.SetHook();
 			InterceptKeys.KeyDown += HotKeys;
 		}
 
-    	private void BootsrtrapPersistanceStorage()
-    	{
+		private void BootsrtrapPersistanceStorage()
+		{
 			Database.DefaultConnectionFactory = new SqlCeConnectionFactory("System.Data.SqlServerCe.4.0");
-    		Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ConversationContext>());
-    	}
+			Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ConversationContext>());
+		}
 
-    	void HotKeys(object sender, KeyEventArgs keyData)
+		private void HotKeys(object sender, KeyEventArgs keyData)
 		{
 			if (Functions.IsKeyDown(Keys.ControlKey))
 			{
@@ -117,27 +119,30 @@ namespace EmailPingPong.Outlook
 			}
 		}
 
-    	private void AddConversationTree()
-    	{
+		private void AddConversationTree()
+		{
 			var conversationHost = new ConversationHost();
 
 			_conversationPane = this.CustomTaskPanes.Add(conversationHost, "Conversations");
-    		_conversationPane.DockPosition = MsoCTPDockPosition.msoCTPDockPositionRight;
-    		_conversationPane.Width = 350;
+			_conversationPane.DockPosition = MsoCTPDockPosition.msoCTPDockPositionRight;
+			_conversationPane.Width = 350;
 			_conversationPane.Visible = true;
-    	}
+		}
 
-    	private void BootstrapContainer()
-    	{
-    		_container = new WindsorContainer();
-    		ServiceLocator.Container = _container;
-    		_container.Install(FromAssembly.This());
-    	}
+		private void BootstrapContainer()
+		{
+			_container = new WindsorContainer();
+			ServiceLocator.Container = _container;
+			_container.Install(FromAssembly.This());
+		}
 
-    	void ThisAddIn_FolderSwitch()
-    	{
-			_eventAggregator.GetEvent<MailFolderSwitchEvent>().Publish(_explorer.CurrentFolder.EntryID);
-    	}
+		private void ThisAddIn_FolderSwitch()
+		{
+			if (_explorer.CurrentFolder != null)
+			{
+				_eventAggregator.GetEvent<MailFolderSwitchEvent>().Publish(_explorer.CurrentFolder.EntryID);
+			}
+		}
 
 		private void _explorer_SelectionChange()
 		{
@@ -157,7 +162,6 @@ namespace EmailPingPong.Outlook
 			_folderItems = new Dictionary<Folder, Items>();
 			foreach (Account account in this.Application.Session.Accounts)
 			{
-
 				var inbox = (Folder)account.DeliveryStore.GetDefaultFolder(OlDefaultFolders.olFolderInbox);
 				GetFolderWithChild(inbox);
 
@@ -186,26 +190,26 @@ namespace EmailPingPong.Outlook
 			}
 		}
 
-    	private void GetFolderWithChild(Folder root)
-    	{
-    		_folderItems.Add(root, root.Items);
-    		foreach (Folder folder in root.Folders)
-    		{
-    			GetFolderWithChild(folder);
-    		}
-    	}
+		private void GetFolderWithChild(Folder root)
+		{
+			_folderItems.Add(root, root.Items);
+			foreach (Folder folder in root.Folders)
+			{
+				GetFolderWithChild(folder);
+			}
+		}
 
-    	private void ItemChange(object item)
+		private void ItemChange(object item)
 		{
 			//Occurs when mail item is changes. For instance when it was unread and becomes read.
 			//Event is usefull to sych the tree with read\unread value
 			var mailItem = (MailItem)item;
 			var ppItem = new PingPongMailItem
-			{
-				ItemId = mailItem.EntryID,
-				StoreId = ((Folder)mailItem.Parent).StoreID,
-				FolderId = ((Folder)mailItem.Parent).EntryID,
-			};
+				{
+					ItemId = mailItem.EntryID,
+					StoreId = ((Folder)mailItem.Parent).StoreID,
+					FolderId = ((Folder)mailItem.Parent).EntryID,
+				};
 			_eventAggregator.GetEvent<MailItemChangedEvent>().Publish(ppItem);
 		}
 
@@ -214,76 +218,84 @@ namespace EmailPingPong.Outlook
 			var mailItem = (MailItem)item;
 			var inspector = mailItem.GetInspector;
 			var document = (Microsoft.Office.Interop.Word.Document)inspector.WordEditor;
-			
-			var questions = ParseQuestions(mailItem,to.StoreID, to.EntryID, document);
+
+			var questions = ParseQuestions(mailItem, to.StoreID, to.EntryID, document);
 
 			_commentRepository.Delete(questions);
 			_commentRepository.SaveChanges();
 
 			var ppItem = new PingPongMailItem
-			{
-				ItemId = mailItem.EntryID,
-				StoreId = ((Folder)mailItem.Parent).StoreID,
-				FolderId = ((Folder)mailItem.Parent).EntryID,
-			};
+				{
+					ItemId = mailItem.EntryID,
+					StoreId = ((Folder)mailItem.Parent).StoreID,
+					FolderId = ((Folder)mailItem.Parent).EntryID,
+				};
 			_eventAggregator.GetEvent<MailItemRemovedEvent>().Publish(ppItem);
 		}
 
-    	private void SyncConversation(object item)
+		private void SyncConversation(object item)
 		{
 			var mailItem = (MailItem)item;
 			var inspector = mailItem.GetInspector;
 			var document = (Microsoft.Office.Interop.Word.Document)inspector.WordEditor;
 
-    		var folder = (Folder) mailItem.Parent;
+			var folder = (Folder)mailItem.Parent;
 			var questions = ParseQuestions(mailItem, folder.StoreID, folder.EntryID, document);
 
 			_commentRepository.AddOrUpdate(questions);
 			_commentRepository.SaveChanges();
 
 			var ppI = new PingPongMailItem
-			               	{
-								ItemId = mailItem.EntryID,
-								StoreId = ((Folder)mailItem.Parent).StoreID,
-								FolderId = ((Folder)mailItem.Parent).EntryID,
-			               	};
+				{
+					ItemId = mailItem.EntryID,
+					StoreId = ((Folder)mailItem.Parent).StoreID,
+					FolderId = ((Folder)mailItem.Parent).EntryID,
+				};
 			_eventAggregator.GetEvent<MailItemAddedEvent>().Publish(ppI);
 		}
 
-    	private IEnumerable<PingPongMailItem> GetCurrentPingPongMailItem()
-    	{
-    		var items = new List<PingPongMailItem>();
+		private IEnumerable<PingPongMailItem> GetCurrentPingPongMailItem()
+		{
+			var items = new List<PingPongMailItem>();
+
+			if (_explorer.CurrentFolder == null || _explorer.CurrentFolder.DefaultItemType != OlItemType.olMailItem)
+			{
+				return items;
+			}
+
 			foreach (MailItem item in _explorer.Selection)
-    		{
+			{
 				var mailItem = new PingPongMailItem
-				{
-					ItemId = item.EntryID,
-					StoreId = ((Folder)item.Parent).StoreID,
-					FolderId = ((Folder)item.Parent).EntryID,
-				};
+					{
+						ItemId = item.EntryID,
+						StoreId = ((Folder)item.Parent).StoreID,
+						FolderId = ((Folder)item.Parent).EntryID,
+					};
 				items.Add(mailItem);
-    		}
+			}
 
-    		return items;
-    	}
+			return items;
+		}
 
-    	private void RemoveConversation()
-    	{
+		private void RemoveConversation()
+		{
 			_eventAggregator.GetEvent<MailItemRemovedEvent>().Publish(null);
-    	}
+		}
 
-		private IEnumerable<Question> ParseQuestions(MailItem mailItem, string storeId, string folderId, Microsoft.Office.Interop.Word.Document document)
+		private IEnumerable<Question> ParseQuestions(MailItem mailItem, string storeId, string folderId,
+													 Microsoft.Office.Interop.Word.Document document)
 		{
 			var parser = new PingPongParser();
 			var folder = (Folder)mailItem.Parent;
 
-			return parser.Parse(document, mailItem.EntryID, storeId/*folder.StoreID*/, folderId/*folder.EntryID*/, mailItem.Subject, folder.Name);
-    	}
+			return parser.Parse(document, mailItem.EntryID, storeId /*folder.StoreID*/, folderId /*folder.EntryID*/,
+								mailItem.Subject, folder.Name);
+		}
 
-    	private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
-        {
+		private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
+		{
 			InterceptKeys.ReleaseHook();
-        }
+		}
 
 		public void Ping(Inspector inspector)
 		{
@@ -314,7 +326,7 @@ namespace EmailPingPong.Outlook
 		{
 			var item = (MailItem)inspector.CurrentItem;
 			var document = (Microsoft.Office.Interop.Word.Document)inspector.WordEditor;
-			
+
 			var range = document.Application.Selection.Range;
 			var author = string.Empty;
 			if (item.SendUsingAccount != null)
@@ -325,33 +337,33 @@ namespace EmailPingPong.Outlook
 			{
 				author = item.Session.CurrentUser.Name;
 			}
-			
+
 			var pongControl = new PongControl(document);
 			pongControl.Render(author, range);
 		}
 
-    	#region VSTO generated code
+		#region VSTO generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InternalStartup()
-        {
-            this.Startup += new System.EventHandler(ThisAddIn_Startup);
-            this.Shutdown += new System.EventHandler(ThisAddIn_Shutdown);
-        }
-        
-        #endregion
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InternalStartup()
+		{
+			this.Startup += new System.EventHandler(ThisAddIn_Startup);
+			this.Shutdown += new System.EventHandler(ThisAddIn_Shutdown);
+		}
 
-    	public void ToggleConversation()
-    	{
+		#endregion
+
+		public void ToggleConversation()
+		{
 			_conversationPane.Visible = !_conversationPane.Visible;
-    	}
+		}
 
 		public bool ConversationChecked
 		{
 			get { return _conversationPane.Visible; }
-    	}
-    }
+		}
+	}
 }

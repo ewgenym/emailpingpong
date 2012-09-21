@@ -84,6 +84,8 @@
     <Compile Include="Events\PingPongItemSelectedEvent.cs" />
     <Compile Include="IConnectionStringProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ConversationRepository.cs" />
+    <Compile Include="Repositories\DbRepository.cs" />
     <Compile Include="Repositories\Implementation\CommentRepository.cs" />
     <Compile Include="Repositories\ConversationContext.cs" />
     <Compile Include="Repositories\ICommentRepository.cs" />

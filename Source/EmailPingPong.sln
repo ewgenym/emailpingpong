@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.UI.Word", "Em
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "EmailPingPong.Setup", "EmailPingPong.Setup\EmailPingPong.Setup.vdproj", "{401F2629-136C-4C48-BB88-E50932DF810B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.Tests", "EmailPingPong.Tests\EmailPingPong.Tests.csproj", "{1012C923-A49F-4977-AF82-539E46C23F78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{9756383D-73C8-42B1-85FA-B3B9F9086807}.Release|Any CPU.Build.0 = Release|Any CPU
 		{401F2629-136C-4C48-BB88-E50932DF810B}.Debug|Any CPU.ActiveCfg = Debug
 		{401F2629-136C-4C48-BB88-E50932DF810B}.Release|Any CPU.ActiveCfg = Release
+		{1012C923-A49F-4977-AF82-539E46C23F78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1012C923-A49F-4977-AF82-539E46C23F78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1012C923-A49F-4977-AF82-539E46C23F78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1012C923-A49F-4977-AF82-539E46C23F78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
-using EmailPingPong.Core.Domain;
+using EmailPingPong.Core.Model;
+using Comment = EmailPingPong.Core.Domain.Comment;
 
 namespace EmailPingPong.Infrastructure.Repositories
 {
@@ -11,6 +12,8 @@ namespace EmailPingPong.Infrastructure.Repositories
 		}
 
 		public DbSet<Comment> Comments { get; set; }
+
+		public DbSet<Conversation> Conversations { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
