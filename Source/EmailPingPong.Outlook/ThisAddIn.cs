@@ -102,6 +102,9 @@ namespace EmailPingPong.Outlook
 					var inspector = Globals.ThisAddIn.Application.ActiveInspector();
 					if (inspector != null)
 					{
+						var item = (MailItem)inspector.CurrentItem;
+						item.BodyFormat = OlBodyFormat.olFormatHTML;
+
 						if (ping)
 						{
 							Globals.ThisAddIn.Ping(inspector);
@@ -160,7 +163,6 @@ namespace EmailPingPong.Outlook
 			_folderItems = new Dictionary<Folder, Items>();
 			foreach (Account account in this.Application.Session.Accounts)
 			{
-
 				var inbox = (Folder)account.DeliveryStore.GetDefaultFolder(OlDefaultFolders.olFolderInbox);
 				GetFolderWithChild(inbox);
 
@@ -183,9 +185,9 @@ namespace EmailPingPong.Outlook
 				draftItems.ItemChange += SyncConversation;
 
 				// -New e-mail is sent. When there is no connection with server as well. (Two options here: 1) monitor Sent folder 2) monitor Application.ItemSend event)
-				//var sent = this.Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderSentMail);
-				//_sentItems = sent.Items;
-				//_sentItems.ItemAdd += SyncConversation;
+				var sent = this.Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderSentMail);
+				_sentItems = sent.Items;
+				_sentItems.ItemAdd += SyncConversation;
 			}
 		}
 
