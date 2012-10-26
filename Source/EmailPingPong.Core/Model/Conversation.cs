@@ -9,6 +9,9 @@ namespace EmailPingPong.Core.Model
 	{
 		public string ConversationId { get; set; }
 
+		//TODO: this is e-mail subject but normalized using PR_SUBJECT_PREFIX_W property
+		public string Topic { get; set; }
+
 		public IList<Comment> Comments { get; set; }
 
 		public IList<EmailItem> Emails { get; set; }

@@ -12,6 +12,7 @@ namespace EmailPingPong.Core.Model
 
 		public EmailFolder Folder { get; set; }
 
+		//TODO: consider using MessageDeliveryTime (PR_MESSAGE_DELIVERY_TIME)
 		public DateTime CreationTime { get; set; }
 	}
 }

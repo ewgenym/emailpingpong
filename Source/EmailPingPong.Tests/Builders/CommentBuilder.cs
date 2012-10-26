@@ -33,7 +33,7 @@ namespace EmailPingPong.Tests.Builders
 
 		public CommentBuilder WithOrder(int order)
 		{
-			EntityToBuild.Order = order;
+			EntityToBuild.ConversationIndex = order;
 			return this;
 		}
 

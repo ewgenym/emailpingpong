@@ -16,7 +16,8 @@ namespace EmailPingPong.Core.Model
 
 		public DateTime CreatedOn { get; set; }
 
-		public int Order { get; set; }
+		//TODO: Use sortable timestamp for index
+		public int ConversationIndex { get; set; }
 
 		public Comment Parent { get; set; }
 
