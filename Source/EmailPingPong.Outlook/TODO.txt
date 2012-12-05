@@ -21,9 +21,9 @@ v1.0
 	+ Ctrl+Z support
 	+ Hot keys
 	- Баг = выделил Квечин, под ним написал текст, выделил, нажал Ансвер. Вставился опять Квесчин (What is the expected beaviour?)
-	- Can't press Enter in comments (Standard behaviour)
 - Tag the entire mail as the one conversation (like the native outlook conversation feature)
 - Final answer (add a checkbox to each question, when user checks the box it means that last answer is final, show it somehow in the tree)
+- Support for multiple select in Outlook (when use selects several folders or e-mails we should filter accrodingly)
 - Bugs:
 	- Double click on the tree element has stopped working. Related to the grouping feature implementation
 	- Баг = когда на ответе клацаешь вопрос, после этого нельзя добавить вопрос вообще в письмо
@@ -36,17 +36,13 @@ v1.0
 	+ Separate core conversation features over Outlook specifics
 	- Signing key name - change
 	- Global refactoring after the prtototype phase but before the beta
-	- Support for multiple select in Outlook (when use selects several folders or e-mails we should filter accrodingly)
+	- Tag storage approach refactoring
+	- Setup
 
 vNext+
 ----
 - Smart search
 - Support for more tags, including custom ones
-- Conversation tree tools (toolbar) (???):
-	- Refresh |
-	- Expand\Collapse all |
-	- Previous\Next (question\comment nodes navigation only, excluding grouping nodes)
-	- Filter
 - Administrative interface:
   - List of accounts\folders to monitor
 - Configurable reminder
@@ -65,3 +61,8 @@ vNext+
 - Mobile devices
 - Technical:
 	- Migration tool
+
+
+Participants
+------------
+vadim.ganzen@gmail.com
