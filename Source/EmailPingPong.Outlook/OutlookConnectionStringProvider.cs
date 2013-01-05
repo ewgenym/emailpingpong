@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Conversation;
 using EmailPingPong.Infrastructure;
 
 namespace EmailPingPong.Outlook

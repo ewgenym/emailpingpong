@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Key", "Key", "{7B44EA58-B629-48EE-BB45-83CE6272A434}"
 	ProjectSection(SolutionItems) = preProject
 		EmailPingPong.snk = EmailPingPong.snk
@@ -16,9 +16,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.UI.Desktop", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.UI.Word", "EmailPingPong.UI.Word\EmailPingPong.UI.Word.csproj", "{9756383D-73C8-42B1-85FA-B3B9F9086807}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "EmailPingPong.Setup", "EmailPingPong.Setup\EmailPingPong.Setup.vdproj", "{401F2629-136C-4C48-BB88-E50932DF810B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.Tests", "EmailPingPong.Tests\EmailPingPong.Tests.csproj", "{1012C923-A49F-4977-AF82-539E46C23F78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.Outlook2010", "EmailPingPong.Outlook2010\EmailPingPong.Outlook2010.csproj", "{A027280D-09DF-4CC1-87EF-A191EC70B804}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.Outlook2013", "EmailPingPong.Outlook2013\EmailPingPong.Outlook2013.csproj", "{90BA61E9-F2DC-4C33-B62C-F5326C7D48E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.Outlook.Common", "EmailPingPong.Outlook.Common\EmailPingPong.Outlook.Common.csproj", "{2E03CD34-6967-4D89-B90E-FB2D8D0FE291}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.TestApp", "EmailPingPong.TestApp\EmailPingPong.TestApp.csproj", "{B887B1F8-673A-4E4C-903F-64C35F5D91AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,12 +52,26 @@ Global
 		{9756383D-73C8-42B1-85FA-B3B9F9086807}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9756383D-73C8-42B1-85FA-B3B9F9086807}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9756383D-73C8-42B1-85FA-B3B9F9086807}.Release|Any CPU.Build.0 = Release|Any CPU
-		{401F2629-136C-4C48-BB88-E50932DF810B}.Debug|Any CPU.ActiveCfg = Debug
-		{401F2629-136C-4C48-BB88-E50932DF810B}.Release|Any CPU.ActiveCfg = Release
 		{1012C923-A49F-4977-AF82-539E46C23F78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1012C923-A49F-4977-AF82-539E46C23F78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1012C923-A49F-4977-AF82-539E46C23F78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1012C923-A49F-4977-AF82-539E46C23F78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A027280D-09DF-4CC1-87EF-A191EC70B804}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A027280D-09DF-4CC1-87EF-A191EC70B804}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A027280D-09DF-4CC1-87EF-A191EC70B804}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A027280D-09DF-4CC1-87EF-A191EC70B804}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90BA61E9-F2DC-4C33-B62C-F5326C7D48E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90BA61E9-F2DC-4C33-B62C-F5326C7D48E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90BA61E9-F2DC-4C33-B62C-F5326C7D48E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90BA61E9-F2DC-4C33-B62C-F5326C7D48E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E03CD34-6967-4D89-B90E-FB2D8D0FE291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E03CD34-6967-4D89-B90E-FB2D8D0FE291}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E03CD34-6967-4D89-B90E-FB2D8D0FE291}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E03CD34-6967-4D89-B90E-FB2D8D0FE291}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B887B1F8-673A-4E4C-903F-64C35F5D91AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B887B1F8-673A-4E4C-903F-64C35F5D91AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B887B1F8-673A-4E4C-903F-64C35F5D91AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B887B1F8-673A-4E4C-903F-64C35F5D91AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

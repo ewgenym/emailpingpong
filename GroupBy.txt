@@ -1,0 +1,21 @@
+Group by:
+1) None (SelectMany)
+- Comment
+	- Answer (Comment)
+- Comment
+	- Answer (Comment)
+
+2) E-mail (As Is)
+- Conversation topic
+	- Comment
+		- Answer (Comment)
+
+2) Folder (GroupBy(Conversation.LatestEmail.Folder).SelectMany)
+- Folder (current account folders)
+	- Comment
+		- Answer (Comment)
+
+Search in (Globa scope is current account):
+- AllFolders
+- CurrentFolder
+- CurrentEmail

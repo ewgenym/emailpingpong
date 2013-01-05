@@ -1,4 +1,6 @@
-﻿namespace EmailPingPong.Outlook
+﻿using Conversation;
+
+namespace EmailPingPong.Outlook
 {
 	partial class HomeRibbon : Microsoft.Office.Tools.Ribbon.RibbonBase
 	{
@@ -88,7 +90,10 @@
 	{
 		internal HomeRibbon HomeRibbon
 		{
-			get { return this.GetRibbon<HomeRibbon>(); }
+			get
+			{
+				return null;// this.ConversationRibbon; 
+			}
 		}
 	}
 }

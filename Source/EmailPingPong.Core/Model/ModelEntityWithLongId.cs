@@ -35,12 +35,15 @@
 			var otherType = other.GetType();
 
 			if (thisType != otherType)
+			{
 				return false;
+			}
 
 			if (Id.Equals(default(long)) && (other as ModelEntityWithLongId).Id.Equals(default(long)))
 			{
 				return base.Equals(other);
 			}
+
 			return Id == (other as ModelEntityWithLongId).Id;
 		}
 
@@ -53,7 +56,9 @@
 		{
 			var obj1 = (object)entity1;
 			if (obj1 == null && ((object)entity2) == null)
+			{
 				return true;
+			}
 
 			return obj1 != null && entity1.Equals(entity2);
 		}

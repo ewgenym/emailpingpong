@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using EmailPingPong.Core.Utils;
 
@@ -7,9 +8,16 @@ namespace EmailPingPong.Core.Model
 {
 	public class Conversation : ModelEntityWithLongId
 	{
+		public Conversation()
+		{
+			Comments = new List<Comment>();
+			Emails = new List<EmailItem>();
+		}
+
+		[Required]
 		public string ConversationId { get; set; }
 
-		//TODO: this is e-mail subject but normalized using PR_SUBJECT_PREFIX_W property
+		[Required]
 		public string Topic { get; set; }
 
 		public IList<Comment> Comments { get; set; }
@@ -26,8 +34,10 @@ namespace EmailPingPong.Core.Model
 
 		public void Merge(Conversation sourceConversation)
 		{
-			if (sourceConversation == null) 
-				throw new ArgumentNullException("sourceConversation");
+			if (string.Compare(ConversationId, sourceConversation.ConversationId, StringComparison.InvariantCultureIgnoreCase) != 0)
+			{
+				throw new InvalidOperationException("Can't merge conversations with different id's");
+			}
 
 			if (sourceConversation.IsNewerThan(this))
 			{
@@ -40,12 +50,6 @@ namespace EmailPingPong.Core.Model
 
 		private bool IsNewerThan(Conversation conversation)
 		{
-			if (conversation == null) 
-				throw new ArgumentNullException("conversation");
-
-			if (conversation.NewestEmail == null)
-				throw new ArgumentException("Newest email for the source conversation can not be empty.", "conversation");
-
 			if (NewestEmail == null)
 			{
 				return false;

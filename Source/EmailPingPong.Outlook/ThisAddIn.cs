@@ -1,26 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using Castle.Windsor;
-using Castle.Windsor.Installer;
+using Conversation;
 using EmailPingPong.Core.Domain;
-using EmailPingPong.Infrastructure;
 using EmailPingPong.Infrastructure.Events;
 using EmailPingPong.Infrastructure.Repositories;
 using EmailPingPong.Outlook.Utils;
 using EmailPingPong.UI.Desktop.Views;
-using EmailPingPong.UI.Word;
 using EmailPingPong.UI.Word.Controls;
-using EmailPingPong.UI.Word.Utils;
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Practices.Prism.Events;
-using Exception = System.Exception;
 
 namespace EmailPingPong.Outlook
 {
@@ -38,14 +30,8 @@ namespace EmailPingPong.Outlook
 
 		private void ThisAddIn_Startup(object sender, EventArgs e)
 		{
-			BootsrtrapPersistanceStorage();
-
-			BootstrapContainer();
-
 			_eventAggregator = _container.Resolve<IEventAggregator>();
 			_commentRepository = _container.Resolve<ICommentRepository>();
-
-			BootstrapSynchronization();
 
 			AddConversationTree();
 
@@ -87,12 +73,6 @@ namespace EmailPingPong.Outlook
 			InterceptKeys.KeyDown += HotKeys;
 		}
 
-		private void BootsrtrapPersistanceStorage()
-		{
-			Database.DefaultConnectionFactory = new SqlCeConnectionFactory("System.Data.SqlServerCe.4.0");
-			Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ConversationContext>());
-		}
-
 		private void HotKeys(object sender, KeyEventArgs keyData)
 		{
 			if (Functions.IsKeyDown(Keys.ControlKey))
@@ -129,13 +109,6 @@ namespace EmailPingPong.Outlook
 			_conversationPane.Visible = true;
 		}
 
-		private void BootstrapContainer()
-		{
-			_container = new WindsorContainer();
-			ServiceLocator.Container = _container;
-			_container.Install(FromAssembly.This());
-		}
-
 		private void ThisAddIn_FolderSwitch()
 		{
 			if (_explorer.CurrentFolder != null)
@@ -148,110 +121,6 @@ namespace EmailPingPong.Outlook
 		{
 			var mailItem = GetCurrentPingPongMailItem();
 			_eventAggregator.GetEvent<MailItemSwitchEvent>().Publish(mailItem);
-		}
-
-		private void BootstrapSynchronization()
-		{
-			// Synchronization should be done when:
-			// TODO:
-			// -E-mail was moved from one folder to another
-			// -The scope of monitoring is all accounts->all mail folders
-
-			// -New e-mail is received (monitor all the mail folders, including subfolders of course)
-
-			_folderItems = new Dictionary<Folder, Items>();
-			foreach (Account account in this.Application.Session.Accounts)
-			{
-				var inbox = (Folder)account.DeliveryStore.GetDefaultFolder(OlDefaultFolders.olFolderInbox);
-				GetFolderWithChild(inbox);
-
-				foreach (var folderItem in _folderItems)
-				{
-					var folder = folderItem.Key;
-					var items = folderItem.Value;
-
-					items.ItemAdd += SyncConversation;
-					items.ItemChange += ItemChange;
-					//items.ItemRemove += RemoveConversation;
-					folder.BeforeItemMove += ItemRemove;
-				}
-
-				// -E-mail was created but not sent. It was saved to draft folders instead.
-				var draft = (Folder)account.DeliveryStore.GetDefaultFolder(OlDefaultFolders.olFolderDrafts);
-				_folderItems.Add(draft, draft.Items);
-				var draftItems = draft.Items;
-				draftItems.ItemAdd += SyncConversation;
-				draftItems.ItemChange += SyncConversation;
-
-				// -New e-mail is sent. When there is no connection with server as well. (Two options here: 1) monitor Sent folder 2) monitor Application.ItemSend event)
-				//var sent = this.Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderSentMail);
-				//_sentItems = sent.Items;
-				//_sentItems.ItemAdd += SyncConversation;
-			}
-		}
-
-		private void GetFolderWithChild(Folder root)
-		{
-			_folderItems.Add(root, root.Items);
-			foreach (Folder folder in root.Folders)
-			{
-				GetFolderWithChild(folder);
-			}
-		}
-
-		private void ItemChange(object item)
-		{
-			//Occurs when mail item is changes. For instance when it was unread and becomes read.
-			//Event is usefull to sych the tree with read\unread value
-			var mailItem = (MailItem)item;
-			var ppItem = new PingPongMailItem
-				{
-					ItemId = mailItem.EntryID,
-					StoreId = ((Folder)mailItem.Parent).StoreID,
-					FolderId = ((Folder)mailItem.Parent).EntryID,
-				};
-			_eventAggregator.GetEvent<MailItemChangedEvent>().Publish(ppItem);
-		}
-
-		private void ItemRemove(object item, MAPIFolder to, ref bool cancel)
-		{
-			var mailItem = (MailItem)item;
-			var inspector = mailItem.GetInspector;
-			var document = (Microsoft.Office.Interop.Word.Document)inspector.WordEditor;
-
-			var questions = ParseQuestions(mailItem, to.StoreID, to.EntryID, document);
-
-			_commentRepository.Delete(questions);
-			_commentRepository.SaveChanges();
-
-			var ppItem = new PingPongMailItem
-				{
-					ItemId = mailItem.EntryID,
-					StoreId = ((Folder)mailItem.Parent).StoreID,
-					FolderId = ((Folder)mailItem.Parent).EntryID,
-				};
-			_eventAggregator.GetEvent<MailItemRemovedEvent>().Publish(ppItem);
-		}
-
-		private void SyncConversation(object item)
-		{
-			var mailItem = (MailItem)item;
-			var inspector = mailItem.GetInspector;
-			var document = (Microsoft.Office.Interop.Word.Document)inspector.WordEditor;
-
-			var folder = (Folder)mailItem.Parent;
-			var questions = ParseQuestions(mailItem, folder.StoreID, folder.EntryID, document);
-
-			_commentRepository.AddOrUpdate(questions);
-			_commentRepository.SaveChanges();
-
-			var ppI = new PingPongMailItem
-				{
-					ItemId = mailItem.EntryID,
-					StoreId = ((Folder)mailItem.Parent).StoreID,
-					FolderId = ((Folder)mailItem.Parent).EntryID,
-				};
-			_eventAggregator.GetEvent<MailItemAddedEvent>().Publish(ppI);
 		}
 
 		private IEnumerable<PingPongMailItem> GetCurrentPingPongMailItem()
@@ -275,21 +144,6 @@ namespace EmailPingPong.Outlook
 			}
 
 			return items;
-		}
-
-		private void RemoveConversation()
-		{
-			_eventAggregator.GetEvent<MailItemRemovedEvent>().Publish(null);
-		}
-
-		private IEnumerable<Question> ParseQuestions(MailItem mailItem, string storeId, string folderId,
-													 Microsoft.Office.Interop.Word.Document document)
-		{
-			var parser = new PingPongParser();
-			var folder = (Folder)mailItem.Parent;
-
-			return parser.Parse(document, mailItem.EntryID, storeId /*folder.StoreID*/, folderId /*folder.EntryID*/,
-								mailItem.Subject, folder.Name);
 		}
 
 		private void ThisAddIn_Shutdown(object sender, System.EventArgs e)

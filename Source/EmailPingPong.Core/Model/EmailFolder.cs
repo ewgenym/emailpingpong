@@ -1,31 +1,27 @@
-﻿namespace EmailPingPong.Core.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EmailPingPong.Core.Model
 {
-	public class EmailFolder
+	public class EmailFolder : IValueObject
 	{
-		private readonly string _storeId;
-		private readonly string _folderId;
-		private readonly string _folderName;
+		public EmailFolder()
+		{
+		}
 
 		public EmailFolder(string storeId, string folderId, string folderName)
 		{
-			_storeId = storeId;
-			_folderId = folderId;
-			_folderName = folderName;
+			StoreId = storeId;
+			FolderId = folderId;
+			FolderName = folderName;
 		}
 
-		public string StoreId
-		{
-			get { return _storeId; }
-		}
+		[Required]
+		public string StoreId { get; set; }
 
-		public string FolderId
-		{
-			get { return _folderId; }
-		}
+		[Required]
+		public string FolderId { get; set; }
 
-		public string FolderName
-		{
-			get { return _folderName; }
-		}
+		[Required]
+		public string FolderName { get; set; }
 	}
 }

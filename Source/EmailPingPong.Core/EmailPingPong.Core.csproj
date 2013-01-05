@@ -37,39 +37,28 @@
     <AssemblyOriginatorKeyFile>..\EmailPingPong.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core">
-      <HintPath>..\packages\Castle.Core.3.0.0.4001\lib\net40-client\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Windsor">
-      <HintPath>..\packages\Castle.Windsor.3.0.0.4001\lib\net40\Castle.Windsor.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.4.3.1\lib\net40\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\Comment.cs" />
-    <Compile Include="Domain\PingPongMailItem.cs" />
-    <Compile Include="Domain\Question.cs" />
+    <Compile Include="CommandHandlers\ConversationCommandHandlers.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\MergeConversation.cs" />
+    <Compile Include="Events\IDomainEvent.cs" />
+    <Compile Include="Commands\ICommandHandler.cs" />
+    <Compile Include="Commands\ICommandDispatcher.cs" />
+    <Compile Include="Events\IEventHandler.cs" />
+    <Compile Include="Events\IEventPublisher.cs" />
     <Compile Include="Model\Comment.cs" />
     <Compile Include="Model\Conversation.cs" />
     <Compile Include="Model\EmailFolder.cs" />
     <Compile Include="Model\EmailItem.cs" />
+    <Compile Include="Model\IValueObject.cs" />
     <Compile Include="Model\ModelEntityWithLongId.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ICommentRepository.cs" />
     <Compile Include="Repositories\IConversationRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Services\IConversationService.cs" />
-    <Compile Include="Services\Implementation\ConversationService.cs" />
     <Compile Include="Utils\DateTimeExtensions.cs" />
     <Compile Include="Utils\EnumerableExtensions.cs" />
   </ItemGroup>
@@ -77,8 +66,8 @@
     <None Include="..\EmailPingPong.snk">
       <Link>EmailPingPong.snk</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

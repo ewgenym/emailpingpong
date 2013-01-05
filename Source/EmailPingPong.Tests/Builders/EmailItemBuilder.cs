@@ -36,5 +36,11 @@ namespace EmailPingPong.Tests.Builders
 			EntityToBuild.Folder = new EmailFolder(storeId, folderId, folderName);
 			return this;
 		}
+
+		public EmailItemBuilder WithCreationTime(DateTime dateTime)
+		{
+			EntityToBuild.CreationTime = dateTime;
+			return this;
+		}
 	}
 } 

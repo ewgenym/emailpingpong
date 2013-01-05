@@ -1,4 +1,7 @@
-﻿using EmailPingPong.Core.Model;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using EmailPingPong.Core.Model;
 using EmailPingPong.Core.Repositories;
 
 namespace EmailPingPong.Infrastructure.Repositories
@@ -6,19 +9,36 @@ namespace EmailPingPong.Infrastructure.Repositories
 	public class DbRepository<T> : IRepository<T>
 		where T : ModelEntityWithLongId
 	{
-		public T GetById(long id)
+		private readonly DbContext _dbContext;
+
+		public DbRepository(DbContext dbContext)
 		{
-			throw new System.NotImplementedException();
+			_dbContext = dbContext;
 		}
 
-		public void Add(T entity)
+		public virtual T GetById(long id)
 		{
-			throw new System.NotImplementedException();
+			return _dbContext.Set<T>().SingleOrDefault(e => e.Id == id);
 		}
 
-		public void Remove(T entity)
+		public virtual IEnumerable<T> GetAll()
 		{
-			throw new System.NotImplementedException();
+			return _dbContext.Set<T>();
+		}
+
+		public virtual void Add(T entity)
+		{
+			_dbContext.Set<T>().Add(entity);
+		}
+
+		public virtual void Remove(T entity)
+		{
+			_dbContext.Set<T>().Remove(entity);
+		}
+
+		public virtual void SaveChanges()
+		{
+			_dbContext.SaveChanges();
 		}
 	}
 }

@@ -1,12 +1,19 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
 using System.Windows.Controls;
-using System.Xml;
-using DevExpress.Xpf.Grid.TreeList;
-using EmailPingPong.UI.Desktop.Utils;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using EmailPingPong.Infrastructure;
+using EmailPingPong.Infrastructure.Repositories;
 using EmailPingPong.UI.Desktop.ViewModels;
-using TreeListNodesStateRepo = System.Collections.Generic.Dictionary<string, DevExpress.Xpf.Grid.TreeList.TreeListNodesState>;
 
 namespace EmailPingPong.UI.Desktop.Views
 {
@@ -15,40 +22,11 @@ namespace EmailPingPong.UI.Desktop.Views
 	/// </summary>
 	public partial class ConversationTree : UserControl
 	{
-		private CommentsViewModel ViewModel
-		{
-			get { return (CommentsViewModel)this.ConversationTreeListView.DataContext; }
-		}
-
 		public ConversationTree()
 		{
 			InitializeComponent();
-			this.ConversationTreeListView.DataContextChanged += (_, __) =>
-				{
-					ViewModel.OnSaveState += (sender, e) => SaveNodesState(e.Key);
-					ViewModel.OnRestoreState += (sender, e) => RestoreNodesState(e.Key);
-				};
-		}
 
-		private readonly Dictionary<string, TreeListNodesState> _treeListNodesStateRepo = new Dictionary<string, TreeListNodesState>();
-
-		private void SaveNodesState(string key)
-		{
-			var nodesState = new TreeListNodesState(ConversationTreeListView.GetTreeListDataProvider());
-			nodesState.SaveNodesState();
-			nodesState.SaveCurrentFocus();
-			_treeListNodesStateRepo[key] = nodesState;
-		}
-
-		private void RestoreNodesState(string key)
-		{
-			TreeListNodesState nodesState;
-			if (_treeListNodesStateRepo.TryGetValue(key, out nodesState))
-			{
-				nodesState.RestoreNodesState();
-				nodesState.RestoreCurrentFocus();
-				SaveNodesState(key);
-			}
+			DataContext = ServiceLocator.Container.Resolve<ConversationTreeViewModel>();
 		}
 	}
 }

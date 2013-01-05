@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace EmailPingPong.Core.Model
 {
@@ -10,14 +11,18 @@ namespace EmailPingPong.Core.Model
 			Answers = new List<Comment>();
 		}
 
+		[Required]
 		public string Author { get; set; }
 
+		[Required]
 		public string Body { get; set; }
 
+		[Required]
 		public DateTime CreatedOn { get; set; }
 
 		//TODO: Use sortable timestamp for index
-		public int ConversationIndex { get; set; }
+		[Required]
+		public int Index { get; set; }
 
 		public Comment Parent { get; set; }
 

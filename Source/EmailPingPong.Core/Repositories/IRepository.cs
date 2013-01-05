@@ -1,4 +1,5 @@
-﻿using EmailPingPong.Core.Model;
+﻿using System.Collections.Generic;
+using EmailPingPong.Core.Model;
 
 namespace EmailPingPong.Core.Repositories
 {
@@ -7,8 +8,12 @@ namespace EmailPingPong.Core.Repositories
 	{
 		T GetById(long id);
 
+		IEnumerable<T> GetAll();
+
 		void Add(T entity);
 
 		void Remove(T entity);
+
+		void SaveChanges();
 	}
 }
