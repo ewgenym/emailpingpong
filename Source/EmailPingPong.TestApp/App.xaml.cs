@@ -31,6 +31,7 @@ namespace EmailPingPong.TestApp
 			var addInConfigurator = _container.Resolve<IOutlookAddInConfigurator>();
 			addInConfigurator.Configure();
 
+			_container.Register(Component.For<IConversationTreeItemsBinder>().ImplementedBy<ConversationTreeItemsBinder>());
 			_container.Register(Component.For<ConversationTreeViewModel>().ImplementedBy<ConversationTreeViewModel>());
 		}
 	}

@@ -386,6 +386,39 @@ namespace EmailPingPong.Tests.Infrastructure
 			actual.Comments[0].Body.Should().Be("Body 2");
 		}
 
+		[Fact]
+		public void should_return_all_conversations_with_childs()
+		{
+			// arrange
+			var conversation = Create.Conversation()
+							   .WithConversationId("10")
+							   .WithTopic("Topic10")
+							   .WithComment(Create.Comment()
+												  .WithAuthor("Author1")
+												  .WithOrder(1)
+												  .WithBody("Body 1")
+												  .Build())
+							   .WithEmail(Create.EmailItem()
+												.WithAccountId("1")
+												.WithItemId("1")
+												.WithFolder("1", "2", "3")
+												.WithCreationTime(new DateTime(2012, 12, 11))
+												.WithSubject("Subject 1")
+												.Build())
+							   .Build();
+
+			AddConversation(conversation);
+
+			// act
+			var conversations = _repository.GetAll().ToList();
+
+			// assert
+			conversations.Should().HaveCount(1);
+			var actual = conversations.ElementAt(0);
+			actual.Should().BeSameAs(conversation);
+			Console.Out.WriteLine("actual = {0}", actual.Comments.Count);
+		}
+
 		private void AddConversation(Conversation conversation)
 		{
 			_repository.Add(conversation);

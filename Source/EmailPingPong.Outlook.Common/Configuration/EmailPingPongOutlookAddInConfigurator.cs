@@ -6,6 +6,7 @@ using EmailPingPong.Core.Events;
 using EmailPingPong.Core.Repositories;
 using EmailPingPong.Infrastructure;
 using EmailPingPong.Infrastructure.Repositories;
+using Microsoft.Practices.Prism.Events;
 
 namespace EmailPingPong.Outlook.Common.Configuration
 {
@@ -24,6 +25,12 @@ namespace EmailPingPong.Outlook.Common.Configuration
 			ConfigureRepositories();
 			ConfigureCommandHandlers();
 			ConfigureEventHandlers();
+			ConfigureEventAggregator();
+		}
+
+		private void ConfigureEventAggregator()
+		{
+			_container.Register(Component.For<IEventAggregator>().ImplementedBy<EventAggregator>());
 		}
 
 		private void ConfigureRepositories()
@@ -55,6 +62,7 @@ namespace EmailPingPong.Outlook.Common.Configuration
 	{
 		public string ConnectionString
 		{
+			//get { return "Data Source=c:\\Projects\\emailpingpong\\Source\\EmailPingPong.Tests\\emailpingpong.sdf"; }
 			get { return "Data Source=c:\\Projects\\emailpingpong\\Source\\emailpingpong.sdf"; }
 		}
 	}

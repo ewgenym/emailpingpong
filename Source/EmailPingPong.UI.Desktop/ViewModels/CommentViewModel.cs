@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using EmailPingPong.Core.Model;
@@ -19,6 +20,14 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 																	.Answers
 																	.Select(a => new CommentViewModel(this, a))
 																	.ToList());
+		}
+
+		public override IEnumerable<TreeViewItemViewModel> Childs
+		{
+			get
+			{
+				return _answers;
+			}
 		}
 
 		public string Author

@@ -91,8 +91,8 @@
     <Compile Include="Configuration\Implementation\GenericApplicationConfigurator.cs" />
     <Compile Include="EventPublisher.cs" />
     <Compile Include="Events\ConversationAddedEvent.cs" />
-    <Compile Include="Events\MailItemSwitchEvent.cs" />
-    <Compile Include="Events\MailFolderSwitchEvent.cs" />
+    <Compile Include="Events\EmailItemSwitchedEvent.cs" />
+    <Compile Include="Events\MailFolderSwitchedEvent.cs" />
     <Compile Include="Events\PingPongItemSelectedEvent.cs" />
     <Compile Include="IConnectionStringProvider.cs" />
     <Compile Include="NoHandlerForCommandException.cs" />

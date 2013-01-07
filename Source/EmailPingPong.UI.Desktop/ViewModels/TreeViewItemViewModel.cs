@@ -1,18 +1,19 @@
-﻿using System.ComponentModel;
-using EmailPingPong.UI.Desktop.Annotations;
+﻿using System.Collections.Generic;
 
 namespace EmailPingPong.UI.Desktop.ViewModels
 {
-	public class TreeViewItemViewModel : ViewModelBase
+	public abstract class TreeViewItemViewModel : ViewModelBase
 	{
 		private readonly TreeViewItemViewModel _parent;
 		private bool _isExpanded;
 		private bool _isSelected;
 
-		public TreeViewItemViewModel(TreeViewItemViewModel parent)
+		protected TreeViewItemViewModel(TreeViewItemViewModel parent)
 		{
 			_parent = parent;
 		}
+
+		public abstract IEnumerable<TreeViewItemViewModel> Childs { get; }
 
 		public bool IsExpanded
 		{

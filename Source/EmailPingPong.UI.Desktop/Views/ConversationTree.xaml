@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:EmailPingPong.UI.Desktop.ViewModels"
+			 xmlns:utils="clr-namespace:EmailPingPong.UI.Desktop.Utils"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
 	<Grid>
@@ -18,32 +19,62 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-		<TextBlock Text="Group by:" Grid.Row="0" Grid.Column="0"/>
-		<ComboBox Grid.Row="1" Grid.Column="0"/>
-		<TextBlock Text="Search in:" Grid.Row="3" Grid.Column="0"/>
-		<ComboBox Grid.Row="4" Grid.Column="0"/>
+		<TextBlock Text="Group by:" Grid.Row="0" Grid.Column="0" />
+		<ComboBox Grid.Row="1" Grid.Column="0" 
+				  ItemsSource="{Binding Source={utils:Enumeration {x:Type local:GroupBy}}}"
+				  DisplayMemberPath="Description"
+				  SelectedValue="{Binding Path=GroupBy}"
+				  SelectedValuePath="Value"/>
+		<TextBlock Text="Search in:" Grid.Row="3" Grid.Column="0" />
+		<ComboBox Grid.Row="4" Grid.Column="0" 
+				  ItemsSource="{Binding Source={utils:Enumeration {x:Type local:SearchIn}}}"
+				  DisplayMemberPath="Description"
+				  SelectedValue="{Binding Path=SearchIn, Mode=OneWay}"
+				  SelectedValuePath="Value"/>
 		<TreeView ItemsSource="{Binding Items}"
-				  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2">
+		          Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2">
 			<TreeView.ItemContainerStyle>
 				<Style TargetType="{x:Type TreeViewItem}">
-					<Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
-					<Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+					<Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+					<Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
 				</Style>
 			</TreeView.ItemContainerStyle>
 			<TreeView.Resources>
 				<HierarchicalDataTemplate DataType="{x:Type local:CommentViewModel}" ItemsSource="{Binding Answers}">
-					<StackPanel Orientation="Vertical">
-						<StackPanel Orientation="Vertical">
-							<TextBlock Text="{Binding Author}"/>
-							<TextBlock Text="{Binding CreatedOn}"/>
-						</StackPanel>
-						<TextBlock Text="{Binding Body}"></TextBlock>
-					</StackPanel>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+						<TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Author}" FontStyle="Italic" />
+						<TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding CreatedOn, StringFormat={}{0:MMMM dd\, yyyy} at {0:t}}" />
+						<TextBlock Grid.ColumnSpan="2" Grid.Row="1"
+						           TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxHeight="38"
+						           Text="{Binding Body}">
+						</TextBlock>
+					</Grid>
 				</HierarchicalDataTemplate>
 				<HierarchicalDataTemplate DataType="{x:Type local:ConversationViewModel}" ItemsSource="{Binding Comments}">
 					<StackPanel>
-						<TextBlock Text="{Binding Topic}"/>
+						<TextBlock Text="{Binding Topic}" />
 					</StackPanel>
+				</HierarchicalDataTemplate>
+				<HierarchicalDataTemplate DataType="{x:Type local:FolderViewModel}" ItemsSource="{Binding Comments}">
+					<Grid Margin="8">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+						<Border BorderThickness="0.6" BorderBrush="DarkGray">
+						</Border>
+						<TextBlock Text="{Binding Folder}" />
+					</Grid>
 				</HierarchicalDataTemplate>
 			</TreeView.Resources>
 		</TreeView>

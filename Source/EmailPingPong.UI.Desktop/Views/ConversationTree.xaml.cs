@@ -26,6 +26,10 @@ namespace EmailPingPong.UI.Desktop.Views
 		{
 			InitializeComponent();
 
+			//var simple = new SimpleConnectionStringProvider();
+			//var conversationContext = new ConversationContext(simple);
+			//var repository = new ConversationRepository(conversationContext);
+			//var viewModel = new ConversationTreeViewModel(repository);
 			DataContext = ServiceLocator.Container.Resolve<ConversationTreeViewModel>();
 		}
 	}

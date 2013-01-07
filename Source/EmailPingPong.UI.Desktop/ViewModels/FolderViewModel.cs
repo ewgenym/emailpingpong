@@ -5,13 +5,12 @@ using EmailPingPong.Core.Model;
 
 namespace EmailPingPong.UI.Desktop.ViewModels
 {
-	public class ConversationViewModel : TreeViewItemViewModel
+	public class FolderViewModel : TreeViewItemViewModel
 	{
 		private readonly Conversation _conversation;
 		private readonly ReadOnlyCollection<CommentViewModel> _comments;
 
-		public ConversationViewModel(TreeViewItemViewModel parent, Conversation conversation)
-			: base(parent)
+		public FolderViewModel(TreeViewItemViewModel parent, Conversation conversation) : base(parent)
 		{
 			_conversation = conversation;
 			_comments =
@@ -26,9 +25,9 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			}
 		}
 
-		public string Topic
+		public string Folder
 		{
-			get { return _conversation.Topic; }
+			get { return _conversation.NewestEmail.Folder.FolderName; }
 		}
 
 		public ReadOnlyCollection<CommentViewModel> Comments

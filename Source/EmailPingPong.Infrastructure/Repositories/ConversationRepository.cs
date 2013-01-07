@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using EmailPingPong.Core.Model;
 using EmailPingPong.Core.Repositories;
@@ -18,7 +19,30 @@ namespace EmailPingPong.Infrastructure.Repositories
 
 		public override IEnumerable<Conversation> GetAll()
 		{
-			return _conversationContext.Conversations;
+			return _conversationContext.Conversations
+									   .Include("Comments")
+									   .Include("Comments.Answers")
+									   .Include("Emails");
+		}
+
+		public IEnumerable<Conversation> GetByAccountId(string accountId)
+		{
+			return GetAll();
+			//return _conversationContext.Conversations
+			//						   .Where(c => c.NewestEmail.AccountId == accountId)
+			//						   .Include(c => c.Comments)
+			//						   .Include("Comments.Answers")
+			//						   .Include(c => c.Emails);
+		}
+
+		public IEnumerable<Conversation> GetByAccountIdAndFolders(string accountId, IEnumerable<EmailFolder> folders)
+		{
+			return GetAll();
+		}
+
+		public IEnumerable<Conversation> GetByAccountIdAndEmails(string accountId, IEnumerable<EmailItem> emails)
+		{
+			return GetAll();
 		}
 
 		public override void Remove(Conversation entity)
@@ -33,11 +57,11 @@ namespace EmailPingPong.Infrastructure.Repositories
 		{
 			var aggregator = new List<Comment>();
 			comments.ForEach(comment =>
-			{
-				aggregator.AddRange(comment.Answers);
-				aggregator.AddRange(CascadeComments(comment.Answers));
-				comment.Answers.Clear();
-			});
+				{
+					aggregator.AddRange(comment.Answers);
+					aggregator.AddRange(CascadeComments(comment.Answers));
+					comment.Answers.Clear();
+				});
 			return aggregator;
 		}
 

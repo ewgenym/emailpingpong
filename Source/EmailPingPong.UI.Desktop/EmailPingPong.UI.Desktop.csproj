@@ -64,6 +64,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.4.3.1\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CompilerServices.AsyncTargetingPack.Net4">
+      <HintPath>..\packages\Microsoft.CompilerServices.AsyncTargetingPack.1.0.0\lib\net40\Microsoft.CompilerServices.AsyncTargetingPack.Net4.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Interactions">
       <HintPath>..\packages\Prism.4.1.0.0\lib\NET40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
@@ -115,8 +118,15 @@
     <Compile Include="Utils\TreeListViewExtensions.cs" />
     <Compile Include="Utils\EnumerationExtension.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
+    <Compile Include="ViewModels\ConversationTreeItemsBinder.cs" />
     <Compile Include="ViewModels\ConversationTreeViewModel.cs" />
     <Compile Include="ViewModels\ConversationViewModel.cs" />
+    <Compile Include="ViewModels\FolderViewModel.cs" />
+    <Compile Include="ViewModels\GroupBy.cs" />
+    <Compile Include="ViewModels\ItemState.cs" />
+    <Compile Include="ViewModels\SearchIn.cs" />
+    <Compile Include="ViewModels\TreeViewItemsIterator.cs" />
+    <Compile Include="ViewModels\TreeViewItemsState.cs" />
     <Compile Include="ViewModels\TreeViewItemViewModel.cs" />
     <Compile Include="Utils\DisplayStringAttribute.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
