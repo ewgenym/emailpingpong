@@ -19,5 +19,8 @@ namespace EmailPingPong.Core.Model
 		//TODO: consider using MessageDeliveryTime (PR_MESSAGE_DELIVERY_TIME)
 		[Required]
 		public DateTime CreationTime { get; set; }
+
+		[Required]
+		public bool IsUnread { get; set; }
 	}
 }

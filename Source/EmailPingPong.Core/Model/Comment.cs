@@ -28,10 +28,17 @@ namespace EmailPingPong.Core.Model
 
 		public IList<Comment> Answers { get; set; }
 
+		public EmailItem OriginalEmail { get; set; }
+
 		public void AddAnswer(Comment answer)
 		{
 			answer.Parent = this;
 			Answers.Add(answer);
+
+			if (answer.OriginalEmail == null)
+			{
+				answer.OriginalEmail = OriginalEmail;
+			}
 		}
 	}
 }

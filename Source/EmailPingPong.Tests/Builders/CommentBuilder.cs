@@ -42,5 +42,11 @@ namespace EmailPingPong.Tests.Builders
 			EntityToBuild.AddAnswer(answer);
 			return this;
 		}
+
+		public CommentBuilder WithOriginalEmail(EmailItem email)
+		{
+			EntityToBuild.OriginalEmail = email;
+			return this;
+		}
 	}
 }

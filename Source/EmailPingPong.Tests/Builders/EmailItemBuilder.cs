@@ -42,5 +42,11 @@ namespace EmailPingPong.Tests.Builders
 			EntityToBuild.CreationTime = dateTime;
 			return this;
 		}
+
+		public EmailItemBuilder WithIsUnread(bool isUnread)
+		{
+			EntityToBuild.IsUnread = isUnread;
+			return this;
+		}
 	}
 } 

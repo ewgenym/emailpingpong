@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using EmailPingPong.Infrastructure;
@@ -23,6 +17,7 @@ namespace EmailPingPong.TestApp
 		protected override void OnStartup(StartupEventArgs e)
 		{
 			base.OnStartup(e);
+
 			_container = new WindsorContainer();
 			_container.Register(Component.For<IWindsorContainer>().Instance(_container));
 			ServiceLocator.Container = _container;

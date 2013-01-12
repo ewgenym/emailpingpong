@@ -13,8 +13,8 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		public FolderViewModel(TreeViewItemViewModel parent, Conversation conversation) : base(parent)
 		{
 			_conversation = conversation;
-			_comments =
-				new ReadOnlyCollection<CommentViewModel>(conversation.Comments.Select(c => new CommentViewModel(this, c)).ToList());
+			_comments = new ReadOnlyCollection<CommentViewModel>(conversation.Comments.Select(c => new CommentViewModel(this, c)).ToList());
+			IsUnread = conversation.Emails.Any(e => e.IsUnread);
 		}
 
 		public override IEnumerable<TreeViewItemViewModel> Childs
@@ -33,6 +33,39 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		public ReadOnlyCollection<CommentViewModel> Comments
 		{
 			get { return _comments; }
+		}
+
+		public Conversation Conversation
+		{
+			get { return _conversation; }
+		}
+
+		public override int GetHashCode()
+		{
+			return _conversation.GetHashCode();
+		}
+
+		public override bool Equals(object other)
+		{
+			if (ReferenceEquals(this, other))
+			{
+				return true;
+			}
+
+			if ((other == null) || !(other is FolderViewModel))
+			{
+				return false;
+			}
+
+			var thisType = GetType();
+			var otherType = other.GetType();
+
+			if (thisType != otherType)
+			{
+				return false;
+			}
+
+			return Conversation == (other as FolderViewModel).Conversation;
 		}
 	}
 }

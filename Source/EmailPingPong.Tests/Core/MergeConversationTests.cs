@@ -187,5 +187,82 @@ namespace EmailPingPong.Tests.Core
 			target.Comments[0].Id.Should().Be(1);
 			target.Comments[0].Body.Should().Be("Body 2");
 		}
+
+		[Fact]
+		public void should_save_newest_email_for_conversation()
+		{
+			// arrange
+			var originalEmail = Create.EmailItem()
+									  .WithCreationTime(new DateTime(2013, 1, 12))
+									  .Build();
+			var originalConversation = Create.Conversation()
+											 .WithConversationId("1")
+											 .WithEmail(originalEmail)
+											 .Build();
+
+			var targetEmail = Create.EmailItem()
+									.WithCreationTime(new DateTime(2013, 1, 13))
+									.Build();
+
+			var targetConversation = Create.Conversation()
+				.WithConversationId("1")
+				.WithEmail(targetEmail)
+				.Build();
+
+			// act
+			originalConversation.Merge(targetConversation);
+
+			// assert
+			originalConversation.Emails.Should().HaveCount(2);
+			originalConversation.NewestEmail.Should().BeSameAs(targetEmail);
+		}
+		
+		[Fact]
+		public void should_save_original_emails_for_comments()
+		{
+			// arrange
+			var originalEmail = Create.EmailItem()
+			                          .WithCreationTime(new DateTime(2013, 1, 12))
+			                          .Build();
+			var originalComment = Create.Comment()
+			                            .WithId(1)
+			                            .Build();
+
+			var originalConversation = Create.Conversation()
+			                                 .WithConversationId("1")
+			                                 .WithEmail(originalEmail)
+			                                 .WithComment(originalComment)
+			                                 .Build();
+
+			var targetEmail = Create.EmailItem()
+			                        .WithCreationTime(new DateTime(2013, 1, 13))
+			                        .Build();
+
+			var targetComment = Create.Comment()
+			                          .WithId(1)
+			                          .Build();
+
+			var targetAnswer = Create.Comment()
+			                         .WithId(2)
+			                         .Build();
+
+			var targetConversation = Create.Conversation()
+				.WithConversationId("1")
+				.WithEmail(targetEmail)
+				.WithComment(targetComment)
+				.Build();
+
+			targetComment.AddAnswer(targetAnswer);
+
+			// act
+			originalConversation.Merge(targetConversation);
+
+			// assert
+			originalConversation.Comments.Should().HaveCount(1);
+			originalConversation.Comments[0].OriginalEmail.Should().BeSameAs(originalEmail);
+
+			originalConversation.Comments[0].Answers.Should().HaveCount(1);
+			originalConversation.Comments[0].Answers[0].OriginalEmail.Should().BeSameAs(targetEmail);
+		}
 	}
 }

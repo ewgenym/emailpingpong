@@ -7,6 +7,11 @@ using EmailPingPong.Core.Repositories;
 
 namespace EmailPingPong.UI.Desktop.ViewModels
 {
+	public interface IConversationTreeItemsBinder
+	{
+		Task<IList<TreeViewItemViewModel>> BindTreeViewItems(ConversationViewCriteria criteria);
+	}
+
 	public class ConversationTreeItemsBinder : IConversationTreeItemsBinder
 	{
 		private readonly IConversationRepository _conversationRepository;
@@ -16,14 +21,11 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			_conversationRepository = conversationRepository;
 		}
 
-		public async Task<IList<TreeViewItemViewModel>> BindTreeViewItems(GroupBy groupBy,
-																		  SearchIn searchIn,
-																		  string accountId, IEnumerable<EmailFolder> folders,
-																		  IEnumerable<EmailItem> emails)
+		public async Task<IList<TreeViewItemViewModel>> BindTreeViewItems(ConversationViewCriteria criteria)
 		{
-			var conversations = await GetConversationsInScope(searchIn, accountId, folders, emails);
+			var conversations = await GetConversationsInScope(criteria);
 			IList<TreeViewItemViewModel> treeViewItems;
-			switch (groupBy)
+			switch (criteria.GroupBy)
 			{
 				case GroupBy.Email:
 					treeViewItems = BindByEmail(conversations);
@@ -62,28 +64,19 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 						   .ToList();
 		}
 
-		private Task<List<Conversation>> GetConversationsInScope(SearchIn searchIn, string accountId,
-																 IEnumerable<EmailFolder> folders,
-																 IEnumerable<EmailItem> emails)
+		private Task<List<Conversation>> GetConversationsInScope(ConversationViewCriteria criteria)
 		{
-			switch (searchIn)
+			switch (criteria.SearchIn)
 			{
 				case SearchIn.AllFolders:
-					return Task.Factory.StartNew(() => _conversationRepository.GetByAccountId(accountId).ToList());
+					return Task.Factory.StartNew(() => _conversationRepository.GetByAccountId(criteria.AccountId).ToList());
 				case SearchIn.CurrentFolder:
-					return Task.Factory.StartNew(() => _conversationRepository.GetByAccountIdAndFolders(accountId, folders).ToList());
+					return Task.Factory.StartNew(() => _conversationRepository.GetByAccountIdAndFolders(criteria.AccountId, criteria.Folders).ToList());
 				case SearchIn.CurrentEmail:
-					return Task.Factory.StartNew(() => _conversationRepository.GetByAccountIdAndEmails(accountId, emails).ToList());
+					return Task.Factory.StartNew(() => _conversationRepository.GetByAccountIdAndEmails(criteria.AccountId, criteria.Emails).ToList());
 				default:
-					throw new NotSupportedException(string.Format("Search filter '{0}' is not supported.", searchIn.ToString()));
+					throw new NotSupportedException(string.Format("Search filter '{0}' is not supported.", criteria.SearchIn.ToString()));
 			}
 		}
-	}
-
-	public interface IConversationTreeItemsBinder
-	{
-		Task<IList<TreeViewItemViewModel>> BindTreeViewItems(GroupBy groupBy,
-															 SearchIn searchIn, string accountId,
-															 IEnumerable<EmailFolder> folders, IEnumerable<EmailItem> emails);
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using EmailPingPong.Core.Model;
+using EmailPingPong.Core.Utils;
 
 namespace EmailPingPong.UI.Desktop.ViewModels
 {
@@ -20,6 +21,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 																	.Answers
 																	.Select(a => new CommentViewModel(this, a))
 																	.ToList());
+			IsUnread = comment.With(c => c.OriginalEmail).Return(e => e.IsUnread);
 		}
 
 		public override IEnumerable<TreeViewItemViewModel> Childs
@@ -48,6 +50,39 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		public ReadOnlyCollection<CommentViewModel> Answers
 		{
 			get { return _answers; }
+		}
+
+		public Comment Comment
+		{
+			get { return _comment; }
+		}
+
+		public override int GetHashCode()
+		{
+			return _comment.GetHashCode();
+		}
+
+		public override bool Equals(object other)
+		{
+			if (ReferenceEquals(this, other))
+			{
+				return true;
+			}
+
+			if ((other == null) || !(other is CommentViewModel))
+			{
+				return false;
+			}
+
+			var thisType = GetType();
+			var otherType = other.GetType();
+
+			if (thisType != otherType)
+			{
+				return false;
+			}
+
+			return Comment == (other as CommentViewModel).Comment;
 		}
 	}
 }

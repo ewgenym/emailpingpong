@@ -54,6 +54,7 @@
     <Compile Include="Model\Conversation.cs" />
     <Compile Include="Model\EmailFolder.cs" />
     <Compile Include="Model\EmailItem.cs" />
+    <Compile Include="Model\FlatCommentsIterator.cs" />
     <Compile Include="Model\IValueObject.cs" />
     <Compile Include="Model\ModelEntityWithLongId.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Utils\DateTimeExtensions.cs" />
     <Compile Include="Utils\EnumerableExtensions.cs" />
+    <Compile Include="Utils\Maybe.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\EmailPingPong.snk">

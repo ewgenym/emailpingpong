@@ -115,11 +115,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Utils\EnumerableExtensions.cs" />
     <Compile Include="Utils\TreeListViewExtensions.cs" />
     <Compile Include="Utils\EnumerationExtension.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\ConversationTreeItemsBinder.cs" />
     <Compile Include="ViewModels\ConversationTreeViewModel.cs" />
+    <Compile Include="ViewModels\ConversationViewCriteria.cs" />
     <Compile Include="ViewModels\ConversationViewModel.cs" />
     <Compile Include="ViewModels\FolderViewModel.cs" />
     <Compile Include="ViewModels\GroupBy.cs" />

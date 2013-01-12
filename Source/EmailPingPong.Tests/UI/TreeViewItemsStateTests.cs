@@ -36,15 +36,16 @@ namespace EmailPingPong.Tests.UI
 		}
 
 		[Fact]
-		public void should_save_state_for_tree_view_items_with_chailds()
+		public void should_save_state_for_tree_view_items_with_childs()
 		{
 			// arrange
 			var statePersister = new TreeViewItemsState<string>();
 			var items = new List<TreeViewItemViewModel>
 				{
-					new CommentViewModel(null, Create.Comment().WithAnswer(Create
-						                                                       .Comment()
-						                                                       .Build())
+					new CommentViewModel(null, Create.Comment()
+					                                 .WithAnswer(
+						                                 Create.Comment()
+						                                       .Build())
 					                                 .Build()),
 				};
 			items[0].Childs.ElementAt(0).IsExpanded = true;

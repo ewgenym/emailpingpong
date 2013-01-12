@@ -16,7 +16,7 @@ namespace EmailPingPong.Tests.Builders
 
 		public ConversationBuilder WithComment(Comment comment)
 		{
-			EntityToBuild.Comments.Add(comment);
+			EntityToBuild.AddComment(comment);
 			return this;
 		}
 

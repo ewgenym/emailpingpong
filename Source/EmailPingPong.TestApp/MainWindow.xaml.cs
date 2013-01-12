@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using EmailPingPong.Core.Model;
+using EmailPingPong.Infrastructure;
+using EmailPingPong.Infrastructure.Events;
+using Microsoft.Practices.Prism.Events;
 
 namespace EmailPingPong.TestApp
 {
@@ -23,6 +15,31 @@ namespace EmailPingPong.TestApp
 		public MainWindow()
 		{
 			InitializeComponent();
+		}
+
+		private void Button_Click_1(object sender, RoutedEventArgs e)
+		{
+			var eventAggregator = ServiceLocator.Container.Resolve<IEventAggregator>();
+			eventAggregator.GetEvent<MailFolderSwitchedEvent>()
+						   .Publish(new MailFolderSwitchedArgs(AccountId.Text, new List<EmailFolder>()
+				               {
+					               new EmailFolder("1", FolderId.Text, "Inbox")
+				               }));
+		}
+
+		private void Button_Click_2(object sender, RoutedEventArgs e)
+		{
+			var eventAggregator = ServiceLocator.Container.Resolve<IEventAggregator>();
+			eventAggregator.GetEvent<EmailItemSwitchedEvent>()
+						   .Publish(new EmailItemSwitchedArgs(AccountId.Text, new List<EmailItem>()
+				               {
+					               new EmailItem
+						               {
+							               AccountId = AccountId.Text,
+							               ItemId = EmailId.Text,
+							               Subject = "Some subject"
+						               }
+				               }));
 		}
 	}
 }

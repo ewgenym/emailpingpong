@@ -7,6 +7,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		private readonly TreeViewItemViewModel _parent;
 		private bool _isExpanded;
 		private bool _isSelected;
+		private bool _isUnread;
 
 		protected TreeViewItemViewModel(TreeViewItemViewModel parent)
 		{
@@ -42,6 +43,19 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 				{
 					_isSelected = value;
 					OnPropertyChanged("IsSelected");
+				}
+			}
+		}
+
+		public bool IsUnread
+		{
+			get { return _isUnread; }
+			set
+			{
+				if (value != _isUnread)
+				{
+					_isUnread = value;
+					OnPropertyChanged("IsUnread");
 				}
 			}
 		}

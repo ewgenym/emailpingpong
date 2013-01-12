@@ -13,7 +13,14 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 
 		public void SaveState(TKey key, IEnumerable<TreeViewItemViewModel> items)
 		{
-			_itemsState[key] = GetState(items);
+			if (_itemsState.ContainsKey(key))
+			{
+				_itemsState[key] = GetState(items);
+			}
+			else
+			{
+				_itemsState.Add(key, GetState(items));
+			}
 		}
 
 		private IDictionary<TreeViewItemViewModel, ItemState> GetState(IEnumerable<TreeViewItemViewModel> items)
@@ -44,9 +51,12 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		{
 			foreach (var item in new TreeViewItemsIterator(items))
 			{
-				var state = itemsState[item];
-				item.IsExpanded = state.IsExpanded;
-				item.IsSelected = state.IsSelected;
+				ItemState state;
+				if (itemsState.TryGetValue(item, out state))
+				{
+					item.IsExpanded = state.IsExpanded;
+					item.IsSelected = state.IsSelected;
+				}
 			}
 		}
 	}

@@ -22,7 +22,31 @@ namespace EmailPingPong.Core.Model
 
 		public IList<Comment> Comments { get; set; }
 
+		private void ClearComments()
+		{
+			Comments.Clear();
+		}
+
+		public void AddComment(Comment comment)
+		{
+			Comments.Add(comment);
+			if (comment.OriginalEmail == null)
+			{
+				comment.OriginalEmail = NewestEmail;
+			}
+		}
+
+		private void AddCommentsRange(IEnumerable<Comment> comments)
+		{
+			comments.ForEach(AddComment);
+		}
+
 		public IList<EmailItem> Emails { get; set; }
+
+		public void AddEmail(EmailItem emailItem)
+		{
+			Emails.Add(emailItem);
+		}
 
 		public EmailItem NewestEmail
 		{
@@ -41,11 +65,25 @@ namespace EmailPingPong.Core.Model
 
 			if (sourceConversation.IsNewerThan(this))
 			{
-				Comments.Clear();
-				Comments.AddRange(sourceConversation.Comments);
+				UpdateComments(sourceConversation);
 
-				Emails.Add(sourceConversation.NewestEmail);
+				ClearComments();
+				AddCommentsRange(sourceConversation.Comments);
+
+				AddEmail(sourceConversation.NewestEmail);
 			}
+		}
+
+		private void UpdateComments(Conversation sourceConversation)
+		{
+			var targetComments = new FlatCommentsIterator(Comments).ToList();
+			var sourceComments = new FlatCommentsIterator(sourceConversation.Comments).ToList();
+
+			var commentsToUpdate = sourceComments.Join(targetComments, first => first.Id, second => second.Id,
+			                                                        (comment1, comment2) =>
+			                                                        new {First = comment1, Second = comment2});
+
+			commentsToUpdate.ForEach(t => { t.First.OriginalEmail = t.Second.OriginalEmail; });
 		}
 
 		private bool IsNewerThan(Conversation conversation)

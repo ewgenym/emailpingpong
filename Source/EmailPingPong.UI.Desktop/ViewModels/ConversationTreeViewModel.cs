@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using EmailPingPong.Core.Model;
-using EmailPingPong.Core.Repositories;
 using EmailPingPong.Infrastructure.Events;
 using Microsoft.Practices.Prism.Events;
 
@@ -12,7 +9,6 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 {
 	public class ConversationTreeViewModel : ViewModelBase
 	{
-		private readonly IConversationRepository _conversationRepository;
 		private ReadOnlyCollection<TreeViewItemViewModel> _items;
 		private GroupBy _groupBy;
 		private SearchIn _searchIn;
@@ -20,11 +16,14 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		private IEnumerable<EmailItem> _emails;
 		private IEnumerable<EmailFolder> _folders;
 		private readonly IConversationTreeItemsBinder _treeViewItemsBinder;
+		private readonly TreeViewItemsState<ConversationViewCriteria> _statePersister;
+		private ConversationViewCriteria _latestCriteria;
 
-		public ConversationTreeViewModel(IConversationRepository conversationRepository, IEventAggregator eventAggregator, IConversationTreeItemsBinder treeViewItemsBinder)
+		public ConversationTreeViewModel(IConversationTreeItemsBinder treeViewItemsBinder,
+										 IEventAggregator eventAggregator)
 		{
-			_conversationRepository = conversationRepository;
 			_treeViewItemsBinder = treeViewItemsBinder;
+			_statePersister = new TreeViewItemsState<ConversationViewCriteria>();
 
 			eventAggregator.GetEvent<MailFolderSwitchedEvent>().Subscribe(OnMailFolderSwitched, ThreadOption.PublisherThread);
 			eventAggregator.GetEvent<EmailItemSwitchedEvent>().Subscribe(OnEmailItemSwitched, ThreadOption.PublisherThread);
@@ -70,12 +69,24 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			}
 		}
 
-		private async void BindData()
+		public async Task BindData()
 		{
-			var treeViewItems = await _treeViewItemsBinder.BindTreeViewItems(_groupBy, _searchIn, _accountId, _folders, _emails);
-			Items = new ReadOnlyCollection<TreeViewItemViewModel>(treeViewItems);
+			var currentCriteria = GetViewCriteria();
+			_statePersister.SaveState(_latestCriteria ?? currentCriteria, Items);
+
+			var treeViewItems = await _treeViewItemsBinder.BindTreeViewItems(currentCriteria);
+			var items = new ReadOnlyCollection<TreeViewItemViewModel>(treeViewItems);
+
+			_statePersister.RestoreState(currentCriteria, items);
+			Items = items;
+
+			_latestCriteria = currentCriteria;
 		}
 
+		private ConversationViewCriteria GetViewCriteria()
+		{
+			return new ConversationViewCriteria(_groupBy, _searchIn, _accountId, _emails, _folders);
+		}
 
 		public ReadOnlyCollection<TreeViewItemViewModel> Items
 		{

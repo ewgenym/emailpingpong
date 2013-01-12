@@ -15,7 +15,7 @@ Group by:
 	- Comment
 		- Answer (Comment)
 
-Search in (Globa scope is current account):
+Search in (Global scope is current account):
 - AllFolders
 - CurrentFolder
 - CurrentEmail

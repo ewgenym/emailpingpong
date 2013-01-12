@@ -15,7 +15,7 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
-			<RowDefinition Height="424*" />
+			<RowDefinition Height="*" />
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
@@ -37,25 +37,32 @@
 				<Style TargetType="{x:Type TreeViewItem}">
 					<Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
 					<Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+					<Setter Property="FontWeight" Value="{Binding IsUnread, Mode=OneWay}" />
+					<Style.Triggers>
+						<DataTrigger Binding="{Binding IsUnread}" Value="True">
+							<Setter Property="FontWeight" Value="Bold" />
+						</DataTrigger>
+						<DataTrigger Binding="{Binding IsUnread}" Value="False">
+							<Setter Property="FontWeight" Value="Normal" />
+						</DataTrigger>
+					</Style.Triggers>
 				</Style>
 			</TreeView.ItemContainerStyle>
 			<TreeView.Resources>
 				<HierarchicalDataTemplate DataType="{x:Type local:CommentViewModel}" ItemsSource="{Binding Answers}">
 					<Grid>
 						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto" />
-							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="*" />
 						</Grid.ColumnDefinitions>
 						<Grid.RowDefinitions>
-							<RowDefinition Height="*" />
-							<RowDefinition Height="*" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
 						</Grid.RowDefinitions>
-						<TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Author}" FontStyle="Italic" />
-						<TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding CreatedOn, StringFormat={}{0:MMMM dd\, yyyy} at {0:t}}" />
-						<TextBlock Grid.ColumnSpan="2" Grid.Row="1"
-						           TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxHeight="38"
-						           Text="{Binding Body}">
-						</TextBlock>
+						
+						<TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Author}" FontStyle="Italic" Foreground="Gray" Margin="0,0,5,0" />
+						<TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding CreatedOn, StringFormat={}{0:MMMM dd\, yyyy} at {0:t}}" Foreground="Gray" />
+						<TextBlock Grid.ColumnSpan="2" Grid.Row="1" Text="{Binding Body}" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxHeight="38" />
 					</Grid>
 				</HierarchicalDataTemplate>
 				<HierarchicalDataTemplate DataType="{x:Type local:ConversationViewModel}" ItemsSource="{Binding Comments}">
