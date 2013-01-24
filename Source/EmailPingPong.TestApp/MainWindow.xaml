@@ -3,9 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Views="clr-namespace:EmailPingPong.UI.Desktop.Views;assembly=EmailPingPong.UI.Desktop" x:Class="EmailPingPong.TestApp.MainWindow"
         Title="MainWindow" Height="379" Width="562">
-	<StackPanel Orientation="Horizontal">
-		<Views:ConversationTree HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="313" Width="381" />
-		<StackPanel Orientation="Vertical" Width="129">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<Views:ConversationTree Grid.Column="0" Grid.Row="0"/>
+		<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1" Width="200">
 			<TextBlock Text="Account Id:"/>
 			<TextBox Name="AccountId"/>
 			<TextBlock Text="Folder Id:"/>
@@ -14,6 +21,6 @@
 			<TextBlock Text="Email Id:"/>
 			<TextBox Name="EmailId"></TextBox>
 			<Button Height="25" Content="Bind Email" Click="Button_Click_2"></Button>
-		</StackPanel>
-	</StackPanel>
+		</StackPanel>		
+	</Grid>
 </Window>

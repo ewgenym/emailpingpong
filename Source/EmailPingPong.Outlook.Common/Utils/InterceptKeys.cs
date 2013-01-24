@@ -8,17 +8,17 @@ namespace EmailPingPong.Outlook.Common.Utils
 	{
 		public delegate int LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
 
-		private static readonly LowLevelKeyboardProc _keyboardProc = HookCallback;
+		private static readonly LowLevelKeyboardProc KeyboardProc = HookCallback;
 
 		private static IntPtr _hookHandle = IntPtr.Zero;
 
-		private const int WH_KEYBOARD = 2;
+		private const int WhKeyboard = 2;
 
-		private const int HC_ACTION = 0;
+		private const int HcAction = 0;
 
 		public static void SetHook()
 		{
-			_hookHandle = SetWindowsHookEx(WH_KEYBOARD, _keyboardProc, IntPtr.Zero, (uint)AppDomain.GetCurrentThreadId());
+			_hookHandle = SetWindowsHookEx(WhKeyboard, KeyboardProc, IntPtr.Zero, (uint)AppDomain.GetCurrentThreadId());
 		}
 
 		public static void ReleaseHook()
@@ -35,7 +35,7 @@ namespace EmailPingPong.Outlook.Common.Utils
 				return (int)CallNextHookEx(_hookHandle, nCode, wParam, lParam);
 			}
 
-			if (nCode == HC_ACTION)
+			if (nCode == HcAction)
 			{
 				var keyDown = KeyDown;
 				if (keyDown != null)

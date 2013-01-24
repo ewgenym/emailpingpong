@@ -90,7 +90,7 @@
     <Compile Include="Configuration\IApplicationConfigurator.cs" />
     <Compile Include="Configuration\Implementation\GenericApplicationConfigurator.cs" />
     <Compile Include="EventPublisher.cs" />
-    <Compile Include="Events\ConversationAddedEvent.cs" />
+    <Compile Include="Events\ConversationMergedEvent.cs" />
     <Compile Include="Events\EmailItemChangedEvent.cs" />
     <Compile Include="Events\EmailItemSwitchedEvent.cs" />
     <Compile Include="Events\MailFolderSwitchedEvent.cs" />
@@ -102,6 +102,7 @@
     <Compile Include="Repositories\DbRepository.cs" />
     <Compile Include="Repositories\ConversationContext.cs" />
     <Compile Include="ServiceLocator.cs" />
+    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\EmailPingPong.snk">

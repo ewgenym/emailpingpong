@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using EmailPingPong.Outlook.Common;
-using Outlook = Microsoft.Office.Interop.Outlook;
-using Office = Microsoft.Office.Core;
 
 namespace EmailPingPong.Outlook2010
 {
@@ -12,16 +10,16 @@ namespace EmailPingPong.Outlook2010
 
 		private void ThisAddIn_Startup(object sender, EventArgs e)
 		{
-			try
+			//try
 			{
 				_addInBootstrapper = new OutlookAddInBootstrapper();
 				_addInBootstrapper.Startup();
 			}
-			catch (Exception ex)
-			{
-				LogErrorInApplicationEventLog(ex);
-				throw;
-			}
+			//catch (Exception ex)
+			//{
+			//	LogErrorInApplicationEventLog(ex);
+			//	throw;
+			//}
 		}
 
 		private void ThisAddIn_Shutdown(object sender, EventArgs e)
@@ -43,8 +41,7 @@ namespace EmailPingPong.Outlook2010
 											 Environment.NewLine,
 											 exception);
 
-			var eventSource = AppDomain.CurrentDomain.SetupInformation.ApplicationName;
-			EventLog.WriteEntry(eventSource, errorMessage, EventLogEntryType.Error);
+			EventLog.WriteEntry("EmailPingPong", errorMessage, EventLogEntryType.Error);
 		}
 
 		#region VSTO generated code

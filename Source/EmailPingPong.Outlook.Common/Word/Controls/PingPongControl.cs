@@ -1,17 +1,19 @@
 ﻿using System;
-using EmailPingPong.UI.Word.Utils;
+using EmailPingPong.Outlook.Common.Word.Utils;
 using Microsoft.Office.Interop.Word;
 
-namespace EmailPingPong.UI.Word.Controls
+namespace EmailPingPong.Outlook.Common.Word.Controls
 {
 	public abstract class PingPongControl
 	{
 		private readonly Document _document;
+		private readonly string _conversationId;
 
-		public PingPongControl(Document document)
+		public PingPongControl(Document document, string conversationId)
 		{
 			_document = document;
-			
+			_conversationId = conversationId;
+
 			if (!_document.FormsDesign)
 			{
 				//_document.ToggleFormsDesign();
@@ -63,7 +65,7 @@ namespace EmailPingPong.UI.Word.Controls
 			bodyControl.Title = Tag;
 			//TODO: at least introduce PingPongMetadat class and searialize it to tag property instead. Include original author
 			var creationDate = DateTime.UtcNow.ToString("u");
-			bodyControl.Tag = Tag + ";" + creationDate;
+			bodyControl.Tag = Tag + ";" + creationDate + ";" + _conversationId;
 			
 			return bodyControl;
 		}

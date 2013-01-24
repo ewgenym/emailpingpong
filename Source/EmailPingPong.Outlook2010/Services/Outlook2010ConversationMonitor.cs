@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using EmailPingPong.Core.Commands;
+using EmailPingPong.Infrastructure;
 using EmailPingPong.Infrastructure.Events;
+using EmailPingPong.Infrastructure.Repositories;
 using EmailPingPong.Outlook.Common.Conversation.Implementation;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Practices.Prism.Events;
@@ -9,15 +11,19 @@ namespace EmailPingPong.Outlook2010.Services
 {
 	public class Outlook2010ConversationMonitor : ConversationMonitorBase
 	{
+		private readonly ConversationContext _context;
 		private readonly ICommandDispatcher _commands;
 		private Dictionary<Folder, Items> _folderItems;
 		private readonly IConversationBinder _conversationBinder;
 		private readonly IEventAggregator _eventAggregator;
+		private Explorer _explorer;
 
-		public Outlook2010ConversationMonitor(ICommandDispatcher commands,
+		public Outlook2010ConversationMonitor(ConversationContext context,
+											  ICommandDispatcher commands,
 											  IConversationBinder conversationBinder,
 											  IEventAggregator eventAggregator)
 		{
+			_context = context;
 			_commands = commands;
 			_conversationBinder = conversationBinder;
 			_eventAggregator = eventAggregator;
@@ -25,6 +31,10 @@ namespace EmailPingPong.Outlook2010.Services
 
 		public override void StartWatch()
 		{
+			_explorer = Globals.ThisAddIn.Application.ActiveExplorer();
+			_explorer.FolderSwitch += OnFolderSwitch;
+			_explorer.SelectionChange += OnSelectionChange;
+
 			// Synchronization should be done when:
 			// TODO:
 			// -E-mail was moved from one folder to another
@@ -36,62 +46,99 @@ namespace EmailPingPong.Outlook2010.Services
 
 			foreach (Account account in Globals.ThisAddIn.Application.Session.Accounts)
 			{
-				var inbox = (Folder)account.DeliveryStore.GetDefaultFolder(OlDefaultFolders.olFolderInbox);
-				GetFoldersWithChilds(inbox);
-
-				foreach (var folderItem in _folderItems)
+				var store = account.DeliveryStore;
+				if (!store.IsOpen)
 				{
-					var folder = folderItem.Key;
-					folder.BeforeItemMove += MailItemRemoved;
-
-					var items = folderItem.Value;
-					items.ItemAdd += MailItemAdded;
-					items.ItemChange += MailItemChanged;
+					continue;
 				}
 
-				// -E-mail was created but not sent. It was saved to draft folders instead.
-				var draft = (Folder)account.DeliveryStore.GetDefaultFolder(OlDefaultFolders.olFolderDrafts);
-				_folderItems.Add(draft, draft.Items);
-				var draftItems = draft.Items;
-				draftItems.ItemAdd += MailItemAdded;
-				draftItems.ItemChange += MailItemAdded; //MailItemChanged
-
-				// -New e-mail is sent. When there is no connection with server as well. (Two options here: 1) monitor Sent folder 2) monitor Application.ItemSend event)
-				//var sent = this.Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderSentMail);
-				//_sentItems = sent.Items;
-				//_sentItems.ItemAdd += SyncConversation;
+				var root = (Folder)store.GetDefaultFolder(OlDefaultFolders.olFolderInbox);
+				EnumerateFoldersHierarchy(root, _folderItems);
 			}
-		}
 
-		private void GetFoldersWithChilds(Folder root)
-		{
-			_folderItems.Add(root, root.Items);
-			foreach (Folder folder in root.Folders)
+			foreach (var folderItem in _folderItems)
 			{
-				GetFoldersWithChilds(folder);
+				var folder = folderItem.Key;
+				var items = folderItem.Value;
+
+				items.ItemAdd += OnMailItemAdded;
+				items.ItemChange += OnMailItemChanged;
+
+				//folder.BeforeItemMove += MailItemRemoved;
+			}
+
+			// E-mail was created but not sent. It was saved to draft folders instead.
+			//var draft = (Folder)store.GetDefaultFolder(OlDefaultFolders.olFolderDrafts);
+			//_folderItems.Add(draft, draft.Items);
+			//var draftItems = draft.Items;
+			//draftItems.ItemAdd += MailItemAdded;
+			//draftItems.ItemChange += MailItemAdded; //MailItemChanged
+
+			// -New e-mail is sent. When there is no connection with server as well. (Two options here: 1) monitor Sent folder 2) monitor Application.ItemSend event)
+			//var sent = this.Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderSentMail);
+			//_sentItems = sent.Items;
+			//_sentItems.ItemAdd += SyncConversation;
+
+			//break;
+
+		}
+
+		private void OnFolderSwitch()
+		{
+			_eventAggregator.GetEvent<MailFolderSwitchedEvent>().Publish(new MailFolderSwitchedArgs("", null));
+		}
+
+		private void OnSelectionChange()
+		{
+			//throw new System.NotImplementedException();
+		}
+
+		private void EnumerateFoldersHierarchy(Folder root, Dictionary<Folder, Items> folderItems)
+		{
+			if (root.DefaultItemType == OlItemType.olMailItem)
+			{
+				folderItems.Add(root, root.Items);
+
+				if (root.Folders.Count <= 0)
+				{
+					return;
+				}
+
+				foreach (Folder folder in root.Folders)
+				{
+					EnumerateFoldersHierarchy(folder, folderItems);
+				}
 			}
 		}
 
-		private void MailItemAdded(object item)
+		private void OnMailItemAdded(object item)
 		{
 			var conversation = _conversationBinder.Bind((MailItem)item);
-			_commands.Dispatch(new MergeConversation(conversation));
-			_eventAggregator.GetEvent<ConversationAddedEvent>().Publish(conversation);
+			if (conversation == null)
+			{
+				return;
+			}
+
+			using (new UnitOfWork(_context))
+			{
+				_commands.Dispatch(new MergeConversation(conversation));
+			}
+			_eventAggregator.GetEvent<ConversationMergedEvent>().Publish(conversation);
 		}
 
-		private void MailItemChanged(object item)
+		private void OnMailItemChanged(object item)
 		{
-			//Occurs when mail item is changes. For instance when it was unread and becomes read.
-			//Event is usefull to sych the tree with read\unread value
+			var conversation = _conversationBinder.Bind((MailItem)item);
+			if (conversation == null)
+			{
+				return;
+			}
 
-			//var mailItem = (MailItem)item;
-			//var ppItem = new PingPongMailItem
-			//	{
-			//		ItemId = mailItem.EntryID,
-			//		StoreId = ((Folder)mailItem.Parent).StoreID,
-			//		FolderId = ((Folder)mailItem.Parent).EntryID,
-			//	};
-			//_bus.GetEvent<MailItemChangedEvent>().Publish(ppItem);
+			using (new UnitOfWork(_context))
+			{
+				_commands.Dispatch(new UpdateMailItem(conversation));
+			}
+			_eventAggregator.GetEvent<EmailItemChangedEvent>().Publish(new EmailItemChangedArgs(conversation.NewestEmail));
 		}
 
 		private void MailItemRemoved(object item, MAPIFolder to, ref bool cancel)
@@ -122,6 +169,7 @@ namespace EmailPingPong.Outlook2010.Services
 
 		public override void StopWatch()
 		{
+			//TODO: release objects from _folderItems
 			throw new System.NotImplementedException();
 		}
 	}

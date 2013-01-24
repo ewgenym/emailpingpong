@@ -11,7 +11,6 @@ namespace EmailPingPong.Core.Model
 		[Required]
 		public string ItemId { get; set; }
 
-		[Required]
 		public string Subject { get; set; }
 
 		public EmailFolder Folder { get; set; }

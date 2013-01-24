@@ -14,6 +14,7 @@ namespace EmailPingPong.Tests.ViewModel
 		protected MailFolderSwitchedEvent _mailFolderSwitchedEvent;
 		protected EmailItemSwitchedEvent _emailItemSwitchedEvent;
 		protected EmailItemChangedEvent _emailItemChangedEvent;
+		protected ConversationMergedEvent ConversationMergedEvent;
 
 		public ConversationTreeViewTestsBase()
 		{
@@ -24,10 +25,12 @@ namespace EmailPingPong.Tests.ViewModel
 			_mailFolderSwitchedEvent = new MailFolderSwitchedEvent();
 			_emailItemSwitchedEvent = new EmailItemSwitchedEvent();
 			_emailItemChangedEvent = new EmailItemChangedEvent();
+			ConversationMergedEvent = new ConversationMergedEvent();
 
 			_eventAggregator.GetEvent<MailFolderSwitchedEvent>().Returns(_mailFolderSwitchedEvent);
 			_eventAggregator.GetEvent<EmailItemSwitchedEvent>().Returns(_emailItemSwitchedEvent);
 			_eventAggregator.GetEvent<EmailItemChangedEvent>().Returns(_emailItemChangedEvent);
+			_eventAggregator.GetEvent<ConversationMergedEvent>().Returns(ConversationMergedEvent);
 
 			var treeViewItemsBinder = new ConversationTreeItemsBinder(_conversationRepository);
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using Castle.Windsor;
-using EmailPingPong.Core;
 using EmailPingPong.Core.Commands;
 
 namespace EmailPingPong.Infrastructure
@@ -20,7 +19,7 @@ namespace EmailPingPong.Infrastructure
 		}
 
 		public void Dispatch<T>(T command) 
-			where T : ICommand
+			where T : class, ICommand
 		{
 			if (command == null)
 			{

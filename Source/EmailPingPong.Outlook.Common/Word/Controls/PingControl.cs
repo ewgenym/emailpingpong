@@ -1,11 +1,12 @@
-﻿using Microsoft.Office.Interop.Word;
+﻿using EmailPingPong.Outlook.Common.Word.Controls;
+using Microsoft.Office.Interop.Word;
 
 namespace EmailPingPong.UI.Word.Controls
 {
 	public class PingControl : PingPongControl
 	{
-		public PingControl(Document document)
-			: base(document)
+		public PingControl(Document document, string conversationId)
+			: base(document, conversationId)
 		{
 		}
 

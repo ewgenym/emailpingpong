@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using EmailPingPong.Outlook.Common.Word.Utils;
 using Microsoft.Office.Interop.Word;
 using Comment = EmailPingPong.Core.Model.Comment;
 
 namespace EmailPingPong.Outlook.Common.Word
 {
+	//TODO: how the fuck unit test this code?
 	public class ConversationParser : IConversationParser
 	{
-		public IList<Comment> Parse(Document document)
+		public void Parse(Document document, Core.Model.Conversation conversation)
 		{
-			var questions = new List<Comment>();
+			//var questions = new List<Comment>();
 			Comment lastQuestion = null;
 
 			int i = 0;
@@ -36,7 +36,7 @@ namespace EmailPingPong.Outlook.Common.Word
 											CreatedOn = creationDate,
 						               	};
 
-						questions.Add(question);
+						conversation.AddComment(question);
 						lastQuestion = question;
 						comment = question;
 					}
@@ -53,7 +53,7 @@ namespace EmailPingPong.Outlook.Common.Word
 
 						if (lastQuestion != null)
 						{
-							lastQuestion.Answers.Add(comment);
+							lastQuestion.AddAnswer(comment);
 						}
 					}
 
@@ -74,12 +74,11 @@ namespace EmailPingPong.Outlook.Common.Word
 				}
 				i++;
 			}
-			return questions;
 		}
 	}
 
 	public interface IConversationParser
 	{
-		IList<Comment> Parse(Document document);
+		void Parse(Document document, EmailPingPong.Core.Model.Conversation conversation);
 	}
 }

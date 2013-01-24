@@ -9,11 +9,11 @@ namespace EmailPingPong.Infrastructure.Events
 
 	public class EmailItemChangedArgs
 	{
-		public EmailItemChangedArgs(EmailItem email)
+		public EmailItemChangedArgs(EmailItem emailItem)
 		{
-			Email = email;
+			EmailItem = emailItem;
 		}
 
-		public EmailItem Email { get; private set; }
+		public EmailItem EmailItem { get; private set; }
 	}
 }

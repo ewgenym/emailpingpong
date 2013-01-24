@@ -17,7 +17,6 @@ namespace EmailPingPong.Core.Model
 		[Required]
 		public string ConversationId { get; set; }
 
-		[Required]
 		public string Topic { get; set; }
 
 		public IList<Comment> Comments { get; set; }
@@ -30,13 +29,22 @@ namespace EmailPingPong.Core.Model
 		public void AddComment(Comment comment)
 		{
 			Comments.Add(comment);
-			if (comment.OriginalEmail == null)
+			var comments = new FlatCommentsIterator(comment).ToList();
+			foreach (var subComment in comments)
 			{
-				comment.OriginalEmail = NewestEmail;
+				if (subComment.OriginalEmail == null)
+				{
+					subComment.OriginalEmail = NewestEmail;
+				}
 			}
 		}
 
-		private void AddCommentsRange(IEnumerable<Comment> comments)
+		public void RemoveComment(Comment comment)
+		{
+			Comments.Remove(comment);
+		}
+
+		public void AddCommentsRange(IEnumerable<Comment> comments)
 		{
 			comments.ForEach(AddComment);
 		}
@@ -50,43 +58,10 @@ namespace EmailPingPong.Core.Model
 
 		public EmailItem NewestEmail
 		{
-			get
-			{
-				return Emails.OrderByDescending(e => e.CreationTime).FirstOrDefault();
-			}
+			get { return Emails.OrderByDescending(e => e.CreationTime).FirstOrDefault(); }
 		}
 
-		public void Merge(Conversation sourceConversation)
-		{
-			if (string.Compare(ConversationId, sourceConversation.ConversationId, StringComparison.InvariantCultureIgnoreCase) != 0)
-			{
-				throw new InvalidOperationException("Can't merge conversations with different id's");
-			}
-
-			if (sourceConversation.IsNewerThan(this))
-			{
-				UpdateComments(sourceConversation);
-
-				ClearComments();
-				AddCommentsRange(sourceConversation.Comments);
-
-				AddEmail(sourceConversation.NewestEmail);
-			}
-		}
-
-		private void UpdateComments(Conversation sourceConversation)
-		{
-			var targetComments = new FlatCommentsIterator(Comments).ToList();
-			var sourceComments = new FlatCommentsIterator(sourceConversation.Comments).ToList();
-
-			var commentsToUpdate = sourceComments.Join(targetComments, first => first.Id, second => second.Id,
-			                                                        (comment1, comment2) =>
-			                                                        new {First = comment1, Second = comment2});
-
-			commentsToUpdate.ForEach(t => { t.First.OriginalEmail = t.Second.OriginalEmail; });
-		}
-
-		private bool IsNewerThan(Conversation conversation)
+		public bool IsNewerThan(Conversation conversation)
 		{
 			if (NewestEmail == null)
 			{
@@ -94,6 +69,17 @@ namespace EmailPingPong.Core.Model
 			}
 
 			return NewestEmail.CreationTime.LaterThen(conversation.NewestEmail.CreationTime);
+		}
+
+		public void UpdateEmail(EmailItem targetEmail)
+		{
+			var conversationEmail = Emails.SingleOrDefault(e => e.AccountId == targetEmail.AccountId
+																&& e.Folder.StoreId == targetEmail.Folder.StoreId
+																&& e.ItemId == targetEmail.ItemId);
+			if (conversationEmail != null)
+			{
+				conversationEmail.IsUnread = targetEmail.IsUnread;
+			}
 		}
 	}
 }

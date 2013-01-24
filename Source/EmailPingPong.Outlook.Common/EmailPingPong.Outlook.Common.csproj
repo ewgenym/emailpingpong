@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EmailPingPong.Outlook.Common</RootNamespace>
     <AssemblyName>EmailPingPong.Outlook.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -58,6 +58,8 @@
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -70,25 +72,35 @@
       <Private>True</Private>
       <HintPath>..\packages\EntityFramework.SqlServerCompact.4.3.6\lib\net40\System.Data.SqlServerCe.Entity.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.4.1.0.0\lib\NET40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ConversationTreeStarter.cs" />
     <Compile Include="Configuration\EmailPingPongOutlookAddInConfigurator.cs" />
     <Compile Include="Configuration\EntityFrameworkConfigurator.cs" />
     <Compile Include="Configuration\IOutlookAddInConfigurator.cs" />
+    <Compile Include="Configuration\KeyInterceptorStarter.cs" />
+    <Compile Include="Controllers\IInspectorController.cs" />
     <Compile Include="Conversation\Implementation\ConversationMonitorBase.cs" />
     <Compile Include="Conversation\IOutlookConversationMonitor.cs" />
     <Compile Include="OutlookAddInBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\InterceptKeys.cs" />
+    <Compile Include="Word\Controls\PingControl.cs" />
+    <Compile Include="Word\Controls\PingPongControl.cs" />
+    <Compile Include="Word\Controls\PongControl.cs" />
     <Compile Include="Word\Utils\ContentControlExtensions.cs" />
     <Compile Include="Word\ConversationParser.cs" />
     <Compile Include="Word\Utils\RangeExtensions.cs" />

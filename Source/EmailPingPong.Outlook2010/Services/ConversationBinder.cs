@@ -1,64 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
-using EmailPingPong.Outlook.Common.Word;
+﻿using EmailPingPong.Outlook.Common.Word;
+using EmailPingPong.Outlook2010.Utils;
 using Microsoft.Office.Interop.Outlook;
-using EmailPingPong.Core.Model;
+using Microsoft.Office.Interop.Word;
 using Conversation = EmailPingPong.Core.Model.Conversation;
 
 namespace EmailPingPong.Outlook2010.Services
 {
 	public class ConversationBinder : IConversationBinder
 	{
+		private const string EmailpingpongConversationIdKey = "EmailPingPong.ConversationId";
 		private readonly IConversationParser _parser;
+		private readonly IEmailItemBinder _emailItemBinder;
 
-		public ConversationBinder(IConversationParser parser)
+		public ConversationBinder(IConversationParser parser, IEmailItemBinder emailItemBinder)
 		{
 			_parser = parser;
+			_emailItemBinder = emailItemBinder;
 		}
 
 		public Conversation Bind(MailItem mailItem)
 		{
-			var email = BindEmailItem(mailItem);
+			if (!TracksConversation(mailItem))
+			{
+				return null;
+			}
 
-			return new Conversation
+			var email = _emailItemBinder.Bind(mailItem);
+
+			var conversation = new Conversation
 				{
 					ConversationId = BindConversationId(mailItem),
-					Emails = new List<EmailItem> { email },
-					Comments = BindComments(mailItem),
 					Topic = BindTopic(mailItem),
 				};
+			conversation.AddEmail(email);
+			BindComments(mailItem, conversation);
+
+			return conversation;
+		}
+
+		private bool TracksConversation(MailItem mailItem)
+		{
+			var document = (Document)mailItem.GetInspector.WordEditor;
+			var conversationId = ConversationIdHelper.GetConversationId(document);
+			return !string.IsNullOrEmpty(conversationId);
 		}
 
 		private string BindConversationId(MailItem mailItem)
 		{
-			//TODO: implement conversationId inside the email body
-			return Guid.NewGuid().ToString();
-		}
-
-		private static EmailItem BindEmailItem(MailItem mailItem)
-		{
-			var folder = (Folder) mailItem.Parent;
-
-			var email = new EmailItem
-				{
-					ItemId = mailItem.EntryID,
-					Subject = mailItem.Subject,
-					CreationTime = mailItem.ReceivedTime,
-					Folder = new EmailFolder(folder.StoreID, folder.EntryID, folder.Name)
-				};
-			return email;
+			var document = (Document)mailItem.GetInspector.WordEditor;
+			return ConversationIdHelper.GetConversationId(document);
 		}
 
 		private string BindTopic(MailItem mailItem)
 		{
-			//TODO: this is e-mail subject but normalized using PR_SUBJECT_PREFIX_W property
-			return mailItem.Subject;
+			//PR_NORMALIZED_SUBJECT_W
+			return mailItem.PropertyAccessor.GetProperty("http://schemas.microsoft.com/mapi/proptag/0x0E1D001F");
 		}
 
-		private IList<Comment> BindComments(MailItem item)
+		private void BindComments(MailItem item, Conversation conversation)
 		{
-			var document = (Microsoft.Office.Interop.Word.Document)item.GetInspector.WordEditor;
-			return _parser.Parse(document);
+			var document = (Document)item.GetInspector.WordEditor;
+			_parser.Parse(document, conversation);
 		}
 	}
 }

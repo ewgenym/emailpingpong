@@ -35,10 +35,5 @@ namespace EmailPingPong.Infrastructure.Repositories
 		{
 			_dbContext.Set<T>().Remove(entity);
 		}
-
-		public virtual void SaveChanges()
-		{
-			_dbContext.SaveChanges();
-		}
 	}
 }

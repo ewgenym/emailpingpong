@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
+using System.Data;
 using System.Linq;
 using EmailPingPong.Core.Model;
 using EmailPingPong.Core.Repositories;
@@ -22,6 +22,7 @@ namespace EmailPingPong.Infrastructure.Repositories
 			return _conversationContext.Conversations
 									   .Include("Comments")
 									   .Include("Comments.Answers")
+									   .Include("Comments.OriginalEmail")
 									   .Include("Emails");
 		}
 
@@ -67,7 +68,11 @@ namespace EmailPingPong.Infrastructure.Repositories
 
 		public Conversation GetByConversationId(string conversationId)
 		{
-			return _conversationContext.Conversations.SingleOrDefault(c => c.ConversationId == conversationId);
+			return _conversationContext.Conversations.Include("Comments")
+									   .Include("Comments.Answers")
+									   .Include("Comments.OriginalEmail")
+									   .Include("Emails")
+									   .SingleOrDefault(c => c.ConversationId == conversationId);
 		}
 	}
 }

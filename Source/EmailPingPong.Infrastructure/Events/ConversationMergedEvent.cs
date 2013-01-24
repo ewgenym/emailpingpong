@@ -3,7 +3,7 @@ using Microsoft.Practices.Prism.Events;
 
 namespace EmailPingPong.Infrastructure.Events
 {
-	public class ConversationAddedEvent : CompositePresentationEvent<Conversation>
+	public class ConversationMergedEvent : CompositePresentationEvent<Conversation>
 	{
 		 
 	}

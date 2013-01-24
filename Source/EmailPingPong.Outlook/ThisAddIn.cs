@@ -33,7 +33,7 @@ namespace EmailPingPong.Outlook
 			_eventAggregator = _container.Resolve<IEventAggregator>();
 			_commentRepository = _container.Resolve<ICommentRepository>();
 
-			AddConversationTree();
+			//AddConversationTree();
 
 			_explorer = this.Application.ActiveExplorer();
 			_explorer.FolderSwitch += ThisAddIn_FolderSwitch;
@@ -99,15 +99,15 @@ namespace EmailPingPong.Outlook
 			}
 		}
 
-		private void AddConversationTree()
-		{
-			var conversationHost = new ConversationHost();
+		//private void AddConversationTree()
+		//{
+		//    var conversationHost = new ConversationHost();
 
-			_conversationPane = this.CustomTaskPanes.Add(conversationHost, "Conversations");
-			_conversationPane.DockPosition = MsoCTPDockPosition.msoCTPDockPositionRight;
-			_conversationPane.Width = 350;
-			_conversationPane.Visible = true;
-		}
+		//    _conversationPane = this.CustomTaskPanes.Add(conversationHost, "Conversations");
+		//    _conversationPane.DockPosition = MsoCTPDockPosition.msoCTPDockPositionRight;
+		//    _conversationPane.Width = 350;
+		//    _conversationPane.Visible = true;
+		//}
 
 		private void ThisAddIn_FolderSwitch()
 		{

@@ -1,12 +1,28 @@
 ﻿using System;
+using EmailPingPong.Core.Model;
+using EmailPingPong.Core.Repositories;
+using EmailPingPong.Core.Services;
+using EmailPingPong.Core.Services.Implementation;
 using EmailPingPong.Tests.Builders;
 using FluentAssertions;
+using NSubstitute;
 using Xunit;
 
 namespace EmailPingPong.Tests.Core
 {
 	public class MergeConversationTests
 	{
+		private readonly IRepository<Comment> _commentsRepository;
+		private readonly IRepository<EmailItem> _emailsRepository;
+		private readonly IMergeConversationService _mergeConversationService;
+
+		public MergeConversationTests()
+		{
+			_commentsRepository = Substitute.For<IRepository<Comment>>();
+			_emailsRepository = Substitute.For<IRepository<EmailItem>>();
+			_mergeConversationService = new MergeConversationService(_emailsRepository, _commentsRepository);
+		}
+
 		[Fact]
 		public void should_merge_comments_from_the_same_conversations()
 		{
@@ -42,7 +58,7 @@ namespace EmailPingPong.Tests.Core
 			                   .Build();
 
 			// act
-			target.Merge(source);
+			MergeConversation(target, source);
 
 			// assert
 			target.Comments.Should().HaveCount(2);
@@ -63,7 +79,7 @@ namespace EmailPingPong.Tests.Core
 							   .Build();
 
 			//act
-			Action action = () => target.Merge(source);
+			Action action = () => MergeConversation(target, source);
 
 			//assert
 			action.ShouldThrow<InvalidOperationException>().WithMessage("Can't merge conversations with different id's");
@@ -103,7 +119,7 @@ namespace EmailPingPong.Tests.Core
 							   .Build();
 
 			//act
-			target.Merge(source);
+			MergeConversation(target, source);
 
 			//assert
 			target.Comments.Should().HaveCount(1);
@@ -139,7 +155,7 @@ namespace EmailPingPong.Tests.Core
 							   .Build();
 
 			//act
-			target.Merge(source);
+			MergeConversation(target, source);
 
 			//assert
 			target.Comments.Should().BeEmpty();
@@ -180,7 +196,7 @@ namespace EmailPingPong.Tests.Core
 							   .Build();
 
 			//act
-			target.Merge(source);
+			MergeConversation(target, source);
 
 			//assert
 			target.Comments.Should().HaveCount(1);
@@ -210,7 +226,7 @@ namespace EmailPingPong.Tests.Core
 				.Build();
 
 			// act
-			originalConversation.Merge(targetConversation);
+			MergeConversation(originalConversation, targetConversation);
 
 			// assert
 			originalConversation.Emails.Should().HaveCount(2);
@@ -255,7 +271,7 @@ namespace EmailPingPong.Tests.Core
 			targetComment.AddAnswer(targetAnswer);
 
 			// act
-			originalConversation.Merge(targetConversation);
+			MergeConversation(originalConversation, targetConversation);
 
 			// assert
 			originalConversation.Comments.Should().HaveCount(1);
@@ -263,6 +279,11 @@ namespace EmailPingPong.Tests.Core
 
 			originalConversation.Comments[0].Answers.Should().HaveCount(1);
 			originalConversation.Comments[0].Answers[0].OriginalEmail.Should().BeSameAs(targetEmail);
+		}
+
+		private void MergeConversation(Conversation target, Conversation source)
+		{
+			_mergeConversationService.Merge(target, source);
 		}
 	}
 }

@@ -27,6 +27,8 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 
 			eventAggregator.GetEvent<MailFolderSwitchedEvent>().Subscribe(OnMailFolderSwitched, ThreadOption.PublisherThread);
 			eventAggregator.GetEvent<EmailItemSwitchedEvent>().Subscribe(OnEmailItemSwitched, ThreadOption.PublisherThread);
+			eventAggregator.GetEvent<ConversationMergedEvent>().Subscribe(OnConversationAdded, ThreadOption.PublisherThread);
+			eventAggregator.GetEvent<EmailItemChangedEvent>().Subscribe(OnEmailItemChanged, ThreadOption.PublisherThread);
 		}
 
 		private void OnEmailItemSwitched(EmailItemSwitchedArgs args)
@@ -40,6 +42,16 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		{
 			_accountId = args.AccountId;
 			_folders = args.Folders;
+			BindData();
+		}
+
+		private void OnConversationAdded(Conversation obj)
+		{
+			BindData();
+		}
+
+		private void OnEmailItemChanged(EmailItemChangedArgs args)
+		{
 			BindData();
 		}
 

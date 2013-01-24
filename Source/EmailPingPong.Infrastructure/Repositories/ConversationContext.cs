@@ -29,9 +29,10 @@ namespace EmailPingPong.Infrastructure.Repositories
 
 			modelBuilder.Entity<Comment>()
 						.HasKey(c => c.Id);
+
 			modelBuilder.Entity<Comment>()
 						.Property(c => c.Id)
-						.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+						.HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
 			modelBuilder.Entity<EmailItem>()
 						.HasKey(m => m.Id);
@@ -53,6 +54,9 @@ namespace EmailPingPong.Infrastructure.Repositories
 						.HasMany(c => c.Answers)
 						.WithOptional(c => c.Parent)
 						.Map(c => c.MapKey("ParentId"));
+
+			modelBuilder.Entity<Comment>()
+			            .HasOptional(c => c.OriginalEmail);
 		}
 	}
 }

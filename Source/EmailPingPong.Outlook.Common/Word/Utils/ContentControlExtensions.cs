@@ -28,5 +28,16 @@ namespace EmailPingPong.Outlook.Common.Word.Utils
 		{
 			return control != null && control.Tag.StartsWith(tag);
 		}
+
+		public static string ConversationId(this ContentControl control)
+		{
+			var parts = control.Tag.Split(';');
+			if (parts.Length >= 2)
+			{
+				return parts[2];
+			}
+
+			return null;
+		}
 	}
 }
