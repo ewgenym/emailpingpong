@@ -52,8 +52,14 @@ namespace EmailPingPong.Outlook2010.Services
 					continue;
 				}
 
-				var root = (Folder)store.GetDefaultFolder(OlDefaultFolders.olFolderInbox);
-				EnumerateFoldersHierarchy(root, _folderItems);
+				var inbox = (Folder)store.GetDefaultFolder(OlDefaultFolders.olFolderInbox);
+				EnumerateFoldersHierarchy(inbox, _folderItems);
+
+				// E-mail was created but not sent. It was saved to draft folders instead.
+				var draft = (Folder)store.GetDefaultFolder(OlDefaultFolders.olFolderDrafts);
+				_folderItems.Add(draft, draft.Items);
+				break;
+				
 			}
 
 			foreach (var folderItem in _folderItems)
@@ -67,12 +73,6 @@ namespace EmailPingPong.Outlook2010.Services
 				//folder.BeforeItemMove += MailItemRemoved;
 			}
 
-			// E-mail was created but not sent. It was saved to draft folders instead.
-			//var draft = (Folder)store.GetDefaultFolder(OlDefaultFolders.olFolderDrafts);
-			//_folderItems.Add(draft, draft.Items);
-			//var draftItems = draft.Items;
-			//draftItems.ItemAdd += MailItemAdded;
-			//draftItems.ItemChange += MailItemAdded; //MailItemChanged
 
 			// -New e-mail is sent. When there is no connection with server as well. (Two options here: 1) monitor Sent folder 2) monitor Application.ItemSend event)
 			//var sent = this.Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderSentMail);
@@ -128,7 +128,13 @@ namespace EmailPingPong.Outlook2010.Services
 
 		private void OnMailItemChanged(object item)
 		{
-			var conversation = _conversationBinder.Bind((MailItem)item);
+			var mailItem = item as MailItem;
+			if (mailItem == null)
+			{
+				return;
+			}
+
+			var conversation = _conversationBinder.Bind(mailItem);
 			if (conversation == null)
 			{
 				return;

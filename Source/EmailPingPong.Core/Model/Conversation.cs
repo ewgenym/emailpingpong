@@ -61,21 +61,19 @@ namespace EmailPingPong.Core.Model
 			get { return Emails.OrderByDescending(e => e.CreationTime).FirstOrDefault(); }
 		}
 
-		public bool IsNewerThan(Conversation conversation)
+		public bool IsNewerThanOrSame(Conversation conversation)
 		{
 			if (NewestEmail == null)
 			{
 				return false;
 			}
 
-			return NewestEmail.CreationTime.LaterThen(conversation.NewestEmail.CreationTime);
+			return NewestEmail.CreationTime.LaterThenOrEqual(conversation.NewestEmail.CreationTime);
 		}
 
 		public void UpdateEmail(EmailItem targetEmail)
 		{
-			var conversationEmail = Emails.SingleOrDefault(e => e.AccountId == targetEmail.AccountId
-																&& e.Folder.StoreId == targetEmail.Folder.StoreId
-																&& e.ItemId == targetEmail.ItemId);
+			var conversationEmail = Emails.SingleOrDefault(e => e.SameAs(targetEmail));
 			if (conversationEmail != null)
 			{
 				conversationEmail.IsUnread = targetEmail.IsUnread;

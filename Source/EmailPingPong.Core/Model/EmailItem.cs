@@ -21,5 +21,17 @@ namespace EmailPingPong.Core.Model
 
 		[Required]
 		public bool IsUnread { get; set; }
+
+		public bool SameAs(EmailItem other)
+		{
+			if (other == null)
+			{
+				return false;
+			}
+
+			return AccountId == other.AccountId
+				   && Folder == other.Folder
+				   && ItemId == other.ItemId;
+		}
 	}
 }

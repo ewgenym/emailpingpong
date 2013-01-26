@@ -1,5 +1,4 @@
 ﻿using EmailPingPong.Outlook.Common.Word;
-using EmailPingPong.Outlook2010.Utils;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Office.Interop.Word;
 using Conversation = EmailPingPong.Core.Model.Conversation;
@@ -8,7 +7,6 @@ namespace EmailPingPong.Outlook2010.Services
 {
 	public class ConversationBinder : IConversationBinder
 	{
-		private const string EmailpingpongConversationIdKey = "EmailPingPong.ConversationId";
 		private readonly IConversationParser _parser;
 		private readonly IEmailItemBinder _emailItemBinder;
 
@@ -20,7 +18,7 @@ namespace EmailPingPong.Outlook2010.Services
 
 		public Conversation Bind(MailItem mailItem)
 		{
-			if (!TracksConversation(mailItem))
+			if (!IsTrackConversation(mailItem))
 			{
 				return null;
 			}
@@ -38,23 +36,22 @@ namespace EmailPingPong.Outlook2010.Services
 			return conversation;
 		}
 
-		private bool TracksConversation(MailItem mailItem)
+		private bool IsTrackConversation(MailItem mailItem)
 		{
 			var document = (Document)mailItem.GetInspector.WordEditor;
-			var conversationId = ConversationIdHelper.GetConversationId(document);
-			return !string.IsNullOrEmpty(conversationId);
+			return document.ContentControls.Count > 0;
 		}
 
 		private string BindConversationId(MailItem mailItem)
 		{
-			var document = (Document)mailItem.GetInspector.WordEditor;
-			return ConversationIdHelper.GetConversationId(document);
+			return mailItem.ConversationID;
 		}
 
 		private string BindTopic(MailItem mailItem)
 		{
+			return mailItem.ConversationTopic;
 			//PR_NORMALIZED_SUBJECT_W
-			return mailItem.PropertyAccessor.GetProperty("http://schemas.microsoft.com/mapi/proptag/0x0E1D001F");
+			//return mailItem.PropertyAccessor.GetProperty("http://schemas.microsoft.com/mapi/proptag/0x0E1D001F");
 		}
 
 		private void BindComments(MailItem item, Conversation conversation)

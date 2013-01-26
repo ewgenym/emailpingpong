@@ -12,6 +12,9 @@ namespace EmailPingPong.Core.Model
 		}
 
 		[Required]
+		public Guid Guid { get; set; }
+
+		[Required]
 		public string Author { get; set; }
 
 		[Required]

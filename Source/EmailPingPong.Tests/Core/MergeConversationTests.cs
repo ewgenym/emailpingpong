@@ -6,7 +6,9 @@ using EmailPingPong.Core.Services.Implementation;
 using EmailPingPong.Tests.Builders;
 using FluentAssertions;
 using NSubstitute;
+using Ploeh.AutoFixture.Xunit;
 using Xunit;
+using Xunit.Extensions;
 
 namespace EmailPingPong.Tests.Core
 {
@@ -33,7 +35,7 @@ namespace EmailPingPong.Tests.Core
 			                   .Build();
 
 			var comment1 = Create.Comment()
-			                     .WithId(1)
+			                     .WithId(Guid.NewGuid())
 			                     .Build();
 
 			var target = Create.Conversation()
@@ -47,7 +49,7 @@ namespace EmailPingPong.Tests.Core
 			                   .Build();
 
 			var comment2 = Create.Comment()
-			                     .WithId(2)
+			                     .WithId(Guid.NewGuid())
 			                     .Build();
 
 			var source = Create.Conversation()
@@ -85,8 +87,8 @@ namespace EmailPingPong.Tests.Core
 			action.ShouldThrow<InvalidOperationException>().WithMessage("Can't merge conversations with different id's");
 		}
 
-		[Fact]
-		public void should_not_merge_comments_from_old_conversations()
+		[Theory, AutoData]
+		public void should_not_merge_comments_from_old_conversations(Guid commentGuid1, Guid commentGuid2)
 		{
 			//setup
 			//first email
@@ -95,7 +97,7 @@ namespace EmailPingPong.Tests.Core
 							   .Build();
 
 			var comment1 = Create.Comment()
-								 .WithId(1)
+								 .WithId(commentGuid1)
 								 .Build();
 
 			var target = Create.Conversation()
@@ -109,7 +111,7 @@ namespace EmailPingPong.Tests.Core
 							   .Build();
 
 			var comment2 = Create.Comment()
-								 .WithId(2)
+								 .WithId(commentGuid2)
 								 .Build();
 
 			var source = Create.Conversation()
@@ -123,7 +125,7 @@ namespace EmailPingPong.Tests.Core
 
 			//assert
 			target.Comments.Should().HaveCount(1);
-			target.Comments[0].Id.Should().Be(1);
+			target.Comments[0].Guid.Should().Be(commentGuid1);
 		}
 
 		[Fact]
@@ -136,7 +138,7 @@ namespace EmailPingPong.Tests.Core
 							   .Build();
 
 			var comment1 = Create.Comment()
-								 .WithId(1)
+								 .WithId(Guid.NewGuid())
 								 .Build();
 
 			var target = Create.Conversation()
@@ -161,8 +163,8 @@ namespace EmailPingPong.Tests.Core
 			target.Comments.Should().BeEmpty();
 		}
 
-		[Fact]
-		public void should_update_existing_comments_in_conversation()
+		[Theory, AutoData]
+		public void should_update_existing_comments_in_conversation(Guid commentGuid)
 		{
 			//setup
 			//first email
@@ -171,7 +173,7 @@ namespace EmailPingPong.Tests.Core
 							   .Build();
 
 			var comment1 = Create.Comment()
-								 .WithId(1)
+								 .WithId(commentGuid)
 								 .WithBody("Body 1")
 								 .Build();
 
@@ -185,7 +187,7 @@ namespace EmailPingPong.Tests.Core
 							   .WithCreationTime(new DateTime(2012, 12, 12))
 							   .Build();
 			var comment2 = Create.Comment()
-					 .WithId(1)
+					 .WithId(commentGuid)
 					 .WithBody("Body 2")
 					 .Build();
 
@@ -200,7 +202,7 @@ namespace EmailPingPong.Tests.Core
 
 			//assert
 			target.Comments.Should().HaveCount(1);
-			target.Comments[0].Id.Should().Be(1);
+			target.Comments[0].Guid.Should().Be(commentGuid);
 			target.Comments[0].Body.Should().Be("Body 2");
 		}
 
@@ -237,11 +239,13 @@ namespace EmailPingPong.Tests.Core
 		public void should_save_original_emails_for_comments()
 		{
 			// arrange
+			var guid1 = Guid.NewGuid();
+			var guid2 = Guid.NewGuid();
 			var originalEmail = Create.EmailItem()
 			                          .WithCreationTime(new DateTime(2013, 1, 12))
 			                          .Build();
 			var originalComment = Create.Comment()
-			                            .WithId(1)
+			                            .WithId(guid1)
 			                            .Build();
 
 			var originalConversation = Create.Conversation()
@@ -255,11 +259,11 @@ namespace EmailPingPong.Tests.Core
 			                        .Build();
 
 			var targetComment = Create.Comment()
-			                          .WithId(1)
+			                          .WithId(guid1)
 			                          .Build();
 
 			var targetAnswer = Create.Comment()
-			                         .WithId(2)
+			                         .WithId(guid2)
 			                         .Build();
 
 			var targetConversation = Create.Conversation()
@@ -279,6 +283,88 @@ namespace EmailPingPong.Tests.Core
 
 			originalConversation.Comments[0].Answers.Should().HaveCount(1);
 			originalConversation.Comments[0].Answers[0].OriginalEmail.Should().BeSameAs(targetEmail);
+		}
+
+		[Fact]
+		public void should_merge_comments_from_the_same_modified_email()
+		{
+			// arrange
+			var guid1 = Guid.NewGuid();
+			var original = Create.Conversation()
+			                     .WithConversationId("1")
+			                     .WithEmail(Create.EmailItem()
+			                                      .WithAccountId("1")
+			                                      .WithItemId("1")
+			                                      .WithFolder("1", "1", "1")
+			                                      .WithCreationTime(new DateTime(2013, 1, 12))
+			                                      .Build())
+			                     .WithComment(Create.Comment()
+			                                        .WithBody("Body1")
+			                                        .WithId(guid1)
+			                                        .Build())
+			                     .Build();
+
+			var proposed = Create.Conversation()
+			                     .WithConversationId("1")
+			                     .WithEmail(Create.EmailItem()
+			                                      .WithAccountId("1")
+			                                      .WithItemId("1")
+			                                      .WithFolder("1", "1", "1")
+			                                      .WithCreationTime(new DateTime(2013, 1, 13))
+			                                      .Build())
+			                     .WithComment(Create.Comment()
+													.WithId(guid1)
+			                                        .WithBody("Body2")
+			                                        .Build())
+			                     .Build();
+
+			// act
+			MergeConversation(original, proposed);
+
+			// assert
+			original.Comments.Should().HaveCount(1);
+			original.Comments[0].Body.Should().Be("Body2");
+		}
+
+		[Fact]
+		public void should_merge_comments_from_the_same_modified_email_with_the_same_creation_time()
+		{
+			// arrange
+			var guid1 = Guid.NewGuid();
+			var original = Create.Conversation()
+								 .WithConversationId("1")
+								 .WithEmail(Create.EmailItem()
+												  .WithAccountId("1")
+												  .WithItemId("1")
+												  .WithFolder("1", "1", "1")
+												  .WithCreationTime(new DateTime(2013, 1, 12))
+												  .Build())
+								 .WithComment(Create.Comment()
+													.WithBody("Body1")
+													.WithId(guid1)
+													.Build())
+								 .Build();
+
+			var proposed = Create.Conversation()
+								 .WithConversationId("1")
+								 .WithEmail(Create.EmailItem()
+												  .WithAccountId("1")
+												  .WithItemId("1")
+												  .WithFolder("1", "1", "1")
+												  .WithCreationTime(new DateTime(2013, 1, 12))
+												  .Build())
+								 .WithComment(Create.Comment()
+													.WithId(guid1)
+													.WithBody("Body2")
+													.Build())
+								 .Build();
+
+			// act
+			MergeConversation(original, proposed);
+
+			// assert
+			original.Comments.Should().HaveCount(1);
+			original.Comments[0].Body.Should().Be("Body2");
 		}
 
 		private void MergeConversation(Conversation target, Conversation source)

@@ -20,20 +20,13 @@ namespace EmailPingPong.Outlook.Common.Word
 				{
 					Comment comment = null;
 
-					var creationDate = DateTime.Now;
-					var metadata = control.Tag.Split(';');
-					if (metadata.Length > 1)
-					{
-						creationDate = DateTime.Parse(metadata[1]).ToLocalTime();
-					}
-
 					if (control.IsPing())
 					{
 						var question = new Comment
 						               	{
-											Id = long.Parse(control.ID),
+											Guid = control.CommentId(),
 						               		Body = control.Range.Text,
-											CreatedOn = creationDate,
+											CreatedOn = control.CreationDate(),
 						               	};
 
 						conversation.AddComment(question);
@@ -46,9 +39,9 @@ namespace EmailPingPong.Outlook.Common.Word
 					{
 						comment = new Comment
 						          	{
-						          		Id = long.Parse(control.ID),
+										Guid = control.CommentId(),
 						          		Body = control.Range.Text,
-										CreatedOn = creationDate,
+										CreatedOn = control.CreationDate(),
 						          	};
 
 						if (lastQuestion != null)

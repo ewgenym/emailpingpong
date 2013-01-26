@@ -58,7 +58,7 @@ namespace EmailPingPong.Tests.ViewModel
 			_conversation.AddEmail(secondEmail);
 
 			var answer = Create.Comment()
-			                   .WithId(2)
+			                   .WithId(Guid.NewGuid())
 			                   .WithOriginalEmail(secondEmail)
 			                   .Build();
 			_conversation.Comments[0].AddAnswer(answer);
@@ -98,7 +98,7 @@ namespace EmailPingPong.Tests.ViewModel
 			_conversation.AddEmail(secondEmail);
 
 			var answer = Create.Comment()
-							   .WithId(2)
+							   .WithId(Guid.NewGuid())
 							   .WithOriginalEmail(secondEmail)
 							   .Build();
 			_conversation.Comments[0].AddAnswer(answer);

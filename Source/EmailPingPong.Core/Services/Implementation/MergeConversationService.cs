@@ -24,13 +24,20 @@ namespace EmailPingPong.Core.Services.Implementation
 				throw new InvalidOperationException("Can't merge conversations with different id's");
 			}
 
-			if (!proposed.IsNewerThan(original))
+			if (!proposed.IsNewerThanOrSame(original))
 			{
 				return;
 			}
 
-			original.AddEmail(proposed.NewestEmail);
-			_emailItemRepository.Add(proposed.NewestEmail);
+			if (original.NewestEmail.Return(e=>e.SameAs(proposed.NewestEmail)))
+			{
+				original.UpdateEmail(proposed.NewestEmail);
+			}
+			else if (proposed.NewestEmail != null)
+			{
+				original.AddEmail(proposed.NewestEmail);
+				_emailItemRepository.Add(proposed.NewestEmail);
+			}
 
 			MergeComments(original, proposed);
 		}
@@ -41,10 +48,14 @@ namespace EmailPingPong.Core.Services.Implementation
 			var originalComments = new FlatCommentsIterator(original.Comments).ToList();
 			var proposedComments = new FlatCommentsIterator(proposed.Comments).ToList();
 
-			var commentsToUpdate = proposedComments.Join(originalComments, first => first.Id, second => second.Id,
+			// save original emails for existing comments
+			var commentsToUpdate = proposedComments.Join(originalComments, first => first.Guid, second => second.Guid,
 													   (first, second) => new { First = first, Second = second });
-
 			commentsToUpdate.ForEach(t => { t.First.OriginalEmail = t.Second.OriginalEmail; });
+			
+			// save newwest email (attached) for new comments
+			var newComments = proposedComments.Where(p => originalComments.All(o => o.Guid != p.Guid));
+			newComments.ForEach(c => c.OriginalEmail = original.NewestEmail);
 
 			// Delete
 			originalComments.ForEach(c => _commentsRepository.Remove(c));

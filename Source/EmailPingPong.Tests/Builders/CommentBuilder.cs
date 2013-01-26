@@ -13,9 +13,9 @@ namespace EmailPingPong.Tests.Builders
 			}
 		}
 
-		public CommentBuilder WithId(long id)
+		public CommentBuilder WithId(Guid guid)
 		{
-			EntityToBuild.Id = id;
+			EntityToBuild.Guid = guid;
 			return this;
 		}
 

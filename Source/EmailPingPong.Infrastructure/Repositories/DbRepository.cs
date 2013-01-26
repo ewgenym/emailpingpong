@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using EmailPingPong.Core.Model;
 using EmailPingPong.Core.Repositories;
+using EmailPingPong.Core.Utils;
 
 namespace EmailPingPong.Infrastructure.Repositories
 {

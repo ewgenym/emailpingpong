@@ -65,7 +65,8 @@ namespace EmailPingPong.Outlook.Common.Word.Controls
 			bodyControl.Title = Tag;
 			//TODO: at least introduce PingPongMetadat class and searialize it to tag property instead. Include original author
 			var creationDate = DateTime.UtcNow.ToString("u");
-			bodyControl.Tag = Tag + ";" + creationDate + ";" + _conversationId;
+			var commentId = Guid.NewGuid().ToString("N");
+			bodyControl.Tag = Tag + ";" + creationDate + ";" + commentId;
 			
 			return bodyControl;
 		}

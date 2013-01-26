@@ -58,7 +58,8 @@ namespace EmailPingPong.Core.Model
 
 		public static bool operator== (EmailFolder entity1, EmailFolder entity2)
 		{
-			return entity1.Equals(entity2);
+			var obj = (object) entity1;
+			return !(obj == null) && entity1.Equals(entity2);
 		}
 
 		public static bool operator!= (EmailFolder entity1, EmailFolder entity2)

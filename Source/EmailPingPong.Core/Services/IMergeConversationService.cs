@@ -4,6 +4,6 @@ namespace EmailPingPong.Core.Services
 {
 	public interface IMergeConversationService
 	{
-		void Merge(Conversation original, Conversation target);
+		void Merge(Conversation original, Conversation proposed);
 	}
 }

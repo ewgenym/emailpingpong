@@ -10,7 +10,9 @@ using EmailPingPong.Infrastructure;
 using EmailPingPong.Infrastructure.Repositories;
 using EmailPingPong.Tests.Builders;
 using FluentAssertions;
+using Ploeh.AutoFixture.Xunit;
 using Xunit;
+using Xunit.Extensions;
 
 namespace EmailPingPong.Tests.Infrastructure
 {
@@ -110,7 +112,7 @@ namespace EmailPingPong.Tests.Infrastructure
 		public void should_save_comment_id()
 		{
 			// arrange
-			const long commentId = 123456;
+			var commentId = Guid.NewGuid();
 			var conversation = Create.Conversation()
 									 .WithConversationId("33")
 									 .WithTopic("Topic33")
@@ -127,13 +129,16 @@ namespace EmailPingPong.Tests.Infrastructure
 
 			// assert
 			var actual = _conversationRepository.GetByConversationId(conversation.ConversationId);
-			actual.Comments[0].Id.Should().Be(commentId);
+			actual.Comments[0].Guid.Should().Be(commentId);
 		}
 
 		[Fact]
 		public void should_add_conversation_with_comment_and_answer()
 		{
 			// arrange
+			var guid1 = Guid.NewGuid();
+			var guid2 = Guid.NewGuid();
+
 			var conversation = Create.Conversation()
 									 .WithConversationId("4")
 									 .WithTopic("Topic4")
@@ -148,13 +153,13 @@ namespace EmailPingPong.Tests.Infrastructure
 											   .Build())
 									 .WithComment(
 										 Create.Comment()
-											   .WithId(1)
+											   .WithId(guid1)
 											   .WithAuthor("Author1")
 											   .WithBody("Body1")
 											   .WithOrder(1)
 											   .WithAnswer(
 												   Create.Comment()
-														 .WithId(2)
+														 .WithId(guid2)
 														 .WithAuthor("Author2")
 														 .WithBody("Body2")
 														 .WithOrder(2)
@@ -174,18 +179,20 @@ namespace EmailPingPong.Tests.Infrastructure
 		public void should_add_conversation_with_email_and_comment_and_answer()
 		{
 			// arrange
+			var guid1 = Guid.NewGuid();
+			var guid2 = Guid.NewGuid();
 			var conversation = Create.Conversation()
 									 .WithConversationId("5")
 									 .WithTopic("Topic5")
 									 .WithComment(
 										 Create.Comment()
-											   .WithId(1)
+											   .WithId(guid1)
 											   .WithAuthor("Author1")
 											   .WithBody("Body1")
 											   .WithOrder(1)
 											   .WithAnswer(
 												   Create.Comment()
-														 .WithId(2)
+														 .WithId(guid2)
 														 .WithAuthor("Author2")
 														 .WithBody("Body2")
 														 .WithOrder(2)
@@ -262,18 +269,20 @@ namespace EmailPingPong.Tests.Infrastructure
 		public void should_delete_conversation_with_comment_with_answers()
 		{
 			// arrange
+			var guid1 = Guid.NewGuid();
+			var guid2 = Guid.NewGuid();
 			var conversation = Create.Conversation()
 									 .WithConversationId("5")
 									 .WithTopic("Topic5")
 									 .WithComment(
 										 Create.Comment()
-											   .WithId(1)
+											   .WithId(guid1)
 											   .WithAuthor("Author1")
 											   .WithBody("Body1")
 											   .WithOrder(1)
 											   .WithAnswer(
 												   Create.Comment()
-														 .WithId(2)
+														 .WithId(guid2)
 														 .WithAuthor("Author2")
 														 .WithBody("Body2")
 														 .WithOrder(2)
@@ -373,8 +382,8 @@ namespace EmailPingPong.Tests.Infrastructure
 			actual.Should().BeSameAs(conversation);
 		}
 
-		[Fact]
-		public void should_persist_conversation_correctly_after_merge_with_detached_conversation()
+		[Theory, AutoData]
+		public void should_persist_conversation_correctly_after_merge_with_detached_conversation(Guid commentGuid)
 		{
 			// arrange
 			var target = Create.Conversation()
@@ -406,7 +415,7 @@ namespace EmailPingPong.Tests.Infrastructure
 												.WithSubject("Subject 1")
 												.Build())
 							   .WithComment(Create.Comment()
-												  .WithId(1)
+												  .WithId(commentGuid)
 												  .WithAuthor("Author1")
 												  .WithOrder(1)
 												  .WithBody("Body 2")
@@ -419,7 +428,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			//assert
 			var actual = _conversationRepository.GetByConversationId(target.ConversationId);
 			actual.Comments.Should().HaveCount(1);
-			actual.Comments[0].Id.Should().Be(1);
+			actual.Comments[0].Guid.Should().Be(commentGuid);
 			actual.Comments[0].Body.Should().Be("Body 2");
 		}
 
@@ -491,6 +500,8 @@ namespace EmailPingPong.Tests.Infrastructure
 		public void should_save_conversation_after_save_and_merge_in_different_contexts()
 		{
 			// arrange
+			var guid1 = Guid.NewGuid();
+			var guid2 = Guid.NewGuid();
 			var original = Create.Conversation()
 								 .WithConversationId("1")
 								 .WithTopic("Topic1")
@@ -502,7 +513,7 @@ namespace EmailPingPong.Tests.Infrastructure
 												  .WithSubject("Subject 1")
 												  .Build())
 								 .WithComment(Create.Comment()
-													.WithId(1)
+													.WithId(guid1)
 													.WithAuthor("Author1")
 													.WithOrder(1)
 													.WithBody("Body 1")
@@ -529,12 +540,12 @@ namespace EmailPingPong.Tests.Infrastructure
 												.WithSubject("Subject 1")
 												.Build())
 							   .WithComment(Create.Comment()
-												  .WithId(1)
+												  .WithId(guid1)
 												  .WithAuthor("Author1")
 												  .WithOrder(1)
 												  .WithBody("Body 1")
 												  .WithAnswer(Create.Comment()
-																	.WithId(2)
+																	.WithId(guid2)
 																	.WithAuthor("Author2")
 																	.WithOrder(2)
 																	.WithBody("Body 2")

@@ -1,4 +1,5 @@
-﻿using Microsoft.Office.Interop.Word;
+﻿using System;
+using Microsoft.Office.Interop.Word;
 
 namespace EmailPingPong.Outlook.Common.Word.Utils
 {
@@ -29,6 +30,17 @@ namespace EmailPingPong.Outlook.Common.Word.Utils
 			return control != null && control.Tag.StartsWith(tag);
 		}
 
+		public static DateTime CreationDate(this ContentControl control)
+		{
+			var parts = control.Tag.Split(';');
+			if (parts.Length >= 1)
+			{
+				return DateTime.Parse(parts[1]);
+			}
+
+			return DateTime.UtcNow;
+		}
+
 		public static string ConversationId(this ContentControl control)
 		{
 			var parts = control.Tag.Split(';');
@@ -38,6 +50,17 @@ namespace EmailPingPong.Outlook.Common.Word.Utils
 			}
 
 			return null;
+		}
+
+		public static Guid CommentId(this ContentControl control)
+		{
+			var parts = control.Tag.Split(';');
+			if (parts.Length >= 2)
+			{
+				return Guid.Parse(parts[2]);
+			}
+
+			return Guid.Empty;
 		}
 	}
 }

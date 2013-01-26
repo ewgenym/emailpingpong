@@ -22,17 +22,15 @@ namespace EmailPingPong.Infrastructure.Repositories
 		{
 			modelBuilder.Entity<Conversation>()
 						.HasKey(c => c.Id);
-
 			modelBuilder.Entity<Conversation>()
 						.Property(c => c.Id)
 						.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
 			modelBuilder.Entity<Comment>()
 						.HasKey(c => c.Id);
-
 			modelBuilder.Entity<Comment>()
 						.Property(c => c.Id)
-						.HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+						.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
 			modelBuilder.Entity<EmailItem>()
 						.HasKey(m => m.Id);
@@ -41,12 +39,12 @@ namespace EmailPingPong.Infrastructure.Repositories
 						.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
 			modelBuilder.Entity<Conversation>()
-						.HasMany(c => c.Comments)
-						.WithOptional()
+						.HasMany(c => c.Emails)
+						.WithRequired()
 						.WillCascadeOnDelete(true);
 
 			modelBuilder.Entity<Conversation>()
-						.HasMany(c => c.Emails)
+						.HasMany(c => c.Comments)
 						.WithOptional()
 						.WillCascadeOnDelete(true);
 
@@ -56,7 +54,7 @@ namespace EmailPingPong.Infrastructure.Repositories
 						.Map(c => c.MapKey("ParentId"));
 
 			modelBuilder.Entity<Comment>()
-			            .HasOptional(c => c.OriginalEmail);
+						.HasOptional(c => c.OriginalEmail);
 		}
 	}
 }

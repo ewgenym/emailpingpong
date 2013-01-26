@@ -33,7 +33,7 @@ namespace EmailPingPong.Tests.Core
 			var conversation = Create.Conversation()
 									 .WithEmail(originalEmail)
 									 .WithComment(Create.Comment()
-														.WithId(1)
+														.WithId(Guid.NewGuid())
 														.Build())
 									 .Build();
 
@@ -51,11 +51,11 @@ namespace EmailPingPong.Tests.Core
 									  .Build();
 
 			var comment = Create.Comment()
-				.WithId(1)
+				.WithId(Guid.NewGuid())
 				.Build();
 
 			var answer = Create.Comment()
-			                   .WithId(2)
+			                   .WithId(Guid.NewGuid())
 			                   .Build();
 
 			var conversation = Create.Conversation()
@@ -76,6 +76,8 @@ namespace EmailPingPong.Tests.Core
 		public void should_assign_original_email_for_conversation_answers_on_merge()
 		{
 			// arrange
+			var guid1 = Guid.NewGuid();
+			var guid2 = Guid.NewGuid();
 			var originalConversation = Create.Conversation()
 			                                 .WithConversationId("1")
 			                                 .WithEmail(Create.EmailItem()
@@ -83,13 +85,13 @@ namespace EmailPingPong.Tests.Core
 			                                                  .WithCreationTime(new DateTime(2013, 1, 12))
 			                                                  .Build())
 			                                 .WithComment(Create.Comment()
-			                                                    .WithId(1).Build())
+																.WithId(guid1).Build())
 			                                 .Build();
 
 			var comment = Create.Comment()
-			                    .WithId(1)
+								.WithId(guid1)
 			                    .WithAnswer(Create.Comment()
-			                                      .WithId(2)
+												  .WithId(guid2)
 			                                      .Build())
 			                    .Build();
 			var targetConversation = Create.Conversation()
@@ -111,6 +113,120 @@ namespace EmailPingPong.Tests.Core
 			// assert
 			comment.OriginalEmail.Should().BeSameAs(originalConversation.Emails[0]);
 			comment.Answers[0].OriginalEmail.Should().BeSameAs(originalConversation.Emails[1]);
+		}
+
+		[Fact]
+		public void should_not_add_modified_email_when_merge()
+		{
+			// arrange
+			var guid1 = Guid.NewGuid();
+			var original = Create.Conversation()
+								 .WithConversationId("1")
+								 .WithEmail(Create.EmailItem()
+												  .WithAccountId("1")
+												  .WithItemId("1")
+												  .WithFolder("1", "1", "1")
+												  .WithCreationTime(new DateTime(2013, 1, 12))
+												  .Build())
+								 .WithComment(Create.Comment()
+													.WithBody("Body1")
+													.WithId(guid1)
+													.Build())
+								 .Build();
+
+			var proposed = Create.Conversation()
+								 .WithConversationId("1")
+								 .WithEmail(Create.EmailItem()
+												  .WithAccountId("1")
+												  .WithItemId("1")
+												  .WithFolder("1", "1", "1")
+												  .WithCreationTime(new DateTime(2013, 1, 13))
+												  .Build())
+								 .WithComment(Create.Comment()
+													.WithId(guid1)
+													.WithBody("Body2")
+													.Build())
+								 .Build();
+
+			// act
+			MergeConversation(original, proposed);
+
+			// assert
+			original.Emails.Should().HaveCount(1);
+		}
+
+		[Fact]
+		public void should_modify_emails_with_the_same_creation_time_when_merge()
+		{
+			// arrange
+			var original = Create.Conversation()
+								 .WithConversationId("1")
+								 .WithEmail(Create.EmailItem()
+												  .WithAccountId("1")
+												  .WithItemId("1")
+												  .WithFolder("1", "1", "1")
+												  .WithCreationTime(new DateTime(2013, 1, 12))
+												  .WithIsUnread(true)
+												  .Build())
+								 .Build();
+
+			var proposed = Create.Conversation()
+								 .WithConversationId("1")
+								 .WithEmail(Create.EmailItem()
+												  .WithAccountId("1")
+												  .WithItemId("1")
+												  .WithFolder("1", "1", "1")
+												  .WithCreationTime(new DateTime(2013, 1, 12))
+												  .WithIsUnread(false)
+												  .Build())
+								 .Build();
+
+			// act
+			MergeConversation(original, proposed);
+
+			// assert
+			original.NewestEmail.IsUnread.Should().BeFalse();
+		}
+
+		[Fact]
+		public void should_save_origin_email_and_add_newest_email()
+		{
+			// arrange
+			var guid1 = Guid.NewGuid();
+			var guid2 = Guid.NewGuid();
+
+			var original = Create.Conversation()
+			                     .WithConversationId("1")
+			                     .WithEmail(Create.EmailItem()
+			                                      .WithAccountId("1")
+			                                      .WithItemId("1")
+			                                      .WithFolder("1", "1", "1")
+			                                      .WithCreationTime(new DateTime(2013, 1, 12))
+			                                      .WithIsUnread(true)
+			                                      .Build())
+								 .WithComment(Create.Comment().WithId(guid1).Build())
+			                     .Build();
+
+			var proposed = Create.Conversation()
+			                     .WithConversationId("1")
+			                     .WithEmail(Create.EmailItem()
+			                                      .WithAccountId("1")
+			                                      .WithItemId("2")
+			                                      .WithFolder("1", "1", "1")
+			                                      .WithCreationTime(new DateTime(2013, 1, 13))
+			                                      .WithIsUnread(false)
+			                                      .Build())
+								 .WithComment(Create.Comment().WithId(guid1).Build())
+								 .WithComment(Create.Comment().WithId(guid2).Build())
+			                     .Build();
+
+			// act
+			MergeConversation(original, proposed);
+
+			// assert
+			original.Comments.Should().HaveCount(2);
+			original.Comments[0].OriginalEmail.ItemId.Should().Be("1");
+			original.Comments[1].OriginalEmail.ItemId.Should().Be("2");
 		}
 
 		private void MergeConversation(Conversation target, Conversation source)

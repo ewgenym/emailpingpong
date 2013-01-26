@@ -5,6 +5,7 @@ using EmailPingPong.Outlook.Common.Controllers;
 using EmailPingPong.Outlook.Common.Utils;
 using EmailPingPong.Outlook.Common.Word.Utils;
 using EmailPingPong.UI.Word.Controls;
+using Microsoft.Office.Core;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Office.Interop.Word;
 using EmailPingPong.Outlook.Common.Word.Utils;
@@ -70,6 +71,8 @@ namespace EmailPingPong.Outlook2010.Controllers
 
 		private string EnsureConversationTracking(MailItem mailItem, Document document)
 		{
+			return mailItem.ConversationID;
+
 			foreach (ContentControl contentControl in document.ContentControls)
 			{
 				if (contentControl.IsPingPong())
