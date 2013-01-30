@@ -22,13 +22,19 @@ namespace EmailPingPong.Tests.Builders
 
 		public ConversationBuilder WithEmail(EmailItem email)
 		{
-			EntityToBuild.Emails.Add(email);
+			EntityToBuild.AddEmail(email);
 			return this;
 		}
 
 		public ConversationBuilder WithTopic(string topic)
 		{
 			EntityToBuild.Topic = topic;
+			return this;
+		}
+
+		public ConversationBuilder WithAccountId(string accountId)
+		{
+			EntityToBuild.AccountId = accountId;
 			return this;
 		}
 	}

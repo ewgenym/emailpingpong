@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using EmailPingPong.Core.Commands;
 using EmailPingPong.Infrastructure;
 using EmailPingPong.Infrastructure.Events;
@@ -17,16 +18,22 @@ namespace EmailPingPong.Outlook2010.Services
 		private readonly IConversationBinder _conversationBinder;
 		private readonly IEventAggregator _eventAggregator;
 		private Explorer _explorer;
+		private MailItem _selectedItem;
+		private readonly IFolderBinder _folderBinder;
+		private readonly IConversationMetadataTracker _conversationMetadataTracker;
 
 		public Outlook2010ConversationMonitor(ConversationContext context,
 											  ICommandDispatcher commands,
 											  IConversationBinder conversationBinder,
-											  IEventAggregator eventAggregator)
+											  IEventAggregator eventAggregator,
+											  IFolderBinder folderBinder, IConversationMetadataTracker conversationMetadataTracker)
 		{
 			_context = context;
 			_commands = commands;
 			_conversationBinder = conversationBinder;
 			_eventAggregator = eventAggregator;
+			_folderBinder = folderBinder;
+			_conversationMetadataTracker = conversationMetadataTracker;
 		}
 
 		public override void StartWatch()
@@ -34,15 +41,6 @@ namespace EmailPingPong.Outlook2010.Services
 			_explorer = Globals.ThisAddIn.Application.ActiveExplorer();
 			_explorer.FolderSwitch += OnFolderSwitch;
 			_explorer.SelectionChange += OnSelectionChange;
-
-			// Synchronization should be done when:
-			// TODO:
-			// -E-mail was moved from one folder to another
-			// -The scope of monitoring is all accounts->all mail folders
-
-			// -New e-mail is received (monitor all the mail folders, including subfolders of course)
-
-			_folderItems = new Dictionary<Folder, Items>();
 
 			foreach (Account account in Globals.ThisAddIn.Application.Session.Accounts)
 			{
@@ -52,52 +50,42 @@ namespace EmailPingPong.Outlook2010.Services
 					continue;
 				}
 
+				// New email received or moved from another folder
 				var inbox = (Folder)store.GetDefaultFolder(OlDefaultFolders.olFolderInbox);
-				EnumerateFoldersHierarchy(inbox, _folderItems);
+				WatchFolderHierarchy(inbox);
 
-				// E-mail was created but not sent. It was saved to draft folders instead.
+				// Email was saved to draft folder
 				var draft = (Folder)store.GetDefaultFolder(OlDefaultFolders.olFolderDrafts);
-				_folderItems.Add(draft, draft.Items);
-				break;
-				
+				WatchFolder(draft);
+
+				// -New e-mail is sent. When there is no connection with server as well. (Two options here: 1) monitor Sent folder 2) monitor Application.ItemSend event)
+				var sent = (Folder)store.GetDefaultFolder(OlDefaultFolders.olFolderSentMail);
+				WatchFolder(sent);
 			}
 
-			foreach (var folderItem in _folderItems)
-			{
-				var folder = folderItem.Key;
-				var items = folderItem.Value;
-
-				items.ItemAdd += OnMailItemAdded;
-				items.ItemChange += OnMailItemChanged;
-
-				//folder.BeforeItemMove += MailItemRemoved;
-			}
-
+			SetupWatch();
 
 			// -New e-mail is sent. When there is no connection with server as well. (Two options here: 1) monitor Sent folder 2) monitor Application.ItemSend event)
 			//var sent = this.Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderSentMail);
 			//_sentItems = sent.Items;
 			//_sentItems.ItemAdd += SyncConversation;
-
-			//break;
-
 		}
 
-		private void OnFolderSwitch()
+		private void WatchFolder(Folder folder)
 		{
-			_eventAggregator.GetEvent<MailFolderSwitchedEvent>().Publish(new MailFolderSwitchedArgs("", null));
+			if (_folderItems == null)
+			{
+				_folderItems = new Dictionary<Folder, Items>();
+			}
+
+			_folderItems.Add(folder, folder.Items);
 		}
 
-		private void OnSelectionChange()
-		{
-			//throw new System.NotImplementedException();
-		}
-
-		private void EnumerateFoldersHierarchy(Folder root, Dictionary<Folder, Items> folderItems)
+		private void WatchFolderHierarchy(Folder root)
 		{
 			if (root.DefaultItemType == OlItemType.olMailItem)
 			{
-				folderItems.Add(root, root.Items);
+				WatchFolder(root);
 
 				if (root.Folders.Count <= 0)
 				{
@@ -106,8 +94,22 @@ namespace EmailPingPong.Outlook2010.Services
 
 				foreach (Folder folder in root.Folders)
 				{
-					EnumerateFoldersHierarchy(folder, folderItems);
+					WatchFolderHierarchy(folder);
 				}
+			}
+		}
+
+		private void SetupWatch()
+		{
+			foreach (var folderItem in _folderItems)
+			{
+				var folder = folderItem.Key;
+				var items = folderItem.Value;
+
+				items.ItemAdd += OnMailItemAdded;
+				items.ItemChange += OnMailItemChanged;
+
+				folder.BeforeItemMove += MailItemRemoved;
 			}
 		}
 
@@ -144,39 +146,79 @@ namespace EmailPingPong.Outlook2010.Services
 			{
 				_commands.Dispatch(new UpdateMailItem(conversation));
 			}
-			_eventAggregator.GetEvent<EmailItemChangedEvent>().Publish(new EmailItemChangedArgs(conversation.NewestEmail));
+			_eventAggregator.GetEvent<ConversationRemovedEvent>().Publish(new ConversationRemovedArgs(conversation));
 		}
 
 		private void MailItemRemoved(object item, MAPIFolder to, ref bool cancel)
 		{
-			//var mailItem = (MailItem)item;
-			//var inspector = mailItem.GetInspector;
-			//var document = (Microsoft.Office.Interop.Word.Document)inspector.WordEditor;
+			var mailItem = item as MailItem;
+			if (mailItem == null)
+			{
+				return;
+			}
 
-			//var questions = ParseQuestions(mailItem, to.StoreID, to.EntryID, document);
+			var conversation = _conversationBinder.Bind(mailItem);
+			if (conversation == null)
+			{
+				return;
+			}
 
-			////TODO: move this logic to ConversationSyncService
-			////_commentRepository.Delete(questions);
-			////_commentRepository.SaveChanges();
-
-			//var ppItem = new PingPongMailItem
-			//	{
-			//		ItemId = mailItem.EntryID,
-			//		StoreId = ((Folder)mailItem.Parent).StoreID,
-			//		FolderId = ((Folder)mailItem.Parent).EntryID,
-			//	};
-			//_bus.GetEvent<MailItemRemovedEvent>().Publish(ppItem);
+			using (new UnitOfWork(_context))
+			{
+				_commands.Dispatch(new RemoveConversation(conversation));
+			}
+			_eventAggregator.GetEvent<EmailItemChangedEvent>().Publish(new EmailItemChangedArgs(conversation.NewestEmail));
 		}
 
-		private void RemoveConversation()
+		private void OnFolderSwitch()
 		{
-			//_bus.GetEvent<MailItemRemovedEvent>().Publish(null);
+			var folder = (Folder) _explorer.CurrentFolder;
+			_eventAggregator.GetEvent<MailFolderSwitchedEvent>().Publish(new MailFolderSwitchedArgs(folder.Store.DisplayName, _folderBinder.Bind(folder)));
+		}
+
+		private void OnSelectionChange()
+		{
+			HandlePreserveAttachment();
+		}
+
+		private void HandlePreserveAttachment()
+		{
+			if (_selectedItem != null)
+			{
+				Marshal.ReleaseComObject(_selectedItem);
+				_selectedItem = null;
+			}
+
+			if (_explorer.Selection.Count > 0)
+			{
+				_selectedItem = (MailItem)_explorer.Selection[1];
+				if (_conversationMetadataTracker.TracksConversation(_selectedItem))
+				{
+					((ItemEvents_10_Event) _selectedItem).Reply += OnMailItemReply;
+					((ItemEvents_10_Event)_selectedItem).ReplyAll += OnMailItemReply;
+				}
+			}
+		}
+
+		private void OnMailItemReply(object response, ref bool cancel)
+		{
+			var responseItem = (MailItem)response;
+			_conversationMetadataTracker.PreserveMetadata(_selectedItem, responseItem);
+			Marshal.ReleaseComObject(responseItem);
 		}
 
 		public override void StopWatch()
 		{
-			//TODO: release objects from _folderItems
-			throw new System.NotImplementedException();
+			if (_selectedItem != null)
+			{
+				Marshal.ReleaseComObject(_selectedItem);
+			}
+
+			foreach (var item in _folderItems)
+			{
+				Marshal.ReleaseComObject(item.Key);
+			}
+			_folderItems.Clear();
 		}
 	}
 }

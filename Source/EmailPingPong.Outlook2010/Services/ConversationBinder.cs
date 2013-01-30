@@ -9,11 +9,15 @@ namespace EmailPingPong.Outlook2010.Services
 	{
 		private readonly IConversationParser _parser;
 		private readonly IEmailItemBinder _emailItemBinder;
+		private readonly IConversationMetadataTracker _metadataTracker;
 
-		public ConversationBinder(IConversationParser parser, IEmailItemBinder emailItemBinder)
+		public ConversationBinder(IConversationParser parser,
+			IEmailItemBinder emailItemBinder, 
+			IConversationMetadataTracker metadataTracker)
 		{
 			_parser = parser;
 			_emailItemBinder = emailItemBinder;
+			_metadataTracker = metadataTracker;
 		}
 
 		public Conversation Bind(MailItem mailItem)
@@ -44,14 +48,13 @@ namespace EmailPingPong.Outlook2010.Services
 
 		private string BindConversationId(MailItem mailItem)
 		{
-			return mailItem.ConversationID;
+			return _metadataTracker.Read(mailItem).ConversationId;
 		}
 
 		private string BindTopic(MailItem mailItem)
 		{
-			return mailItem.ConversationTopic;
 			//PR_NORMALIZED_SUBJECT_W
-			//return mailItem.PropertyAccessor.GetProperty("http://schemas.microsoft.com/mapi/proptag/0x0E1D001F");
+			return mailItem.PropertyAccessor.GetProperty("http://schemas.microsoft.com/mapi/proptag/0x0E1D001F");
 		}
 
 		private void BindComments(MailItem item, Conversation conversation)

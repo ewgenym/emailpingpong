@@ -7,7 +7,7 @@ namespace EmailPingPong.Core.Repositories
 	{
 		Conversation GetByConversationId(string conversationId);
 		IEnumerable<Conversation> GetByAccountId(string accountId);
-		IEnumerable<Conversation> GetByAccountIdAndFolders(string accountId, IEnumerable<EmailFolder> folders);
+		IEnumerable<Conversation> GetByAccountIdAndFolder(string accountId, EmailFolder folder);
 		IEnumerable<Conversation> GetByAccountIdAndEmails(string accountId, IEnumerable<EmailItem> emails);
 	}
 }

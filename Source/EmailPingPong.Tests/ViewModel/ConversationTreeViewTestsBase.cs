@@ -8,33 +8,36 @@ namespace EmailPingPong.Tests.ViewModel
 {
 	public class ConversationTreeViewTestsBase
 	{
-		protected ConversationTreeViewModel _viewModel;
-		protected IConversationRepository _conversationRepository;
-		protected IEventAggregator _eventAggregator;
-		protected MailFolderSwitchedEvent _mailFolderSwitchedEvent;
-		protected EmailItemSwitchedEvent _emailItemSwitchedEvent;
-		protected EmailItemChangedEvent _emailItemChangedEvent;
-		protected ConversationMergedEvent ConversationMergedEvent;
+		protected readonly ConversationTreeViewModel ViewModel;
+		protected readonly IConversationRepository ConversationRepository;
+		protected readonly IEventAggregator EventAggregator;
+		protected readonly MailFolderSwitchedEvent MailFolderSwitchedEvent;
+		protected readonly EmailItemSwitchedEvent EmailItemSwitchedEvent;
+		protected readonly EmailItemChangedEvent EmailItemChangedEvent;
+		protected readonly ConversationMergedEvent ConversationMergedEvent;
+		protected readonly ConversationRemovedEvent ConversationRemovedEvent;
 
 		public ConversationTreeViewTestsBase()
 		{
-			_conversationRepository = Substitute.For<IConversationRepository>();
+			ConversationRepository = Substitute.For<IConversationRepository>();
 
-			_eventAggregator = Substitute.For<IEventAggregator>();
+			EventAggregator = Substitute.For<IEventAggregator>();
 
-			_mailFolderSwitchedEvent = new MailFolderSwitchedEvent();
-			_emailItemSwitchedEvent = new EmailItemSwitchedEvent();
-			_emailItemChangedEvent = new EmailItemChangedEvent();
+			MailFolderSwitchedEvent = new MailFolderSwitchedEvent();
+			EmailItemSwitchedEvent = new EmailItemSwitchedEvent();
+			EmailItemChangedEvent = new EmailItemChangedEvent();
 			ConversationMergedEvent = new ConversationMergedEvent();
+			ConversationRemovedEvent = new ConversationRemovedEvent();
 
-			_eventAggregator.GetEvent<MailFolderSwitchedEvent>().Returns(_mailFolderSwitchedEvent);
-			_eventAggregator.GetEvent<EmailItemSwitchedEvent>().Returns(_emailItemSwitchedEvent);
-			_eventAggregator.GetEvent<EmailItemChangedEvent>().Returns(_emailItemChangedEvent);
-			_eventAggregator.GetEvent<ConversationMergedEvent>().Returns(ConversationMergedEvent);
+			EventAggregator.GetEvent<MailFolderSwitchedEvent>().Returns(MailFolderSwitchedEvent);
+			EventAggregator.GetEvent<EmailItemSwitchedEvent>().Returns(EmailItemSwitchedEvent);
+			EventAggregator.GetEvent<EmailItemChangedEvent>().Returns(EmailItemChangedEvent);
+			EventAggregator.GetEvent<ConversationMergedEvent>().Returns(ConversationMergedEvent);
+			EventAggregator.GetEvent<ConversationRemovedEvent>().Returns(ConversationRemovedEvent);
+			
+			var treeViewItemsBinder = new ConversationTreeItemsBinder(ConversationRepository);
 
-			var treeViewItemsBinder = new ConversationTreeItemsBinder(_conversationRepository);
-
-			_viewModel = new ConversationTreeViewModel(treeViewItemsBinder, _eventAggregator);
+			ViewModel = new ConversationTreeViewModel(treeViewItemsBinder, EventAggregator);
 		}
 	}
 }

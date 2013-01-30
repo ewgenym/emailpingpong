@@ -16,13 +16,13 @@ namespace EmailPingPong.Core.Model
 		}
 
 		[Required]
-		public string StoreId { get; set; }
+		public virtual string StoreId { get; set; }
 
 		[Required]
-		public string FolderId { get; set; }
+		public virtual string FolderId { get; set; }
 
 		[Required]
-		public string FolderName { get; set; }
+		public virtual string FolderName { get; set; }
 
 		public override int GetHashCode()
 		{
@@ -58,8 +58,14 @@ namespace EmailPingPong.Core.Model
 
 		public static bool operator== (EmailFolder entity1, EmailFolder entity2)
 		{
-			var obj = (object) entity1;
-			return !(obj == null) && entity1.Equals(entity2);
+			var obj1 = (object) entity1;
+			var obj2 = (object)entity2;
+			if (obj1 == null && obj2 == null)
+			{
+				return true;
+			}
+
+			return !(obj1 == null) && entity1.Equals(entity2);
 		}
 
 		public static bool operator!= (EmailFolder entity1, EmailFolder entity2)

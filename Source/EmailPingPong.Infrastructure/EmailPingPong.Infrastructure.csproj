@@ -91,6 +91,7 @@
     <Compile Include="Configuration\Implementation\GenericApplicationConfigurator.cs" />
     <Compile Include="EventPublisher.cs" />
     <Compile Include="Events\ConversationMergedEvent.cs" />
+    <Compile Include="Events\ConversationRemovedEvent.cs" />
     <Compile Include="Events\EmailItemChangedEvent.cs" />
     <Compile Include="Events\EmailItemSwitchedEvent.cs" />
     <Compile Include="Events\MailFolderSwitchedEvent.cs" />

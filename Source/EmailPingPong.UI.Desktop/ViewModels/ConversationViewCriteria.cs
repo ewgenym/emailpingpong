@@ -12,15 +12,15 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		public readonly SearchIn SearchIn;
 		public readonly string AccountId;
 		public readonly IEnumerable<EmailItem> Emails;
-		public readonly IEnumerable<EmailFolder> Folders;
+		public readonly EmailFolder Folder;
 
-		public ConversationViewCriteria(GroupBy groupBy, SearchIn searchIn, string accountId, IEnumerable<EmailItem> emails, IEnumerable<EmailFolder> folders)
+		public ConversationViewCriteria(GroupBy groupBy, SearchIn searchIn, string accountId, IEnumerable<EmailItem> emails, EmailFolder folder)
 		{
 			GroupBy = groupBy;
 			SearchIn = searchIn;
 			AccountId = accountId;
 			Emails = emails;
-			Folders = folders;
+			Folder = folder;
 		}
 
 		public override int GetHashCode()
@@ -29,17 +29,12 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			           ^ SearchIn.GetHashCode() << 5)
 			          ^ AccountId.Return(a => a.GetHashCode()) << 5)
 			         ^ GetEmailsHashCode() << 5)
-			        ^ GetFoldersHashCode() << 5);
+			        ^ Folder.Return(f => f.GetHashCode()) << 5);
 		}
 
 		private int GetEmailsHashCode()
 		{
 			return Emails.Return(e => e.Aggregate(0, (current, email) => current ^ email.GetHashCode() << 5));
-		}
-
-		private int GetFoldersHashCode()
-		{
-			return Folders.Return(f => f.Aggregate(0, (current, folder) => current ^ folder.GetHashCode() << 5));
 		}
 
 		public override bool Equals(object other)
@@ -66,12 +61,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			       && SearchIn == ((ConversationViewCriteria) other).SearchIn
 			       && AccountId == ((ConversationViewCriteria) other).AccountId
 				   && EmailListsAreEqual(Emails, ((ConversationViewCriteria)other).Emails)
-				   && FolderListsAreEqual(Folders, ((ConversationViewCriteria)other).Folders);
-		}
-
-		private bool FolderListsAreEqual(IEnumerable<EmailFolder> list1, IEnumerable<EmailFolder> list2)
-		{
-			return list1.ElementsEqual(list2);
+				   && Folder == ((ConversationViewCriteria)other).Folder;
 		}
 
 		private bool EmailListsAreEqual(IEnumerable<EmailItem> list1, IEnumerable<EmailItem> list2)

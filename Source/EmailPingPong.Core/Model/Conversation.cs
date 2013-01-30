@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using EmailPingPong.Core.Utils;
@@ -15,18 +14,16 @@ namespace EmailPingPong.Core.Model
 		}
 
 		[Required]
-		public string ConversationId { get; set; }
+		public virtual string ConversationId { get; set; }
 
-		public string Topic { get; set; }
+		[Required]
+		public virtual string AccountId { get; set; }
 
-		public IList<Comment> Comments { get; set; }
+		public virtual string Topic { get; set; }
 
-		private void ClearComments()
-		{
-			Comments.Clear();
-		}
+		public virtual IList<Comment> Comments { get; set; }
 
-		public void AddComment(Comment comment)
+		public virtual void AddComment(Comment comment)
 		{
 			Comments.Add(comment);
 			var comments = new FlatCommentsIterator(comment).ToList();
@@ -39,29 +36,25 @@ namespace EmailPingPong.Core.Model
 			}
 		}
 
-		public void RemoveComment(Comment comment)
-		{
-			Comments.Remove(comment);
-		}
+		public virtual IList<EmailItem> Emails { get; set; }
 
-		public void AddCommentsRange(IEnumerable<Comment> comments)
-		{
-			comments.ForEach(AddComment);
-		}
-
-		public IList<EmailItem> Emails { get; set; }
-
-		public void AddEmail(EmailItem emailItem)
+		public virtual void AddEmail(EmailItem emailItem)
 		{
 			Emails.Add(emailItem);
+			RefreshCachedFields();
 		}
 
-		public EmailItem NewestEmail
+		private void RefreshCachedFields()
+		{
+			AccountId = NewestEmail.Return(e => e.AccountId);
+		}
+
+		public virtual EmailItem NewestEmail
 		{
 			get { return Emails.OrderByDescending(e => e.CreationTime).FirstOrDefault(); }
 		}
 
-		public bool IsNewerThanOrSame(Conversation conversation)
+		public virtual bool IsNewerThanOrSame(Conversation conversation)
 		{
 			if (NewestEmail == null)
 			{
@@ -71,13 +64,15 @@ namespace EmailPingPong.Core.Model
 			return NewestEmail.CreationTime.LaterThenOrEqual(conversation.NewestEmail.CreationTime);
 		}
 
-		public void UpdateEmail(EmailItem targetEmail)
+		public virtual bool UpdateEmail(EmailItem targetEmail)
 		{
 			var conversationEmail = Emails.SingleOrDefault(e => e.SameAs(targetEmail));
 			if (conversationEmail != null)
 			{
 				conversationEmail.IsUnread = targetEmail.IsUnread;
 			}
+
+			return conversationEmail != null;
 		}
 	}
 }

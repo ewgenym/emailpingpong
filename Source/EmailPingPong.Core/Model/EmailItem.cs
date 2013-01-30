@@ -6,23 +6,23 @@ namespace EmailPingPong.Core.Model
 	public class EmailItem : ModelEntityWithLongId
 	{
 		[Required]
-		public string AccountId { get; set; }
+		public virtual string AccountId { get; set; }
 
 		[Required]
-		public string ItemId { get; set; }
+		public virtual string ItemId { get; set; }
 
-		public string Subject { get; set; }
+		public virtual string Subject { get; set; }
 
-		public EmailFolder Folder { get; set; }
+		public virtual EmailFolder Folder { get; set; }
 
 		//TODO: consider using MessageDeliveryTime (PR_MESSAGE_DELIVERY_TIME)
 		[Required]
-		public DateTime CreationTime { get; set; }
+		public virtual DateTime CreationTime { get; set; }
 
 		[Required]
-		public bool IsUnread { get; set; }
+		public virtual bool IsUnread { get; set; }
 
-		public bool SameAs(EmailItem other)
+		public virtual bool SameAs(EmailItem other)
 		{
 			if (other == null)
 			{

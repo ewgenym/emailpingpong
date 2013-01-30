@@ -78,7 +78,8 @@ namespace EmailPingPong.Outlook.Common.Configuration
 		private void ConfigureCommandHandlers()
 		{
 			_container.Register(Component.For<ICommandDispatcher>().ImplementedBy<CommandDispatcher>());
-			_container.Register(Component.For<ICommandHandler<MergeConversation>, ICommandHandler<UpdateMailItem>>().ImplementedBy<ConversationCommandHandlers>());
+			_container.Register(Component.For<ICommandHandler<MergeConversation>, ICommandHandler<UpdateMailItem>, ICommandHandler<RemoveConversation>>()
+				.ImplementedBy<ConversationCommandHandlers>());
 		}
 
 		private void ConfigureEventHandlers()

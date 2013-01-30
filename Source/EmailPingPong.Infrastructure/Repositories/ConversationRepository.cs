@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using EmailPingPong.Core.Model;
 using EmailPingPong.Core.Repositories;
@@ -28,15 +28,15 @@ namespace EmailPingPong.Infrastructure.Repositories
 
 		public IEnumerable<Conversation> GetByAccountId(string accountId)
 		{
-			return GetAll();
-			//return _conversationContext.Conversations
-			//						   .Where(c => c.NewestEmail.AccountId == accountId)
-			//						   .Include(c => c.Comments)
-			//						   .Include("Comments.Answers")
-			//						   .Include(c => c.Emails);
+			return _conversationContext.Conversations
+									   .Where(c => c.AccountId == accountId)
+									   .Include("Comments")
+									   .Include("Comments.Answers")
+									   .Include("Comments.OriginalEmail")
+									   .Include("Emails");
 		}
 
-		public IEnumerable<Conversation> GetByAccountIdAndFolders(string accountId, IEnumerable<EmailFolder> folders)
+		public IEnumerable<Conversation> GetByAccountIdAndFolder(string accountId, EmailFolder folders)
 		{
 			return GetAll();
 		}
@@ -59,6 +59,7 @@ namespace EmailPingPong.Infrastructure.Repositories
 			var aggregator = new List<Comment>();
 			comments.ForEach(comment =>
 				{
+					aggregator.Add(comment);
 					aggregator.AddRange(comment.Answers);
 					aggregator.AddRange(CascadeComments(comment.Answers));
 					comment.Answers.Clear();

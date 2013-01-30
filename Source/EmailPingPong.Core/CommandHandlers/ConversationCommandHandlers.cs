@@ -6,7 +6,8 @@ using EmailPingPong.Core.Services;
 namespace EmailPingPong.Core.CommandHandlers
 {
 	public class ConversationCommandHandlers : ICommandHandler<MergeConversation>,
-		ICommandHandler<UpdateMailItem>
+		ICommandHandler<UpdateMailItem>,
+		ICommandHandler<RemoveConversation>
 	{
 		private readonly IMergeConversationService _mergeConversationService;
 		private readonly IConversationRepository _conversationRepository;
@@ -20,22 +21,31 @@ namespace EmailPingPong.Core.CommandHandlers
 
 		public void Handle(MergeConversation command)
 		{
-			InternalMerge(command.Conversation);
+			InternalMerge(command.Conversation, true);
 		}
 
 		public void Handle(UpdateMailItem command)
 		{
-			InternalMerge(command.Conversation);
+			InternalMerge(command.Conversation, false);
 		}
 
-		private void InternalMerge(Conversation proposed)
+		public void Handle(RemoveConversation command)
+		{
+			var original = _conversationRepository.GetByConversationId(command.Conversation.ConversationId);
+			if (original != null)
+			{
+				_conversationRepository.Remove(original);
+			}
+		}
+
+		private void InternalMerge(Conversation proposed, bool addNew)
 		{
 			var original = _conversationRepository.GetByConversationId(proposed.ConversationId);
 			if (original != null)
 			{
 				_mergeConversationService.Merge(original, proposed);
 			}
-			else
+			else if (addNew)
 			{
 				_conversationRepository.Add(proposed);
 			}

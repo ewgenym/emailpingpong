@@ -7,12 +7,10 @@ namespace EmailPingPong.Outlook.Common.Word.Controls
 	public abstract class PingPongControl
 	{
 		private readonly Document _document;
-		private readonly string _conversationId;
 
-		public PingPongControl(Document document, string conversationId)
+		public PingPongControl(Document document)
 		{
 			_document = document;
-			_conversationId = conversationId;
 
 			if (!_document.FormsDesign)
 			{

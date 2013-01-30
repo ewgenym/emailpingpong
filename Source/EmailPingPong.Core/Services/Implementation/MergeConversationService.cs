@@ -24,22 +24,23 @@ namespace EmailPingPong.Core.Services.Implementation
 				throw new InvalidOperationException("Can't merge conversations with different id's");
 			}
 
+			MergeEmails(original, proposed);
+
 			if (!proposed.IsNewerThanOrSame(original))
 			{
 				return;
 			}
 
-			if (original.NewestEmail.Return(e=>e.SameAs(proposed.NewestEmail)))
-			{
-				original.UpdateEmail(proposed.NewestEmail);
-			}
-			else if (proposed.NewestEmail != null)
+			MergeComments(original, proposed);
+		}
+
+		private void MergeEmails(Conversation original, Conversation proposed)
+		{
+			if (!original.UpdateEmail(proposed.NewestEmail))
 			{
 				original.AddEmail(proposed.NewestEmail);
 				_emailItemRepository.Add(proposed.NewestEmail);
 			}
-
-			MergeComments(original, proposed);
 		}
 
 		private void MergeComments(Conversation original, Conversation proposed)

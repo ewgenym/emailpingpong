@@ -2,7 +2,7 @@
 {
 	public class ModelEntityWithLongId
 	{
-		public long Id { get; set; }
+		public virtual long Id { get; set; }
 
 		public override int GetHashCode()
 		{

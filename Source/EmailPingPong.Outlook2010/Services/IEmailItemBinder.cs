@@ -16,13 +16,12 @@ namespace EmailPingPong.Outlook2010.Services
 
 			var email = new EmailItem
 			{
-				AccountId = mailItem.EntryID,//TODO: get account id 
+				AccountId = folder.Store.DisplayName,
 				ItemId = mailItem.EntryID,
 				Subject = mailItem.Subject,
 				CreationTime = mailItem.ReceivedTime,
 				Folder = new EmailFolder(folder.StoreID, folder.EntryID, folder.Name),
 				IsUnread = mailItem.UnRead
-				
 			};
 			return email;
 		}

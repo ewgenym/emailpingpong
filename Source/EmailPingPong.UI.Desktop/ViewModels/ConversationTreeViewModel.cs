@@ -14,21 +14,29 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		private SearchIn _searchIn;
 		private string _accountId;
 		private IEnumerable<EmailItem> _emails;
-		private IEnumerable<EmailFolder> _folders;
+		private EmailFolder _folder;
 		private readonly IConversationTreeItemsBinder _treeViewItemsBinder;
 		private readonly TreeViewItemsState<ConversationViewCriteria> _statePersister;
 		private ConversationViewCriteria _latestCriteria;
+		private readonly IEventAggregator _eventAggregator;
 
 		public ConversationTreeViewModel(IConversationTreeItemsBinder treeViewItemsBinder,
 										 IEventAggregator eventAggregator)
 		{
 			_treeViewItemsBinder = treeViewItemsBinder;
+			_eventAggregator = eventAggregator;
 			_statePersister = new TreeViewItemsState<ConversationViewCriteria>();
 
-			eventAggregator.GetEvent<MailFolderSwitchedEvent>().Subscribe(OnMailFolderSwitched, ThreadOption.PublisherThread);
-			eventAggregator.GetEvent<EmailItemSwitchedEvent>().Subscribe(OnEmailItemSwitched, ThreadOption.PublisherThread);
-			eventAggregator.GetEvent<ConversationMergedEvent>().Subscribe(OnConversationAdded, ThreadOption.PublisherThread);
-			eventAggregator.GetEvent<EmailItemChangedEvent>().Subscribe(OnEmailItemChanged, ThreadOption.PublisherThread);
+			ListenToEvents();
+		}
+
+		private void ListenToEvents()
+		{
+			_eventAggregator.GetEvent<MailFolderSwitchedEvent>().Subscribe(OnMailFolderSwitched, ThreadOption.PublisherThread);
+			_eventAggregator.GetEvent<EmailItemSwitchedEvent>().Subscribe(OnEmailItemSwitched, ThreadOption.PublisherThread);
+			_eventAggregator.GetEvent<ConversationMergedEvent>().Subscribe(OnConversationAdded, ThreadOption.PublisherThread);
+			_eventAggregator.GetEvent<EmailItemChangedEvent>().Subscribe(OnEmailItemChanged, ThreadOption.PublisherThread);
+			_eventAggregator.GetEvent<ConversationRemovedEvent>().Subscribe(OnConversationRemoved, ThreadOption.PublisherThread);
 		}
 
 		private void OnEmailItemSwitched(EmailItemSwitchedArgs args)
@@ -41,7 +49,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		private void OnMailFolderSwitched(MailFolderSwitchedArgs args)
 		{
 			_accountId = args.AccountId;
-			_folders = args.Folders;
+			_folder = args.Folder;
 			BindData();
 		}
 
@@ -51,6 +59,11 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		}
 
 		private void OnEmailItemChanged(EmailItemChangedArgs args)
+		{
+			BindData();
+		}
+
+		private void OnConversationRemoved(ConversationRemovedArgs obj)
 		{
 			BindData();
 		}
@@ -97,13 +110,13 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 
 		private ConversationViewCriteria GetViewCriteria()
 		{
-			return new ConversationViewCriteria(_groupBy, _searchIn, _accountId, _emails, _folders);
+			return new ConversationViewCriteria(_groupBy, _searchIn, _accountId, _emails, _folder);
 		}
 
 		public ReadOnlyCollection<TreeViewItemViewModel> Items
 		{
 			get { return _items; }
-			set
+			private set
 			{
 				_items = value;
 				OnPropertyChanged("Items");

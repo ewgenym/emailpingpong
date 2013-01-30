@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using EmailPingPong.Core.Model;
+﻿using EmailPingPong.Core.Model;
 using Microsoft.Practices.Prism.Events;
 
 namespace EmailPingPong.Infrastructure.Events
@@ -10,13 +9,13 @@ namespace EmailPingPong.Infrastructure.Events
 
 	public class MailFolderSwitchedArgs
 	{
-		public MailFolderSwitchedArgs(string accountId, IEnumerable<EmailFolder> folders)
+		public MailFolderSwitchedArgs(string accountId, EmailFolder folder)
 		{
 			AccountId = accountId;
-			Folders = folders;
+			Folder = folder;
 		}
 
 		public string AccountId { get; private set; }
-		public IEnumerable<EmailFolder> Folders { get; private set; }
+		public EmailFolder Folder { get; private set; }
 	}
 }

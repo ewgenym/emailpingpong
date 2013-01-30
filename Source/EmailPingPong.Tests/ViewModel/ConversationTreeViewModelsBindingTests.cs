@@ -16,42 +16,42 @@ namespace EmailPingPong.Tests.ViewModel
 			var conversation = Create.Conversation()
 									 .WithComment(Create.Comment().Build())
 									 .Build();
-			_conversationRepository.GetByAccountId("").ReturnsForAnyArgs(new List<Conversation> { conversation });
-			_conversationRepository.GetByAccountIdAndEmails("", null).ReturnsForAnyArgs(new List<Conversation> { conversation });
-			_conversationRepository.GetByAccountIdAndFolders("", null).ReturnsForAnyArgs(new List<Conversation> { conversation });
+			ConversationRepository.GetByAccountId("").ReturnsForAnyArgs(new List<Conversation> { conversation });
+			ConversationRepository.GetByAccountIdAndEmails("", null).ReturnsForAnyArgs(new List<Conversation> { conversation });
+			ConversationRepository.GetByAccountIdAndFolder("", null).ReturnsForAnyArgs(new List<Conversation> { conversation });
 		}
 
 		[Fact]
 		public async Task should_bind_to_conversation_view_model()
 		{
 			// act
-			_viewModel.GroupBy = GroupBy.Email;
-			await _viewModel.BindData();
+			ViewModel.GroupBy = GroupBy.Email;
+			await ViewModel.BindData();
 
 			// assert
-			_viewModel.Items[0].Should().BeAssignableTo<ConversationViewModel>();
+			ViewModel.Items[0].Should().BeAssignableTo<ConversationViewModel>();
 		}
 
 		[Fact]
 		public async Task should_bind_to_folder_view_model()
 		{
 			// act
-			_viewModel.GroupBy = GroupBy.Folder;
-			await _viewModel.BindData();
+			ViewModel.GroupBy = GroupBy.Folder;
+			await ViewModel.BindData();
 
 			// assert
-			_viewModel.Items[0].Should().BeAssignableTo<FolderViewModel>();
+			ViewModel.Items[0].Should().BeAssignableTo<FolderViewModel>();
 		}
 
 		[Fact]
 		public async Task should_bind_to_comment_view_model()
 		{
 			// act
-			_viewModel.GroupBy = GroupBy.None;
-			await _viewModel.BindData();
+			ViewModel.GroupBy = GroupBy.None;
+			await ViewModel.BindData();
 
 			// assert
-			_viewModel.Items[0].Should().BeAssignableTo<CommentViewModel>();
+			ViewModel.Items[0].Should().BeAssignableTo<CommentViewModel>();
 		}
 	}
 }

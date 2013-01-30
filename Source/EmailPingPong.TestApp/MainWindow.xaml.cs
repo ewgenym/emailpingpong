@@ -21,10 +21,7 @@ namespace EmailPingPong.TestApp
 		{
 			var eventAggregator = ServiceLocator.Container.Resolve<IEventAggregator>();
 			eventAggregator.GetEvent<MailFolderSwitchedEvent>()
-						   .Publish(new MailFolderSwitchedArgs(AccountId.Text, new List<EmailFolder>()
-				               {
-					               new EmailFolder("1", FolderId.Text, "Inbox")
-				               }));
+						   .Publish(new MailFolderSwitchedArgs(AccountId.Text, new EmailFolder("1", FolderId.Text, "Inbox")));
 		}
 
 		private void Button_Click_2(object sender, RoutedEventArgs e)

@@ -45,6 +45,7 @@
     <Compile Include="CommandHandlers\ConversationCommandHandlers.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\MergeConversation.cs" />
+    <Compile Include="Commands\RemoveConversation.cs" />
     <Compile Include="Commands\UpdateMailItem.cs" />
     <Compile Include="Events\IDomainEvent.cs" />
     <Compile Include="Commands\ICommandHandler.cs" />

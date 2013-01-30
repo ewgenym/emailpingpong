@@ -49,9 +49,10 @@ namespace EmailPingPong.Tests.Infrastructure
 		{
 			// arrange
 			var conversation = Create.Conversation()
-									 .WithConversationId("1")
-									 .WithTopic("Topic1")
-									 .Build();
+			                         .WithConversationId("1")
+			                         .WithTopic("Topic1")
+									 .WithAccountId("1")
+			                         .Build();
 
 			// act
 			AddConversation(conversation);
@@ -93,6 +94,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			var conversation = Create.Conversation()
 									 .WithConversationId("3")
 									 .WithTopic("Topic3")
+									 .WithAccountId("1")
 									 .WithComment(Create.Comment()
 														.WithAuthor("Author1")
 														.WithBody("Body1")
@@ -114,15 +116,16 @@ namespace EmailPingPong.Tests.Infrastructure
 			// arrange
 			var commentId = Guid.NewGuid();
 			var conversation = Create.Conversation()
-									 .WithConversationId("33")
-									 .WithTopic("Topic33")
-									 .WithComment(Create.Comment()
-														.WithId(commentId)
-														.WithAuthor("Author1")
-														.WithBody("Body1")
-														.WithOrder(1)
-														.Build())
-									 .Build();
+			                         .WithConversationId("33")
+			                         .WithTopic("Topic33")
+			                         .WithAccountId("1")
+			                         .WithComment(Create.Comment()
+			                                            .WithId(commentId)
+			                                            .WithAuthor("Author1")
+			                                            .WithBody("Body1")
+			                                            .WithOrder(1)
+			                                            .Build())
+			                         .Build();
 
 			// act
 			AddConversation(conversation);
@@ -182,23 +185,24 @@ namespace EmailPingPong.Tests.Infrastructure
 			var guid1 = Guid.NewGuid();
 			var guid2 = Guid.NewGuid();
 			var conversation = Create.Conversation()
-									 .WithConversationId("5")
-									 .WithTopic("Topic5")
-									 .WithComment(
-										 Create.Comment()
-											   .WithId(guid1)
-											   .WithAuthor("Author1")
-											   .WithBody("Body1")
-											   .WithOrder(1)
-											   .WithAnswer(
-												   Create.Comment()
-														 .WithId(guid2)
-														 .WithAuthor("Author2")
-														 .WithBody("Body2")
-														 .WithOrder(2)
-														 .Build()
-											 ).Build())
-									 .Build();
+			                         .WithConversationId("5")
+			                         .WithTopic("Topic5")
+			                         .WithAccountId("1")
+			                         .WithComment(
+				                         Create.Comment()
+				                               .WithId(guid1)
+				                               .WithAuthor("Author1")
+				                               .WithBody("Body1")
+				                               .WithOrder(1)
+				                               .WithAnswer(
+					                               Create.Comment()
+					                                     .WithId(guid2)
+					                                     .WithAuthor("Author2")
+					                                     .WithBody("Body2")
+					                                     .WithOrder(2)
+					                                     .Build()
+					                         ).Build())
+			                         .Build();
 
 			// act
 			AddConversation(conversation);
@@ -242,15 +246,16 @@ namespace EmailPingPong.Tests.Infrastructure
 		{
 			// arrange
 			var conversation = Create.Conversation()
-									 .WithConversationId("5")
-									 .WithTopic("Topic5")
-									 .WithComment(
-										 Create.Comment()
-											   .WithAuthor("Author1")
-											   .WithBody("Body1")
-											   .WithOrder(1)
-											   .Build())
-									 .Build();
+			                         .WithConversationId("5")
+			                         .WithTopic("Topic5")
+									 .WithAccountId("1")
+			                         .WithComment(
+				                         Create.Comment()
+				                               .WithAuthor("Author1")
+				                               .WithBody("Body1")
+				                               .WithOrder(1)
+				                               .Build())
+			                         .Build();
 
 			AddConversation(conversation);
 
@@ -272,28 +277,29 @@ namespace EmailPingPong.Tests.Infrastructure
 			var guid1 = Guid.NewGuid();
 			var guid2 = Guid.NewGuid();
 			var conversation = Create.Conversation()
-									 .WithConversationId("5")
-									 .WithTopic("Topic5")
-									 .WithComment(
-										 Create.Comment()
-											   .WithId(guid1)
-											   .WithAuthor("Author1")
-											   .WithBody("Body1")
-											   .WithOrder(1)
-											   .WithAnswer(
-												   Create.Comment()
-														 .WithId(guid2)
-														 .WithAuthor("Author2")
-														 .WithBody("Body2")
-														 .WithOrder(2)
-														 .WithAnswer(Create.Comment()
-																		   .WithAuthor("Author1")
-																		   .WithBody("Body3")
-																		   .WithOrder(3)
-																		   .Build())
-														 .Build())
-											   .Build())
-									 .Build();
+			                         .WithConversationId("5")
+			                         .WithTopic("Topic5")
+									 .WithAccountId("1")
+			                         .WithComment(
+				                         Create.Comment()
+				                               .WithId(guid1)
+				                               .WithAuthor("Author1")
+				                               .WithBody("Body1")
+				                               .WithOrder(1)
+				                               .WithAnswer(
+					                               Create.Comment()
+					                                     .WithId(guid2)
+					                                     .WithAuthor("Author2")
+					                                     .WithBody("Body2")
+					                                     .WithOrder(2)
+					                                     .WithAnswer(Create.Comment()
+					                                                       .WithAuthor("Author1")
+					                                                       .WithBody("Body3")
+					                                                       .WithOrder(3)
+					                                                       .Build())
+					                                     .Build())
+				                               .Build())
+			                         .Build();
 
 			AddConversation(conversation);
 
@@ -317,6 +323,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			var conversation = Create.Conversation()
 									 .WithConversationId("6")
 									 .WithTopic("Topic6")
+									 .WithAccountId("1")
 									 .Build();
 
 			AddConversation(conversation);
@@ -364,6 +371,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			var conversation = Create.Conversation()
 									 .WithConversationId("6")
 									 .WithTopic("Topic6")
+									 .WithAccountId("1")
 									 .WithComment(Create.Comment()
 														.WithAuthor("Author1")
 														.WithBody("Body1")
@@ -559,7 +567,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			original = _conversationRepository.GetByConversationId("1");
 
 			var mergeService = new MergeConversationService(new DbRepository<EmailItem>(_context),
-			                                                new DbRepository<Comment>(_context));
+															new DbRepository<Comment>(_context));
 			mergeService.Merge(original, target);
 			_context.SaveChanges();
 

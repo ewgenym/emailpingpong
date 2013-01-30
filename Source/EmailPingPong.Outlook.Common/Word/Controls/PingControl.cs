@@ -5,8 +5,8 @@ namespace EmailPingPong.UI.Word.Controls
 {
 	public class PingControl : PingPongControl
 	{
-		public PingControl(Document document, string conversationId)
-			: base(document, conversationId)
+		public PingControl(Document document)
+			: base(document)
 		{
 		}
 

@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using EmailPingPong.Core.Model;
-using EmailPingPong.Core.Utils;
 
 namespace EmailPingPong.UI.Desktop.ViewModels
 {

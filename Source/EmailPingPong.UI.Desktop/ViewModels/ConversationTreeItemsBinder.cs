@@ -71,7 +71,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 				case SearchIn.AllFolders:
 					return Task.Factory.StartNew(() => _conversationRepository.GetByAccountId(criteria.AccountId).ToList());
 				case SearchIn.CurrentFolder:
-					return Task.Factory.StartNew(() => _conversationRepository.GetByAccountIdAndFolders(criteria.AccountId, criteria.Folders).ToList());
+					return Task.Factory.StartNew(() => _conversationRepository.GetByAccountIdAndFolder(criteria.AccountId, criteria.Folder).ToList());
 				case SearchIn.CurrentEmail:
 					return Task.Factory.StartNew(() => _conversationRepository.GetByAccountIdAndEmails(criteria.AccountId, criteria.Emails).ToList());
 				default:

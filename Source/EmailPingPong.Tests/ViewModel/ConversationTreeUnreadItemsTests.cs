@@ -28,24 +28,24 @@ namespace EmailPingPong.Tests.ViewModel
 									 .WithComment(Create.Comment()
 														.Build())
 									 .Build();
-			_conversationRepository.GetByAccountId("").ReturnsForAnyArgs(new List<Conversation> { _conversation });
+			ConversationRepository.GetByAccountId("").ReturnsForAnyArgs(new List<Conversation> { _conversation });
 		}
 
 		[Fact]
 		public async Task should_bind_unread_conversation_items_to_conversation_view_model()
 		{
-			_viewModel.GroupBy = GroupBy.Email;
-			await _viewModel.BindData();
+			ViewModel.GroupBy = GroupBy.Email;
+			await ViewModel.BindData();
 
-			_viewModel.Items[0].IsUnread.Should().BeFalse();
+			ViewModel.Items[0].IsUnread.Should().BeFalse();
 
 			// act
 			_email.IsUnread = true;
-			_emailItemChangedEvent.Publish(new EmailItemChangedArgs(_email));
-			await _viewModel.BindData();
+			EmailItemChangedEvent.Publish(new EmailItemChangedArgs(_email));
+			await ViewModel.BindData();
 
 			// assert
-			_viewModel.Items[0].IsUnread.Should().BeTrue();
+			ViewModel.Items[0].IsUnread.Should().BeTrue();
 		}
 
 		[Fact]
@@ -63,29 +63,29 @@ namespace EmailPingPong.Tests.ViewModel
 			                   .Build();
 			_conversation.Comments[0].AddAnswer(answer);
 
-			_viewModel.GroupBy = GroupBy.Email;
-			await _viewModel.BindData();
+			ViewModel.GroupBy = GroupBy.Email;
+			await ViewModel.BindData();
 
 			// assert
-			_viewModel.Items[0].IsUnread.Should().BeTrue();
+			ViewModel.Items[0].IsUnread.Should().BeTrue();
 		}
 
 		[Fact]
 		public async Task should_bind_unread_conversation_items_to_folder_view_model()
 		{
 			// arrange
-			_viewModel.GroupBy = GroupBy.Folder;
-			await _viewModel.BindData();
+			ViewModel.GroupBy = GroupBy.Folder;
+			await ViewModel.BindData();
 
-			_viewModel.Items[0].IsUnread.Should().BeFalse();
+			ViewModel.Items[0].IsUnread.Should().BeFalse();
 
 			// act
 			_email.IsUnread = true;
-			_emailItemChangedEvent.Publish(new EmailItemChangedArgs(_email));
-			await _viewModel.BindData();
+			EmailItemChangedEvent.Publish(new EmailItemChangedArgs(_email));
+			await ViewModel.BindData();
 
 			// assert
-			_viewModel.Items[0].IsUnread.Should().BeTrue();
+			ViewModel.Items[0].IsUnread.Should().BeTrue();
 		}
 
 		[Fact]
@@ -103,29 +103,29 @@ namespace EmailPingPong.Tests.ViewModel
 							   .Build();
 			_conversation.Comments[0].AddAnswer(answer);
 
-			_viewModel.GroupBy = GroupBy.Folder;
-			await _viewModel.BindData();
+			ViewModel.GroupBy = GroupBy.Folder;
+			await ViewModel.BindData();
 
 			// assert
-			_viewModel.Items[0].IsUnread.Should().BeTrue();
+			ViewModel.Items[0].IsUnread.Should().BeTrue();
 		}
 
 		[Fact]
 		public async Task should_bind_unread_conversation_items_to_comment_view_model()
 		{
 			// arrange
-			_viewModel.GroupBy = GroupBy.None;
-			await _viewModel.BindData();
+			ViewModel.GroupBy = GroupBy.None;
+			await ViewModel.BindData();
 
-			_viewModel.Items[0].IsUnread.Should().BeFalse();
+			ViewModel.Items[0].IsUnread.Should().BeFalse();
 
 			// act
 			_email.IsUnread = true;
-			_emailItemChangedEvent.Publish(new EmailItemChangedArgs(_email));
-			await _viewModel.BindData();
+			EmailItemChangedEvent.Publish(new EmailItemChangedArgs(_email));
+			await ViewModel.BindData();
 
 			// assert
-			_viewModel.Items[0].IsUnread.Should().BeTrue();
+			ViewModel.Items[0].IsUnread.Should().BeTrue();
 		}
 	}
 }

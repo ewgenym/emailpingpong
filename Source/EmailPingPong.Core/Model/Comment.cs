@@ -12,28 +12,27 @@ namespace EmailPingPong.Core.Model
 		}
 
 		[Required]
-		public Guid Guid { get; set; }
+		public virtual Guid Guid { get; set; }
 
 		[Required]
-		public string Author { get; set; }
+		public virtual string Author { get; set; }
+
+		public virtual string Body { get; set; }
 
 		[Required]
-		public string Body { get; set; }
-
-		[Required]
-		public DateTime CreatedOn { get; set; }
+		public virtual DateTime CreatedOn { get; set; }
 
 		//TODO: Use sortable timestamp for index
 		[Required]
-		public int Index { get; set; }
+		public virtual int Index { get; set; }
 
-		public Comment Parent { get; set; }
+		public virtual Comment Parent { get; set; }
 
-		public IList<Comment> Answers { get; set; }
+		public virtual IList<Comment> Answers { get; set; }
 
-		public EmailItem OriginalEmail { get; set; }
+		public virtual EmailItem OriginalEmail { get; set; }
 
-		public void AddAnswer(Comment answer)
+		public virtual void AddAnswer(Comment answer)
 		{
 			answer.Parent = this;
 			Answers.Add(answer);

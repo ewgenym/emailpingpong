@@ -1,20 +1,23 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using EmailPingPong.Outlook.Common.Controllers;
 using EmailPingPong.Outlook.Common.Utils;
 using EmailPingPong.Outlook.Common.Word.Utils;
+using EmailPingPong.Outlook2010.Services;
 using EmailPingPong.UI.Word.Controls;
-using Microsoft.Office.Core;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Office.Interop.Word;
-using EmailPingPong.Outlook.Common.Word.Utils;
+using Exception = System.Exception;
 
 namespace EmailPingPong.Outlook2010.Controllers
 {
 	public class InspectorController : IInspectorController
 	{
-		private const string EmailpingpongConversationIdKey = "_EmailPingPong.ConversationId";
+		private readonly IConversationMetadataTracker _metadataTracker;
+
+		public InspectorController(IConversationMetadataTracker metadataTracker)
+		{
+			_metadataTracker = metadataTracker;
+		}
 
 		public void HandleHotKey(object sender, KeyEventArgs keyData)
 		{
@@ -46,12 +49,13 @@ namespace EmailPingPong.Outlook2010.Controllers
 		{
 			var item = (MailItem)inspector.CurrentItem;
 			var document = (Document)inspector.WordEditor;
-
-			var conversationId = EnsureConversationTracking(item, document);
+			
+			EnsureTracking(document, item);
 
 			var range = document.Application.Selection.Range;
+
 			var pingPongControl = range.PingPongControl();
-			var qr = new PingControl(inspector.WordEditor, conversationId);
+			var qr = new PingControl(inspector.WordEditor);
 			if (pingPongControl == null)
 			{
 				var author = item.SendUsingAccount.CurrentUser.Name;
@@ -64,39 +68,20 @@ namespace EmailPingPong.Outlook2010.Controllers
 			else
 			{
 				// We are in pong control, but uses pressed ping. WTF he wants?
-				var qp = new PongControl(inspector.WordEditor, conversationId);
+				var qp = new PongControl(inspector.WordEditor);
 				qp.Undo(pingPongControl);
 			}
 		}
 
-		private string EnsureConversationTracking(MailItem mailItem, Document document)
-		{
-			return mailItem.ConversationID;
-
-			foreach (ContentControl contentControl in document.ContentControls)
-			{
-				if (contentControl.IsPingPong())
-				{
-					var conversationId = contentControl.ConversationId();
-					Guid value;
-					if (Guid.TryParse(conversationId, out value))
-					{
-						return conversationId;
-					}
-				}
-			}
-
-			return Guid.NewGuid().ToString("N");
-		}
-
-		public void Pong(Inspector inspector)
+		private void Pong(Inspector inspector)
 		{
 			var item = (MailItem)inspector.CurrentItem;
 			var document = (Document)inspector.WordEditor;
 
-			var conversationId = EnsureConversationTracking(item, document);
+			EnsureTracking(document, item);
 
 			var range = document.Application.Selection.Range;
+
 			var author = string.Empty;
 			if (item.SendUsingAccount != null)
 			{
@@ -107,8 +92,22 @@ namespace EmailPingPong.Outlook2010.Controllers
 				author = item.Session.CurrentUser.Name;
 			}
 
-			var pongControl = new PongControl(document, conversationId);
+			var pongControl = new PongControl(document);
 			pongControl.Render(author, range);
+		}
+
+		private void EnsureTracking(Document document, MailItem item)
+		{
+			int start = document.Application.Selection.Range.Start;
+			int end = document.Application.Selection.Range.End;
+			try
+			{
+				_metadataTracker.Track(item);
+			}
+			finally
+			{
+				document.Application.Selection.SetRange(start, end);
+			}
 		}
 	}
 }

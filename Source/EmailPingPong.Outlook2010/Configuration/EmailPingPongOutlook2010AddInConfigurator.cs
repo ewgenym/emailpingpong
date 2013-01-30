@@ -30,8 +30,10 @@ namespace EmailPingPong.Outlook2010.Configuration
 		{
 			base.ConfigureBinders();
 
+			Container.Register(Component.For<IFolderBinder>().ImplementedBy<FolderBinder>());
 			Container.Register(Component.For<IEmailItemBinder>().ImplementedBy<EmailItemBinder>());
 			Container.Register(Component.For<IConversationBinder>().ImplementedBy<ConversationBinder>());
+			Container.Register(Component.For<IConversationMetadataTracker>().ImplementedBy<ConversationMetadataTracker>());
 		}
 
 		protected override void ConfigureControllers()

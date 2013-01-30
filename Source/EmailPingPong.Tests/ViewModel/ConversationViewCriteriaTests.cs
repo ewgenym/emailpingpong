@@ -73,8 +73,22 @@ namespace EmailPingPong.Tests.ViewModel
 			var folder1 = new EmailFolder("1", "1", "1");
 			var folder2 = new EmailFolder("1", "1", "1");
 
-			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, "1", null, new [] { folder1 });
-			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, "1", null, new [] { folder2 });
+			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, "1", null, folder1);
+			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, "1", null, folder2);
+
+			// act
+			var result = criteria1 == criteria2;
+
+			// assert
+			result.Should().BeTrue();
+		}
+
+		[Fact]
+		public void should_report_empty_conversation_view_criteria_are_equal()
+		{
+			// arrange
+			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, null, null, null);
+			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, null, null, null);
 
 			// act
 			var result = criteria1 == criteria2;

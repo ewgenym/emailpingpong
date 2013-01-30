@@ -221,9 +221,12 @@
     <Compile Include="Configuration\EmailPingPongOutlook2010AddInConfigurator.cs" />
     <Compile Include="Configuration\Outlook2010ConversationTreeStarter.cs" />
     <Compile Include="Controllers\InspectorController.cs" />
+    <Compile Include="Services\ConversationMetadataTracker.cs" />
+    <Compile Include="Services\FolderBinder.cs" />
     <Compile Include="Services\ConversationBinder.cs" />
     <Compile Include="Services\IConversationBinder.cs" />
     <Compile Include="Services\IEmailItemBinder.cs" />
+    <Compile Include="Services\IFolderBinder.cs" />
     <Compile Include="Services\Outlook2010ConversationMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
