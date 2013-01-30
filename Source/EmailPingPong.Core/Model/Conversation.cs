@@ -41,12 +41,6 @@ namespace EmailPingPong.Core.Model
 		public virtual void AddEmail(EmailItem emailItem)
 		{
 			Emails.Add(emailItem);
-			RefreshCachedFields();
-		}
-
-		private void RefreshCachedFields()
-		{
-			AccountId = NewestEmail.Return(e => e.AccountId);
 		}
 
 		public virtual EmailItem NewestEmail

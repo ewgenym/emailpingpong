@@ -58,7 +58,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			AddConversation(conversation);
 
 			// assert
-			var actual = _conversationRepository.GetByConversationId(conversation.ConversationId);
+			var actual = _conversationRepository.GetByAccountIdAndConversationId(conversation.AccountId, conversation.ConversationId);
 			actual.Should().BeSameAs(conversation);
 		}
 
@@ -67,6 +67,7 @@ namespace EmailPingPong.Tests.Infrastructure
 		{
 			// arrange
 			var conversation = Create.Conversation()
+									 .WithAccountId("Account1")
 									 .WithConversationId("2")
 									 .WithTopic("Topic2")
 									 .WithEmail(
@@ -83,7 +84,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			AddConversation(conversation);
 
 			// assert
-			var actual = _conversationRepository.GetByConversationId(conversation.ConversationId);
+			var actual = _conversationRepository.GetByAccountIdAndConversationId(conversation.AccountId, conversation.ConversationId);
 			actual.Should().BeSameAs(conversation);
 		}
 
@@ -106,7 +107,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			AddConversation(conversation);
 
 			// assert
-			var actual = _conversationRepository.GetByConversationId(conversation.ConversationId);
+			var actual = _conversationRepository.GetByAccountIdAndConversationId(conversation.AccountId, conversation.ConversationId);
 			actual.Should().BeSameAs(conversation);
 		}
 
@@ -131,7 +132,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			AddConversation(conversation);
 
 			// assert
-			var actual = _conversationRepository.GetByConversationId(conversation.ConversationId);
+			var actual = _conversationRepository.GetByAccountIdAndConversationId(conversation.AccountId, conversation.ConversationId);
 			actual.Comments[0].Guid.Should().Be(commentId);
 		}
 
@@ -143,6 +144,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			var guid2 = Guid.NewGuid();
 
 			var conversation = Create.Conversation()
+									 .WithAccountId("Account1")
 									 .WithConversationId("4")
 									 .WithTopic("Topic4")
 									 .WithEmail(
@@ -174,7 +176,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			AddConversation(conversation);
 
 			// assert
-			var actual = _conversationRepository.GetByConversationId(conversation.ConversationId);
+			var actual = _conversationRepository.GetByAccountIdAndConversationId(conversation.AccountId, conversation.ConversationId);
 			actual.Should().BeSameAs(conversation);
 		}
 
@@ -208,7 +210,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			AddConversation(conversation);
 
 			// assert
-			var actual = _conversationRepository.GetByConversationId(conversation.ConversationId);
+			var actual = _conversationRepository.GetByAccountIdAndConversationId(conversation.AccountId, conversation.ConversationId);
 			actual.Should().BeSameAs(conversation);
 		}
 
@@ -217,6 +219,7 @@ namespace EmailPingPong.Tests.Infrastructure
 		{
 			// arrange
 			var conversation = Create.Conversation()
+									 .WithAccountId("1")
 									 .WithConversationId("5")
 									 .WithTopic("Topic5")
 									 .WithEmail(Create.EmailItem()
@@ -230,14 +233,14 @@ namespace EmailPingPong.Tests.Infrastructure
 
 			AddConversation(conversation);
 
-			var actual = _conversationRepository.GetByConversationId(conversation.ConversationId);
+			var actual = _conversationRepository.GetByAccountIdAndConversationId(conversation.AccountId, conversation.ConversationId);
 			actual.Should().NotBeNull();
 
 			// act
 			RemoveConversation(conversation);
 
 			// assert
-			actual = _conversationRepository.GetByConversationId(conversation.ConversationId);
+			actual = _conversationRepository.GetByAccountIdAndConversationId(conversation.AccountId, conversation.ConversationId);
 			actual.Should().BeNull();
 		}
 
@@ -259,14 +262,14 @@ namespace EmailPingPong.Tests.Infrastructure
 
 			AddConversation(conversation);
 
-			var actual = _conversationRepository.GetByConversationId(conversation.ConversationId);
+			var actual = _conversationRepository.GetByAccountIdAndConversationId(conversation.AccountId, conversation.ConversationId);
 			actual.Should().NotBeNull();
 
 			// act
 			RemoveConversation(conversation);
 
 			// assert
-			actual = _conversationRepository.GetByConversationId(conversation.ConversationId);
+			actual = _conversationRepository.GetByAccountIdAndConversationId(conversation.AccountId, conversation.ConversationId);
 			actual.Should().BeNull();
 		}
 
@@ -303,14 +306,14 @@ namespace EmailPingPong.Tests.Infrastructure
 
 			AddConversation(conversation);
 
-			var actual = _conversationRepository.GetByConversationId(conversation.ConversationId);
+			var actual = _conversationRepository.GetByAccountIdAndConversationId(conversation.AccountId, conversation.ConversationId);
 			actual.Should().NotBeNull();
 
 			// act
 			RemoveConversation(conversation);
 
 			// assert
-			actual = _conversationRepository.GetByConversationId(conversation.ConversationId);
+			actual = _conversationRepository.GetByAccountIdAndConversationId(conversation.AccountId, conversation.ConversationId);
 			actual.Should().BeNull();
 			_context.EmailItems.ToList().Should().BeEmpty();
 			_context.Comments.ToList().Should().BeEmpty();
@@ -333,7 +336,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			_context.SaveChanges();
 
 			// assert
-			var actual = _conversationRepository.GetByConversationId(conversation.ConversationId);
+			var actual = _conversationRepository.GetByAccountIdAndConversationId(conversation.AccountId, conversation.ConversationId);
 			actual.Should().BeSameAs(conversation);
 		}
 
@@ -342,6 +345,7 @@ namespace EmailPingPong.Tests.Infrastructure
 		{
 			// arrange
 			var conversation = Create.Conversation()
+									 .WithAccountId("1")
 									 .WithConversationId("6")
 									 .WithTopic("Topic6")
 									 .WithEmail(Create.EmailItem()
@@ -360,7 +364,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			_context.SaveChanges();
 
 			// assert
-			var actual = _conversationRepository.GetByConversationId(conversation.ConversationId);
+			var actual = _conversationRepository.GetByAccountIdAndConversationId(conversation.AccountId, conversation.ConversationId);
 			actual.Should().BeSameAs(conversation);
 		}
 
@@ -386,7 +390,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			_context.SaveChanges();
 
 			// assert
-			var actual = _conversationRepository.GetByConversationId(conversation.ConversationId);
+			var actual = _conversationRepository.GetByAccountIdAndConversationId(conversation.AccountId, conversation.ConversationId);
 			actual.Should().BeSameAs(conversation);
 		}
 
@@ -395,6 +399,7 @@ namespace EmailPingPong.Tests.Infrastructure
 		{
 			// arrange
 			var target = Create.Conversation()
+							   .WithAccountId("1")
 							   .WithConversationId("1")
 							   .WithTopic("Topic1")
 							   .WithComment(Create.Comment()
@@ -434,7 +439,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			MergeConversation(target, source);
 
 			//assert
-			var actual = _conversationRepository.GetByConversationId(target.ConversationId);
+			var actual = _conversationRepository.GetByAccountIdAndConversationId(target.AccountId, target.ConversationId);
 			actual.Comments.Should().HaveCount(1);
 			actual.Comments[0].Guid.Should().Be(commentGuid);
 			actual.Comments[0].Body.Should().Be("Body 2");
@@ -445,6 +450,7 @@ namespace EmailPingPong.Tests.Infrastructure
 		{
 			// arrange
 			var conversation = Create.Conversation()
+									 .WithAccountId("1")
 									 .WithConversationId("10")
 									 .WithTopic("Topic10")
 									 .WithComment(Create.Comment()
@@ -478,6 +484,7 @@ namespace EmailPingPong.Tests.Infrastructure
 		{
 			// arrange
 			var conversation = Create.Conversation()
+									 .WithAccountId("1")
 									 .WithConversationId("123")
 									 .WithTopic("Topic10")
 									 .WithEmail(Create.EmailItem()
@@ -497,7 +504,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			AddConversation(conversation);
 
 			// act
-			var actual = _conversationRepository.GetByConversationId("123");
+			var actual = _conversationRepository.GetByAccountIdAndConversationId("1", "123");
 
 			// assert
 			actual.Comments.Should().HaveCount(1);
@@ -511,6 +518,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			var guid1 = Guid.NewGuid();
 			var guid2 = Guid.NewGuid();
 			var original = Create.Conversation()
+								 .WithAccountId("1")
 								 .WithConversationId("1")
 								 .WithTopic("Topic1")
 								 .WithEmail(Create.EmailItem()
@@ -530,7 +538,7 @@ namespace EmailPingPong.Tests.Infrastructure
 
 			AddConversation(original);
 
-			var target = Create.Conversation()
+			var target = Create.Conversation().WithAccountId("1")
 							   .WithConversationId("1")
 							   .WithTopic("Topic1")
 							   .WithEmail(Create.EmailItem()
@@ -564,7 +572,7 @@ namespace EmailPingPong.Tests.Infrastructure
 							   .Build();
 
 			// act
-			original = _conversationRepository.GetByConversationId("1");
+			original = _conversationRepository.GetByAccountIdAndConversationId("1", "1");
 
 			var mergeService = new MergeConversationService(new DbRepository<EmailItem>(_context),
 															new DbRepository<Comment>(_context));
@@ -573,7 +581,7 @@ namespace EmailPingPong.Tests.Infrastructure
 
 			// assert
 			var anotherRepository = new ConversationRepository(new ConversationContext(_connectionStringProvider));
-			var actual = anotherRepository.GetByConversationId("1");
+			var actual = anotherRepository.GetByAccountIdAndConversationId("1", "1");
 			actual.Emails.Should().HaveCount(2);
 			actual.Comments.Should().HaveCount(1);
 			actual.Comments[0].Answers.Should().HaveCount(1);

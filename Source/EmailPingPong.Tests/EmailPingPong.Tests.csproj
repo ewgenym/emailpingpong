@@ -44,8 +44,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.CompilerServices.AsyncTargetingPack.1.0.0\lib\net40\Microsoft.CompilerServices.AsyncTargetingPack.Net4.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Expression.Interactions">
       <HintPath>..\packages\Prism.4.1.0.0\lib\NET40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Outlook, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.Practices.Prism, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -134,10 +138,21 @@
       <Project>{D8E2CEBD-C84E-46FF-9510-382B18F52AFC}</Project>
       <Name>EmailPingPong.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EmailPingPong.Outlook.Common\EmailPingPong.Outlook.Common.csproj">
+      <Project>{2E03CD34-6967-4D89-B90E-FB2D8D0FE291}</Project>
+      <Name>EmailPingPong.Outlook.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmailPingPong.Outlook2010\EmailPingPong.Outlook2010.csproj">
+      <Project>{A027280D-09DF-4CC1-87EF-A191EC70B804}</Project>
+      <Name>EmailPingPong.Outlook2010</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EmailPingPong.UI.Desktop\EmailPingPong.UI.Desktop.csproj">
       <Project>{4FBA0676-7A05-4716-B111-1701427921E3}</Project>
       <Name>EmailPingPong.UI.Desktop</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

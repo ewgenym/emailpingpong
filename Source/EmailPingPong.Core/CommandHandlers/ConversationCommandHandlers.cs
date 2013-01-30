@@ -31,7 +31,8 @@ namespace EmailPingPong.Core.CommandHandlers
 
 		public void Handle(RemoveConversation command)
 		{
-			var original = _conversationRepository.GetByConversationId(command.Conversation.ConversationId);
+			var proposed = command.Conversation;
+			var original = _conversationRepository.GetByAccountIdAndConversationId(proposed.AccountId, proposed.ConversationId);
 			if (original != null)
 			{
 				_conversationRepository.Remove(original);
@@ -40,7 +41,7 @@ namespace EmailPingPong.Core.CommandHandlers
 
 		private void InternalMerge(Conversation proposed, bool addNew)
 		{
-			var original = _conversationRepository.GetByConversationId(proposed.ConversationId);
+			var original = _conversationRepository.GetByAccountIdAndConversationId(proposed.AccountId, proposed.ConversationId);
 			if (original != null)
 			{
 				_mergeConversationService.Merge(original, proposed);

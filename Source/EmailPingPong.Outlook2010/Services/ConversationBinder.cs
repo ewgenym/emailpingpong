@@ -32,6 +32,7 @@ namespace EmailPingPong.Outlook2010.Services
 			var conversation = new Conversation
 				{
 					ConversationId = BindConversationId(mailItem),
+					AccountId = email.AccountId,
 					Topic = BindTopic(mailItem),
 				};
 			conversation.AddEmail(email);
