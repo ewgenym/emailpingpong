@@ -103,6 +103,7 @@
     <Compile Include="Repositories\DbRepository.cs" />
     <Compile Include="Repositories\ConversationContext.cs" />
     <Compile Include="ServiceLocator.cs" />
+    <Compile Include="Transactions\UnitOfWorkInterceptor.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

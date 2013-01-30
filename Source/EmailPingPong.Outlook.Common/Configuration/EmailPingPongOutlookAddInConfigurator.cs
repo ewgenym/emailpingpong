@@ -3,12 +3,12 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using EmailPingPong.Core.CommandHandlers;
 using EmailPingPong.Core.Commands;
-using EmailPingPong.Core.Model;
 using EmailPingPong.Core.Repositories;
 using EmailPingPong.Core.Services;
 using EmailPingPong.Core.Services.Implementation;
 using EmailPingPong.Infrastructure;
 using EmailPingPong.Infrastructure.Repositories;
+using EmailPingPong.Infrastructure.Transactions;
 using EmailPingPong.Outlook.Common.Word;
 using EmailPingPong.UI.Desktop.ViewModels;
 using Microsoft.Practices.Prism.Events;
@@ -34,6 +34,7 @@ namespace EmailPingPong.Outlook.Common.Configuration
 			ConfigureEntityFramework();
 			ConfigureRepositories();
 			ConfigureServices();
+			ConfigureConsumerUnitOfWorkInterceptor();
 			ConfigureCommandHandlers();
 			ConfigureEventHandlers();
 			ConfigureEventAggregator();
@@ -64,6 +65,12 @@ namespace EmailPingPong.Outlook.Common.Configuration
 		private void ConfigureEventAggregator()
 		{
 			_container.Register(Component.For<IEventAggregator>().ImplementedBy<EventAggregator>());
+		}
+
+		private void ConfigureConsumerUnitOfWorkInterceptor()
+		{
+			Container.Kernel.ProxyFactory.AddInterceptorSelector(new ConsumerUnitOfWorkInterceptorSelector());
+			Container.Register(Component.For<UnitOfWorkInterceptor>().LifeStyle.Transient);
 		}
 
 		private void ConfigureRepositories()

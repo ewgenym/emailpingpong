@@ -7,6 +7,7 @@ using EmailPingPong.Infrastructure.Repositories;
 using EmailPingPong.Outlook.Common.Conversation.Implementation;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Practices.Prism.Events;
+using Conversation = EmailPingPong.Core.Model.Conversation;
 
 namespace EmailPingPong.Outlook2010.Services
 {
@@ -64,11 +65,6 @@ namespace EmailPingPong.Outlook2010.Services
 			}
 
 			SetupWatch();
-
-			// -New e-mail is sent. When there is no connection with server as well. (Two options here: 1) monitor Sent folder 2) monitor Application.ItemSend event)
-			//var sent = this.Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderSentMail);
-			//_sentItems = sent.Items;
-			//_sentItems.ItemAdd += SyncConversation;
 		}
 
 		private void WatchFolder(Folder folder)
@@ -115,59 +111,49 @@ namespace EmailPingPong.Outlook2010.Services
 
 		private void OnMailItemAdded(object item)
 		{
-			var conversation = _conversationBinder.Bind((MailItem)item);
+			var conversation = BindConversation(item);
 			if (conversation == null)
 			{
 				return;
 			}
 
-			using (new UnitOfWork(_context))
-			{
-				_commands.Dispatch(new MergeConversation(conversation));
-			}
+			_commands.Dispatch(new MergeConversation(conversation));
 			_eventAggregator.GetEvent<ConversationMergedEvent>().Publish(conversation);
 		}
 
 		private void OnMailItemChanged(object item)
 		{
-			var mailItem = item as MailItem;
-			if (mailItem == null)
-			{
-				return;
-			}
-
-			var conversation = _conversationBinder.Bind(mailItem);
+			var conversation = BindConversation(item);
 			if (conversation == null)
 			{
 				return;
 			}
 
-			using (new UnitOfWork(_context))
-			{
-				_commands.Dispatch(new UpdateMailItem(conversation));
-			}
+			_commands.Dispatch(new UpdateMailItem(conversation));
 			_eventAggregator.GetEvent<ConversationRemovedEvent>().Publish(new ConversationRemovedArgs(conversation));
 		}
 
 		private void MailItemRemoved(object item, MAPIFolder to, ref bool cancel)
 		{
-			var mailItem = item as MailItem;
-			if (mailItem == null)
-			{
-				return;
-			}
-
-			var conversation = _conversationBinder.Bind(mailItem);
+			var conversation = BindConversation(item);
 			if (conversation == null)
 			{
 				return;
 			}
 
-			using (new UnitOfWork(_context))
-			{
-				_commands.Dispatch(new RemoveConversation(conversation));
-			}
+			_commands.Dispatch(new RemoveConversation(conversation));
 			_eventAggregator.GetEvent<EmailItemChangedEvent>().Publish(new EmailItemChangedArgs(conversation.NewestEmail));
+		}
+
+		private Conversation BindConversation(object item)
+		{
+			var mailItem = item as MailItem;
+			if (mailItem == null)
+			{
+				return null;
+			}
+
+			return _conversationBinder.Bind(mailItem);
 		}
 
 		private void OnFolderSwitch()

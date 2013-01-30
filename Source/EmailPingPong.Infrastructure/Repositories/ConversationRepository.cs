@@ -75,5 +75,15 @@ namespace EmailPingPong.Infrastructure.Repositories
 									   .Include("Emails")
 									   .SingleOrDefault(c => c.ConversationId == conversationId);
 		}
+
+		public Conversation GetByAccountIdAndConversationId(string accountId, string conversationId)
+		{
+			return _conversationContext.Conversations.Include("Comments")
+			                           .Include("Comments.Answers")
+			                           .Include("Comments.OriginalEmail")
+			                           .Include("Emails")
+			                           .SingleOrDefault(c => c.AccountId == accountId
+			                                                 && c.ConversationId == conversationId);
+		}
 	}
 }
