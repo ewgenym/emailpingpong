@@ -1,4 +1,5 @@
-﻿using EmailPingPong.Outlook.Common.Word;
+﻿using EmailPingPong.Core.Utils;
+using EmailPingPong.Outlook.Common.Word;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Office.Interop.Word;
 using Conversation = EmailPingPong.Core.Model.Conversation;
@@ -22,16 +23,17 @@ namespace EmailPingPong.Outlook2010.Services
 
 		public Conversation Bind(MailItem mailItem)
 		{
-			if (!IsTrackConversation(mailItem))
+			if (!_metadataTracker.TracksConversation(mailItem))
 			{
 				return null;
 			}
 
 			var email = _emailItemBinder.Bind(mailItem);
+			var metadata = _metadataTracker.Read(mailItem);
 
 			var conversation = new Conversation
 				{
-					ConversationId = BindConversationId(mailItem),
+					ConversationId = metadata.ConversationId,
 					AccountId = email.AccountId,
 					Topic = BindTopic(mailItem),
 				};
@@ -39,17 +41,6 @@ namespace EmailPingPong.Outlook2010.Services
 			BindComments(mailItem, conversation);
 
 			return conversation;
-		}
-
-		private bool IsTrackConversation(MailItem mailItem)
-		{
-			var document = (Document)mailItem.GetInspector.WordEditor;
-			return document.ContentControls.Count > 0;
-		}
-
-		private string BindConversationId(MailItem mailItem)
-		{
-			return _metadataTracker.Read(mailItem).ConversationId;
 		}
 
 		private string BindTopic(MailItem mailItem)
@@ -61,7 +52,8 @@ namespace EmailPingPong.Outlook2010.Services
 		private void BindComments(MailItem item, Conversation conversation)
 		{
 			var document = (Document)item.GetInspector.WordEditor;
-			_parser.Parse(document, conversation);
+			var comments = _parser.Parse(document);
+			comments.ForEach(conversation.AddComment);
 		}
 	}
 }

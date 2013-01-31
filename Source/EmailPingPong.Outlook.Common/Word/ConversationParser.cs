@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using EmailPingPong.Outlook.Common.Word.Utils;
 using Microsoft.Office.Interop.Word;
 using Comment = EmailPingPong.Core.Model.Comment;
@@ -8,9 +9,9 @@ namespace EmailPingPong.Outlook.Common.Word
 	//TODO: how the fuck unit test this code?
 	public class ConversationParser : IConversationParser
 	{
-		public void Parse(Document document, Core.Model.Conversation conversation)
+		public IEnumerable<Comment> Parse(Document document)
 		{
-			//var questions = new List<Comment>();
+			var questions = new List<Comment>();
 			Comment lastQuestion = null;
 
 			int i = 0;
@@ -29,7 +30,7 @@ namespace EmailPingPong.Outlook.Common.Word
 											CreatedOn = control.CreationDate(),
 						               	};
 
-						conversation.AddComment(question);
+						questions.Add(question);
 						lastQuestion = question;
 						comment = question;
 					}
@@ -67,11 +68,13 @@ namespace EmailPingPong.Outlook.Common.Word
 				}
 				i++;
 			}
+
+			return questions;
 		}
 	}
 
 	public interface IConversationParser
 	{
-		void Parse(Document document, EmailPingPong.Core.Model.Conversation conversation);
+		IEnumerable<Comment> Parse(Document document);
 	}
 }
