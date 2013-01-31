@@ -142,7 +142,7 @@ namespace EmailPingPong.Outlook2010.Services
 			}
 
 			_commands.Dispatch(new RemoveConversation(conversation));
-			_eventAggregator.GetEvent<EmailItemChangedEvent>().Publish(new EmailItemChangedArgs(conversation.NewestEmail));
+			_eventAggregator.GetEvent<EmailItemChangedEvent>().Publish(new EmailItemChangedArgs(conversation.LatestEmail));
 		}
 
 		private Conversation BindConversation(object item)

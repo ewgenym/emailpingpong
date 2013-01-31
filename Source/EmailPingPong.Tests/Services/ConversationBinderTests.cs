@@ -36,28 +36,37 @@ namespace EmailPingPong.Tests.Services
 			_mailItem.PropertyAccessor.Returns(_propertyAccessor);
 			_inspector = Substitute.For<Inspector>();
 			_document = Substitute.For<Document>();
-			((Document) _inspector.WordEditor).Returns(_document);
+			((Document)_inspector.WordEditor).Returns(_document);
 			_mailItem.GetInspector.Returns(_inspector);
 
 			_metadataTracker.TracksConversation(null).ReturnsForAnyArgs(true);
 
-			((object) _propertyAccessor.GetProperty(null)).ReturnsForAnyArgs(null);
-			_emailItemBinder.Bind(null).ReturnsForAnyArgs(new EmailItem());
+			((object)_propertyAccessor.GetProperty(null)).ReturnsForAnyArgs(null);
+			_emailItemBinder.Bind(null).ReturnsForAnyArgs(new EmailItem() { Folder = new EmailFolder("1", "1", "1") });
 			_metadataTracker.Read(null).ReturnsForAnyArgs(new ConversationMetadata());
 		}
 
 		[Fact]
-		public void should_bind_conversation_account_id()
+		public void should_bind_conversation_folder_info()
 		{
 			// arrange
 			const string accountId = "ema@mail.com";
-			_emailItemBinder.Bind(null).ReturnsForAnyArgs(new EmailItem {AccountId = accountId});
+			const string storeId = "123456789";
+			const string folderId = "987654321";
+
+			_emailItemBinder.Bind(null).ReturnsForAnyArgs(new EmailItem
+				{
+					AccountId = accountId,
+					Folder = new EmailFolder(storeId, folderId, "Inbox")
+				});
 
 			// act
 			var conversation = _conversationBinder.Bind(_mailItem);
 
 			// assert
 			conversation.AccountId.Should().Be(accountId);
+			conversation.StoreId.Should().Be(storeId);
+			conversation.FolderId.Should().Be(folderId);
 		}
 
 		[Fact]
@@ -65,7 +74,7 @@ namespace EmailPingPong.Tests.Services
 		{
 			// arrange
 			const string conversationId = "123456";
-			_metadataTracker.Read(_mailItem).Returns(new ConversationMetadata {ConversationId = conversationId});
+			_metadataTracker.Read(_mailItem).Returns(new ConversationMetadata { ConversationId = conversationId });
 
 			// act
 			var conversation = _conversationBinder.Bind(_mailItem);
@@ -79,7 +88,7 @@ namespace EmailPingPong.Tests.Services
 		{
 			// arrange
 			const string conversationTopic = "Topic1";
-			((object) _propertyAccessor.GetProperty(null)).ReturnsForAnyArgs(conversationTopic);
+			((object)_propertyAccessor.GetProperty(null)).ReturnsForAnyArgs(conversationTopic);
 
 			// act
 			var conversation = _conversationBinder.Bind(_mailItem);
@@ -93,11 +102,12 @@ namespace EmailPingPong.Tests.Services
 		{
 			// arrange
 			var email = Create.EmailItem()
-			                  .WithAccountId("1")
-			                  .WithItemId("1")
-			                  .WithCreationTime(new DateTime(2013, 1, 31))
-			                  .WithSubject("Subject1")
-			                  .Build();
+							  .WithAccountId("1")
+							  .WithItemId("1")
+							  .WithFolder("1", "1", "1")
+							  .WithCreationTime(new DateTime(2013, 1, 31))
+							  .WithSubject("Subject1")
+							  .Build();
 
 			_emailItemBinder.Bind(null).ReturnsForAnyArgs(email);
 
@@ -114,12 +124,12 @@ namespace EmailPingPong.Tests.Services
 		{
 			// arrange
 			var comment = Create.Comment()
-			                    .WithId(Guid.NewGuid())
-			                    .WithAuthor("Author1")
-			                    .WithBody("Body1")
-			                    .WithOrder(0)
-			                    .Build();
-			_conversationParser.Parse(null).ReturnsForAnyArgs(new List<Comment> {comment});
+								.WithId(Guid.NewGuid())
+								.WithAuthor("Author1")
+								.WithBody("Body1")
+								.WithOrder(0)
+								.Build();
+			_conversationParser.Parse(null).ReturnsForAnyArgs(new List<Comment> { comment });
 
 			// act
 			var conversation = _conversationBinder.Bind(_mailItem);

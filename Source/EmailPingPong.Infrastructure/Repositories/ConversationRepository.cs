@@ -36,11 +36,6 @@ namespace EmailPingPong.Infrastructure.Repositories
 									   .Include("Emails");
 		}
 
-		public IEnumerable<Conversation> GetByAccountIdAndFolder(string accountId, EmailFolder folders)
-		{
-			return GetAll();
-		}
-
 		public IEnumerable<Conversation> GetByAccountIdAndEmails(string accountId, IEnumerable<EmailItem> emails)
 		{
 			return GetAll();
@@ -70,11 +65,23 @@ namespace EmailPingPong.Infrastructure.Repositories
 		public Conversation GetByAccountIdAndConversationId(string accountId, string conversationId)
 		{
 			return _conversationContext.Conversations.Include("Comments")
-			                           .Include("Comments.Answers")
-			                           .Include("Comments.OriginalEmail")
-			                           .Include("Emails")
-			                           .SingleOrDefault(c => c.AccountId == accountId
-			                                                 && c.ConversationId == conversationId);
+									   .Include("Comments.Answers")
+									   .Include("Comments.OriginalEmail")
+									   .Include("Emails")
+									   .SingleOrDefault(c => c.AccountId == accountId
+															 && c.ConversationId == conversationId);
+		}
+
+		public IEnumerable<Conversation> GetByAccountIdAndFolder(string accountId, EmailFolder folder)
+		{
+			return _conversationContext.Conversations
+									   .Include("Comments")
+									   .Include("Comments.Answers")
+									   .Include("Comments.OriginalEmail")
+									   .Include("Emails")
+									   .Where(c => c.AccountId == accountId
+												   && c.StoreId == folder.StoreId
+												   && c.FolderId == folder.FolderId);
 		}
 	}
 }

@@ -234,7 +234,7 @@ namespace EmailPingPong.Tests.Core
 
 			// assert
 			originalConversation.Emails.Should().HaveCount(2);
-			originalConversation.NewestEmail.Should().BeSameAs(targetEmail);
+			originalConversation.LatestEmail.Should().BeSameAs(targetEmail);
 		}
 
 		[Fact]

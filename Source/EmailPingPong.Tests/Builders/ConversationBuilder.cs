@@ -32,9 +32,11 @@ namespace EmailPingPong.Tests.Builders
 			return this;
 		}
 
-		public ConversationBuilder WithAccountId(string accountId)
+		public ConversationBuilder WithFolderInfo(string accountId, string storeId, string folderId)
 		{
 			EntityToBuild.AccountId = accountId;
+			EntityToBuild.StoreId = storeId;
+			EntityToBuild.FolderId = folderId;
 			return this;
 		}
 	}

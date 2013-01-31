@@ -51,7 +51,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			var conversation = Create.Conversation()
 			                         .WithConversationId("1")
 			                         .WithTopic("Topic1")
-									 .WithAccountId("1")
+									 .WithFolderInfo("1", "1", "1")
 			                         .Build();
 
 			// act
@@ -67,7 +67,7 @@ namespace EmailPingPong.Tests.Infrastructure
 		{
 			// arrange
 			var conversation = Create.Conversation()
-									 .WithAccountId("Account1")
+									 .WithFolderInfo("Account1", "1", "1")
 									 .WithConversationId("2")
 									 .WithTopic("Topic2")
 									 .WithEmail(
@@ -95,7 +95,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			var conversation = Create.Conversation()
 									 .WithConversationId("3")
 									 .WithTopic("Topic3")
-									 .WithAccountId("1")
+									 .WithFolderInfo("1", "1", "1")
 									 .WithComment(Create.Comment()
 														.WithAuthor("Author1")
 														.WithBody("Body1")
@@ -119,7 +119,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			var conversation = Create.Conversation()
 			                         .WithConversationId("33")
 			                         .WithTopic("Topic33")
-			                         .WithAccountId("1")
+			                         .WithFolderInfo("1", "1", "1")
 			                         .WithComment(Create.Comment()
 			                                            .WithId(commentId)
 			                                            .WithAuthor("Author1")
@@ -144,7 +144,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			var guid2 = Guid.NewGuid();
 
 			var conversation = Create.Conversation()
-									 .WithAccountId("Account1")
+									 .WithFolderInfo("Account1", "93227D09-E639-42FA-B79B-33CFD4246F39", "207658ee-3095-43d2-b6ff-a1965808be63")
 									 .WithConversationId("4")
 									 .WithTopic("Topic4")
 									 .WithEmail(
@@ -189,7 +189,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			var conversation = Create.Conversation()
 			                         .WithConversationId("5")
 			                         .WithTopic("Topic5")
-			                         .WithAccountId("1")
+									 .WithFolderInfo("1", "1", "1")
 			                         .WithComment(
 				                         Create.Comment()
 				                               .WithId(guid1)
@@ -219,7 +219,7 @@ namespace EmailPingPong.Tests.Infrastructure
 		{
 			// arrange
 			var conversation = Create.Conversation()
-									 .WithAccountId("1")
+									 .WithFolderInfo("1", "1", "1")
 									 .WithConversationId("5")
 									 .WithTopic("Topic5")
 									 .WithEmail(Create.EmailItem()
@@ -251,7 +251,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			var conversation = Create.Conversation()
 			                         .WithConversationId("5")
 			                         .WithTopic("Topic5")
-									 .WithAccountId("1")
+									 .WithFolderInfo("1", "1", "1")
 			                         .WithComment(
 				                         Create.Comment()
 				                               .WithAuthor("Author1")
@@ -282,7 +282,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			var conversation = Create.Conversation()
 			                         .WithConversationId("5")
 			                         .WithTopic("Topic5")
-									 .WithAccountId("1")
+									 .WithFolderInfo("1", "1", "1")
 			                         .WithComment(
 				                         Create.Comment()
 				                               .WithId(guid1)
@@ -326,7 +326,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			var conversation = Create.Conversation()
 									 .WithConversationId("6")
 									 .WithTopic("Topic6")
-									 .WithAccountId("1")
+									 .WithFolderInfo("1", "1", "1")
 									 .Build();
 
 			AddConversation(conversation);
@@ -345,7 +345,7 @@ namespace EmailPingPong.Tests.Infrastructure
 		{
 			// arrange
 			var conversation = Create.Conversation()
-									 .WithAccountId("1")
+									 .WithFolderInfo("1", "1", "1")
 									 .WithConversationId("6")
 									 .WithTopic("Topic6")
 									 .WithEmail(Create.EmailItem()
@@ -360,7 +360,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			AddConversation(conversation);
 
 			// act
-			conversation.NewestEmail.Subject = "New subject";
+			conversation.LatestEmail.Subject = "New subject";
 			_context.SaveChanges();
 
 			// assert
@@ -375,7 +375,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			var conversation = Create.Conversation()
 									 .WithConversationId("6")
 									 .WithTopic("Topic6")
-									 .WithAccountId("1")
+									 .WithFolderInfo("1", "1", "1")
 									 .WithComment(Create.Comment()
 														.WithAuthor("Author1")
 														.WithBody("Body1")
@@ -399,7 +399,7 @@ namespace EmailPingPong.Tests.Infrastructure
 		{
 			// arrange
 			var target = Create.Conversation()
-							   .WithAccountId("1")
+							   .WithFolderInfo("1", "1", "1")
 							   .WithConversationId("1")
 							   .WithTopic("Topic1")
 							   .WithComment(Create.Comment()
@@ -450,7 +450,7 @@ namespace EmailPingPong.Tests.Infrastructure
 		{
 			// arrange
 			var conversation = Create.Conversation()
-									 .WithAccountId("1")
+									 .WithFolderInfo("1", "1", "1")
 									 .WithConversationId("10")
 									 .WithTopic("Topic10")
 									 .WithComment(Create.Comment()
@@ -484,7 +484,7 @@ namespace EmailPingPong.Tests.Infrastructure
 		{
 			// arrange
 			var conversation = Create.Conversation()
-									 .WithAccountId("1")
+									 .WithFolderInfo("1", "1", "1")
 									 .WithConversationId("123")
 									 .WithTopic("Topic10")
 									 .WithEmail(Create.EmailItem()
@@ -518,7 +518,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			var guid1 = Guid.NewGuid();
 			var guid2 = Guid.NewGuid();
 			var original = Create.Conversation()
-								 .WithAccountId("1")
+								 .WithFolderInfo("1", "1", "1")
 								 .WithConversationId("1")
 								 .WithTopic("Topic1")
 								 .WithEmail(Create.EmailItem()
@@ -538,7 +538,8 @@ namespace EmailPingPong.Tests.Infrastructure
 
 			AddConversation(original);
 
-			var target = Create.Conversation().WithAccountId("1")
+			var target = Create.Conversation()
+							   .WithFolderInfo("1", "1", "1")
 							   .WithConversationId("1")
 							   .WithTopic("Topic1")
 							   .WithEmail(Create.EmailItem()

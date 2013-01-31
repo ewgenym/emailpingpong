@@ -27,7 +27,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 
 		public string Folder
 		{
-			get { return _conversation.NewestEmail.Folder.FolderName; }
+			get { return _conversation.LatestEmail.Folder.FolderName; }
 		}
 
 		public ReadOnlyCollection<CommentViewModel> Comments

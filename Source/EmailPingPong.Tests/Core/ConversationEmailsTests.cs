@@ -185,7 +185,7 @@ namespace EmailPingPong.Tests.Core
 			MergeConversation(original, proposed);
 
 			// assert
-			original.NewestEmail.IsUnread.Should().BeFalse();
+			original.LatestEmail.IsUnread.Should().BeFalse();
 		}
 
 		[Fact]

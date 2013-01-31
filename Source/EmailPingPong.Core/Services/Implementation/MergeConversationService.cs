@@ -36,10 +36,10 @@ namespace EmailPingPong.Core.Services.Implementation
 
 		private void MergeEmails(Conversation original, Conversation proposed)
 		{
-			if (!original.UpdateEmail(proposed.NewestEmail))
+			if (!original.UpdateEmail(proposed.LatestEmail))
 			{
-				original.AddEmail(proposed.NewestEmail);
-				_emailItemRepository.Add(proposed.NewestEmail);
+				original.AddEmail(proposed.LatestEmail);
+				_emailItemRepository.Add(proposed.LatestEmail);
 			}
 		}
 
@@ -56,7 +56,7 @@ namespace EmailPingPong.Core.Services.Implementation
 			
 			// save newwest email (attached) for new comments
 			var newComments = proposedComments.Where(p => originalComments.All(o => o.Guid != p.Guid));
-			newComments.ForEach(c => c.OriginalEmail = original.NewestEmail);
+			newComments.ForEach(c => c.OriginalEmail = original.LatestEmail);
 
 			// Delete
 			originalComments.ForEach(c => _commentsRepository.Remove(c));

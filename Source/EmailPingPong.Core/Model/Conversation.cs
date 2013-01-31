@@ -18,7 +18,11 @@ namespace EmailPingPong.Core.Model
 
 		[Required]
 		public virtual string AccountId { get; set; }
-
+		[Required]
+		public virtual string StoreId { get; set; }
+		[Required]
+		public virtual string FolderId { get; set; }
+		
 		public virtual string Topic { get; set; }
 
 		public virtual IList<Comment> Comments { get; set; }
@@ -31,7 +35,7 @@ namespace EmailPingPong.Core.Model
 			{
 				if (subComment.OriginalEmail == null)
 				{
-					subComment.OriginalEmail = NewestEmail;
+					subComment.OriginalEmail = LatestEmail;
 				}
 			}
 		}
@@ -43,19 +47,19 @@ namespace EmailPingPong.Core.Model
 			Emails.Add(emailItem);
 		}
 
-		public virtual EmailItem NewestEmail
+		public virtual EmailItem LatestEmail
 		{
 			get { return Emails.OrderByDescending(e => e.CreationTime).FirstOrDefault(); }
 		}
 
 		public virtual bool IsNewerThanOrSame(Conversation conversation)
 		{
-			if (NewestEmail == null)
+			if (LatestEmail == null)
 			{
 				return false;
 			}
 
-			return NewestEmail.CreationTime.LaterThenOrEqual(conversation.NewestEmail.CreationTime);
+			return LatestEmail.CreationTime.LaterThenOrEqual(conversation.LatestEmail.CreationTime);
 		}
 
 		public virtual bool UpdateEmail(EmailItem targetEmail)
