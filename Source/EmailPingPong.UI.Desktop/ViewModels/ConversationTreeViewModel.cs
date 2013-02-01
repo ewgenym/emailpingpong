@@ -43,7 +43,10 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		{
 			_accountId = args.AccountId;
 			_emails = args.Emails;
-			BindData();
+			if (_searchIn == SearchIn.CurrentEmail)
+			{
+				BindData();
+			}
 		}
 
 		private void OnMailFolderSwitched(MailFolderSwitchedArgs args)
@@ -53,7 +56,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			BindData();
 		}
 
-		private void OnConversationAdded(Conversation obj)
+		private void OnConversationAdded(Conversation args)
 		{
 			BindData();
 		}
@@ -63,7 +66,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			BindData();
 		}
 
-		private void OnConversationRemoved(ConversationRemovedArgs obj)
+		private void OnConversationRemoved(ConversationRemovedArgs args)
 		{
 			BindData();
 		}

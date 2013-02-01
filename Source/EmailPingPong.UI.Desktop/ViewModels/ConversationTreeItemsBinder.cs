@@ -69,11 +69,29 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			switch (criteria.SearchIn)
 			{
 				case SearchIn.AllFolders:
-					return Task.Factory.StartNew(() => _conversationRepository.GetByAccountId(criteria.AccountId).ToList());
+					return Task.Factory.StartNew(() =>
+						{
+							lock (_conversationRepository)
+							{
+								return _conversationRepository.GetByAccountId(criteria.AccountId).ToList();
+							}
+						});
 				case SearchIn.CurrentFolder:
-					return Task.Factory.StartNew(() => _conversationRepository.GetByAccountIdAndFolder(criteria.AccountId, criteria.Folder).ToList());
+					return Task.Factory.StartNew(() =>
+						{
+							lock (_conversationRepository)
+							{
+								return _conversationRepository.GetByAccountIdAndFolder(criteria.AccountId, criteria.Folder).ToList();
+							}
+						});
 				case SearchIn.CurrentEmail:
-					return Task.Factory.StartNew(() => _conversationRepository.GetByAccountIdAndEmails(criteria.AccountId, criteria.Emails).ToList());
+					return Task.Factory.StartNew(() =>
+						{
+							lock (_conversationRepository)
+							{
+								return _conversationRepository.GetByAccountIdAndEmails(criteria.AccountId, criteria.Emails).ToList();
+							}
+						});
 				default:
 					throw new NotSupportedException(string.Format("Search filter '{0}' is not supported.", criteria.SearchIn.ToString()));
 			}

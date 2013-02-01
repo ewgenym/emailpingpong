@@ -29,16 +29,11 @@ namespace EmailPingPong.Infrastructure.Repositories
 		public IEnumerable<Conversation> GetByAccountId(string accountId)
 		{
 			return _conversationContext.Conversations
-									   .Where(c => c.AccountId == accountId)
 									   .Include("Comments")
 									   .Include("Comments.Answers")
 									   .Include("Comments.OriginalEmail")
-									   .Include("Emails");
-		}
-
-		public IEnumerable<Conversation> GetByAccountIdAndEmails(string accountId, IEnumerable<EmailItem> emails)
-		{
-			return GetAll();
+									   .Include("Emails")
+									   .Where(c => c.AccountId == accountId);
 		}
 
 		public override void Remove(Conversation entity)
@@ -80,8 +75,20 @@ namespace EmailPingPong.Infrastructure.Repositories
 									   .Include("Comments.OriginalEmail")
 									   .Include("Emails")
 									   .Where(c => c.AccountId == accountId
-												   && c.StoreId == folder.StoreId
-												   && c.FolderId == folder.FolderId);
+												   && c.Emails.Any(e => e.Folder.StoreId == folder.StoreId)
+												   && c.Emails.Any(e => e.Folder.FolderId == folder.FolderId));
+		}
+
+		public IEnumerable<Conversation> GetByAccountIdAndEmails(string accountId, IEnumerable<EmailItem> emails)
+		{
+			var selectedEmail = emails.ElementAt(0);
+			return _conversationContext.Conversations
+									   .Include("Comments")
+									   .Include("Comments.Answers")
+									   .Include("Comments.OriginalEmail")
+									   .Include("Emails")
+									   .Where(c => c.AccountId == accountId
+												   && c.Emails.Any(e => e.ItemId == selectedEmail.ItemId));
 		}
 	}
 }

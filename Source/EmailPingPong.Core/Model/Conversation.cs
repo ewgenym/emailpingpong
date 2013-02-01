@@ -18,11 +18,7 @@ namespace EmailPingPong.Core.Model
 
 		[Required]
 		public virtual string AccountId { get; set; }
-		[Required]
-		public virtual string StoreId { get; set; }
-		[Required]
-		public virtual string FolderId { get; set; }
-		
+
 		public virtual string Topic { get; set; }
 
 		public virtual IList<Comment> Comments { get; set; }

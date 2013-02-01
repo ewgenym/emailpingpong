@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using EmailPingPong.Core.Commands;
 using EmailPingPong.Infrastructure;
@@ -21,19 +22,23 @@ namespace EmailPingPong.Outlook2010.Services
 		private Explorer _explorer;
 		private MailItem _selectedItem;
 		private readonly IFolderBinder _folderBinder;
+		private readonly IEmailItemBinder _emailItemBinder;
 		private readonly IConversationMetadataTracker _conversationMetadataTracker;
 
 		public Outlook2010ConversationMonitor(ConversationContext context,
 											  ICommandDispatcher commands,
 											  IConversationBinder conversationBinder,
 											  IEventAggregator eventAggregator,
-											  IFolderBinder folderBinder, IConversationMetadataTracker conversationMetadataTracker)
+											  IFolderBinder folderBinder,
+											  IEmailItemBinder emailItemBinder,
+											  IConversationMetadataTracker conversationMetadataTracker)
 		{
 			_context = context;
 			_commands = commands;
 			_conversationBinder = conversationBinder;
 			_eventAggregator = eventAggregator;
 			_folderBinder = folderBinder;
+			_emailItemBinder = emailItemBinder;
 			_conversationMetadataTracker = conversationMetadataTracker;
 		}
 
@@ -165,6 +170,18 @@ namespace EmailPingPong.Outlook2010.Services
 		private void OnSelectionChange()
 		{
 			HandlePreserveAttachment();
+
+			FireEmailItemSwitchedArgs();
+		}
+
+		private void FireEmailItemSwitchedArgs()
+		{
+			if (_explorer.Selection.Count > 0)
+			{
+				var folder = (Folder)_explorer.CurrentFolder;
+				var emails = _explorer.Selection.Cast<MailItem>().Select(e => _emailItemBinder.Bind(e));
+				_eventAggregator.GetEvent<EmailItemSwitchedEvent>().Publish(new EmailItemSwitchedArgs(folder.Store.DisplayName, emails));
+			}
 		}
 
 		private void HandlePreserveAttachment()

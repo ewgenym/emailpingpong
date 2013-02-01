@@ -47,7 +47,7 @@ namespace EmailPingPong.Tests.Services
 		}
 
 		[Fact]
-		public void should_bind_conversation_folder_info()
+		public void should_bind_conversation_account_id()
 		{
 			// arrange
 			const string accountId = "ema@mail.com";
@@ -65,8 +65,6 @@ namespace EmailPingPong.Tests.Services
 
 			// assert
 			conversation.AccountId.Should().Be(accountId);
-			conversation.StoreId.Should().Be(storeId);
-			conversation.FolderId.Should().Be(folderId);
 		}
 
 		[Fact]
