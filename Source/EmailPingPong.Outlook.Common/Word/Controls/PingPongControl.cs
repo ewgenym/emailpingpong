@@ -8,7 +8,7 @@ namespace EmailPingPong.Outlook.Common.Word.Controls
 	{
 		private readonly Document _document;
 
-		public PingPongControl(Document document)
+		protected PingPongControl(Document document)
 		{
 			_document = document;
 
@@ -46,6 +46,8 @@ namespace EmailPingPong.Outlook.Common.Word.Controls
 		{
 			authorRange.Text = "[" + author + "]:";
 
+			//TODO: do not render Author as a separate content control. It makes it hard to edit author and body.
+			// Instead use [] for auther separation only. Easy to parse then.
 			var rng = (object)authorRange;
 			var authorControl = _document.ContentControls.Add(WdContentControlType.wdContentControlRichText, ref rng);
 			authorControl.Tag = "author";

@@ -113,6 +113,7 @@
     <Compile Include="Builders\CommentBuilder.cs" />
     <Compile Include="Builders\ConversationBuilder.cs" />
     <Compile Include="Builders\Create.cs" />
+    <Compile Include="Builders\DocumentBuilder.cs" />
     <Compile Include="Builders\EmailItemBuilder.cs" />
     <Compile Include="Builders\EntityBuilderBase.cs" />
     <Compile Include="Core\ConversationEmailsTests.cs" />
@@ -126,6 +127,8 @@
     <Compile Include="ViewModel\ConversationTreeViewModelStatePersistanceTests.cs" />
     <Compile Include="ViewModel\ConversationTreeViewTestsBase.cs" />
     <Compile Include="ViewModel\ConversationViewCriteriaTests.cs" />
+    <Compile Include="Word\ConversationParserTests.cs" />
+    <Compile Include="Word\PingPongControlTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

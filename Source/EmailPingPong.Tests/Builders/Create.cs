@@ -16,5 +16,10 @@ namespace EmailPingPong.Tests.Builders
 		{
 			return new ConversationBuilder();
 		}
+
+		public static DocumentBuilder Document()
+		{
+			return new DocumentBuilder();
+		}
 	}
 }

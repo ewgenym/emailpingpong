@@ -100,6 +100,7 @@
     <Compile Include="Utils\InterceptKeys.cs" />
     <Compile Include="Word\Controls\PingControl.cs" />
     <Compile Include="Word\Controls\PingPongControl.cs" />
+    <Compile Include="Word\Controls\PingPongMetadata.cs" />
     <Compile Include="Word\Controls\PongControl.cs" />
     <Compile Include="Word\Utils\ContentControlExtensions.cs" />
     <Compile Include="Word\ConversationParser.cs" />

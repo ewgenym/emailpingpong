@@ -27,7 +27,7 @@ namespace EmailPingPong.Outlook.Common.Word.Utils
 
 		private static bool IsOfTag(this ContentControl control, string tag)
 		{
-			return control != null && control.Tag.StartsWith(tag);
+			return control != null && control.Tag !=null && control.Tag.StartsWith(tag);
 		}
 
 		public static DateTime CreationDate(this ContentControl control)
