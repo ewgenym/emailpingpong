@@ -139,6 +139,42 @@ namespace EmailPingPong.Tests.Word
 			comments.Should().BeEmpty();
 		}
 
+		[Fact]
+		public void should_parse_question_without_author()
+		{
+			// arrange
+			var document = Create.Document()
+			                     .WithSelectedText("question")
+			                     .WithPing(null)
+								 .Build();
+
+			// act
+			var comments = Parse(document);
+
+			// assert
+			comments.Should().HaveCount(1);
+			comments[0].Author.Should().BeNull();
+		}
+
+		[Fact]
+		public void should_parser_answer_without_answer()
+		{
+			// arrange
+			var document = Create.Document()
+								 .WithSelectedText("question")
+								 .WithPing("author1")
+								 .WithPong(null)
+								 .Build();
+
+			// act
+			var comments = Parse(document);
+
+			// assert
+			comments.Should().HaveCount(1);
+			comments[0].Answers.Should().HaveCount(1);
+			comments[0].Answers[0].Author.Should().BeNull();
+		}
+
 		private IList<Comment> Parse(Document document)
 		{
 			return _parser.Parse(document).ToList();

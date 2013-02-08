@@ -42,8 +42,11 @@ namespace EmailPingPong.Outlook.Common.Word.Controls
 
 		private void RenderAuthor(string author, Range authorRange)
 		{
-			var authorText = string.Format("[{0}]: ", author);
-			authorRange.Text = authorText;
+			if (!string.IsNullOrEmpty(author))
+			{
+				var authorText = string.Format("[{0}]: ", author);
+				authorRange.Text = authorText;
+			}
 		}
 
 		protected virtual ContentControl RenderBody(Range range)

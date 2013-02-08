@@ -7,7 +7,6 @@ using Comment = EmailPingPong.Core.Model.Comment;
 
 namespace EmailPingPong.Outlook.Common.Word
 {
-	//TODO: how the fuck unit test this code?
 	public class ConversationParser : IConversationParser
 	{
 		public IEnumerable<Comment> Parse(Document document)

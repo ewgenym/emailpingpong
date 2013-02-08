@@ -51,5 +51,37 @@ namespace EmailPingPong.Tests.Word
 			document.Application.Selection.Text.Should().Be(expected);
 			document.Application.Selection.Range.ParentContentControl.Should().BeNull();
 		}
+
+		[Fact]
+		public void should_render_ping_with_empty_author()
+		{
+			// arrange & act
+			const string expected = "question";
+			var document = Create.Document()
+								 .WithSelectedText(expected)
+								 .WithPing(null)
+								 .Build();
+
+			// assert
+			var pingContentControl = document.Application.Selection.Range.ParentContentControl;
+			pingContentControl.Range.Text.Should().Be(expected);
+		}
+		
+		[Fact]
+		public void should_render_pong_with_empty_author()
+		{
+			// arrange & act
+			const string expected = "answer";
+			var document = Create.Document()
+					 .WithSelectedText("question")
+					 .WithPing("author1")
+					 .WithPong(null)
+					 .WithText(expected)
+					 .Build();
+
+			// assert
+			var pongContentControl = document.Application.Selection.Range.ParentContentControl;
+			pongContentControl.Range.Text.Should().Be(expected);
+		}
 	}
 }
