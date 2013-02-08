@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using EmailPingPong.Outlook.Common.Word.Utils;
 using Microsoft.Office.Interop.Word;
 
@@ -28,12 +29,9 @@ namespace EmailPingPong.Outlook.Common.Word.Controls
 		protected virtual void InternalRender(string author, Range range)
 		{
 			var authorRange = Document.Range(range.Start, range.Start);
-			var authorControl = RenderAuthor(author, authorRange);
+			RenderAuthor(author, authorRange);
 
-			// Separate author from ping body
-			authorControl.Range.InsertAfter(" ");
-
-			var bodyRange = Document.Range(authorControl.Range.Start - 1, Math.Max(range.End, authorControl.Range.End + 1));
+			var bodyRange = Document.Range(authorRange.Start, Math.Max(range.End, authorRange.End));
 			var bodyControl = RenderBody(bodyRange);
 
 			// Move cursor at the end of the ping body
@@ -42,20 +40,10 @@ namespace EmailPingPong.Outlook.Common.Word.Controls
 			selectionRange.Select();
 		}
 
-		protected virtual ContentControl RenderAuthor(string author, Range authorRange)
+		private void RenderAuthor(string author, Range authorRange)
 		{
-			authorRange.Text = "[" + author + "]:";
-
-			//TODO: do not render Author as a separate content control. It makes it hard to edit author and body.
-			// Instead use [] for auther separation only. Easy to parse then.
-			var rng = (object)authorRange;
-			var authorControl = _document.ContentControls.Add(WdContentControlType.wdContentControlRichText, ref rng);
-			authorControl.Tag = "author";
-
-			//var textStyle = (object)"Quote";
-			//authorControl.set_DefaultTextStyle(ref textStyle);
-
-			return authorControl;
+			var authorText = string.Format("[{0}]: ", author);
+			authorRange.Text = authorText;
 		}
 
 		protected virtual ContentControl RenderBody(Range range)
@@ -83,21 +71,28 @@ namespace EmailPingPong.Outlook.Common.Word.Controls
 			undoRecord.StartCustomRecord("Ping-pong tag removal");
 			try
 			{
-				foreach (ContentControl control in pingPongControl.Range.ContentControls)
-				{
-					if (control.IsAuthor())
-					{
-						control.Delete(true);
-					}
-				}
-				var range = pingPongControl.Range;
-				pingPongControl.Delete();
-				range.Select();
+				RemoveAuthor(pingPongControl.Range);
+				RemoveBodyControl(pingPongControl);
 			}
 			finally
 			{
 				undoRecord.EndCustomRecord();
 			}
+		}
+
+		private static void RemoveBodyControl(ContentControl pingPongControl)
+		{
+			var range = pingPongControl.Range;
+			pingPongControl.Delete();
+			range.Select();
+		}
+
+		private static void RemoveAuthor(Range pingPongControlRange)
+		{
+			var text = pingPongControlRange.Text;
+			var regexp = new Regex(@"^\[.*\]:\s?");
+			text = regexp.Replace(text, string.Empty, 1);
+			pingPongControlRange.Text = text;
 		}
 	}
 }

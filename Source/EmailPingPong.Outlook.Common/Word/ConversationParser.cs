@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using EmailPingPong.Outlook.Common.Word.Utils;
 using Microsoft.Office.Interop.Word;
 using Comment = EmailPingPong.Core.Model.Comment;
@@ -53,16 +54,15 @@ namespace EmailPingPong.Outlook.Common.Word
 
 					if (comment != null)
 					{
-						foreach (ContentControl nestedControl in control.Range.ContentControls)
+						var text = control.Range.Text;
+						var regexp = new Regex(@"^\[(.*)\]:\s?");
+						var match = regexp.Match(text);
+						if (match.Groups.Count == 2)
 						{
-							if (nestedControl.IsAuthor())
-							{
-								comment.Author = nestedControl.Range.Text.Trim('[', ']', ' ', ':');
-								var authorLessRange = document.Range(nestedControl.Range.End, control.Range.End);
-								comment.Body = authorLessRange.Text;
-							}
+							comment.Author = match.Groups[1].Value;
+							Console.Out.WriteLine("comment.Author = {0}", comment.Author);
 						}
-
+						comment.Body = regexp.Replace(text, string.Empty, 1);
 						comment.Index = i;
 					}
 				}

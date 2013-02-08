@@ -20,11 +20,6 @@ namespace EmailPingPong.Outlook.Common.Word.Utils
 			return control.IsOfTag("pong");
 		}
 
-		public static bool IsAuthor(this ContentControl control)
-		{
-			return control.IsOfTag("author");
-		}
-
 		private static bool IsOfTag(this ContentControl control, string tag)
 		{
 			return control != null && control.Tag !=null && control.Tag.StartsWith(tag);
