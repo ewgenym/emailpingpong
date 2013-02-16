@@ -20,41 +20,55 @@ namespace EmailPingPong.Infrastructure.Repositories
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Conversation>()
-						.HasKey(c => c.Id);
-			modelBuilder.Entity<Conversation>()
-						.Property(c => c.Id)
-						.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+			MapConversation(modelBuilder);
+			MapComment(modelBuilder);
+			MapEmailItem(modelBuilder);
+		}
 
-			modelBuilder.Entity<Comment>()
-						.HasKey(c => c.Id);
-			modelBuilder.Entity<Comment>()
-						.Property(c => c.Id)
-						.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-
+		private static void MapEmailItem(DbModelBuilder modelBuilder)
+		{
 			modelBuilder.Entity<EmailItem>()
-						.HasKey(m => m.Id);
+			            .HasKey(m => m.Id);
 			modelBuilder.Entity<EmailItem>()
-						.Property(c => c.Id)
-						.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-
-			modelBuilder.Entity<Conversation>()
-						.HasMany(c => c.Emails)
-						.WithRequired()
-						.WillCascadeOnDelete(true);
-
-			modelBuilder.Entity<Conversation>()
-						.HasMany(c => c.Comments)
-						.WithOptional()
-						.WillCascadeOnDelete(true);
+			            .Property(c => c.Id)
+			            .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
 			modelBuilder.Entity<Comment>()
-						.HasMany(c => c.Answers)
-						.WithOptional(c => c.Parent)
-						.Map(c => c.MapKey("ParentId"));
+			.HasOptional(c => c.OriginalEmail);
+		}
+
+		private static void MapComment(DbModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Comment>()
+			            .HasKey(c => c.Id);
+			modelBuilder.Entity<Comment>()
+			            .Property(c => c.Id)
+			            .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
 			modelBuilder.Entity<Comment>()
-						.HasOptional(c => c.OriginalEmail);
+			            .HasMany(c => c.Answers)
+			            .WithOptional(c => c.Parent)
+			            .Map(c => c.MapKey("ParentId"));
+		}
+
+		private static void MapConversation(DbModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Conversation>()
+			            .HasKey(c => c.Id);
+			modelBuilder.Entity<Conversation>()
+			            .Property(c => c.Id)
+			            .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+			modelBuilder.Entity<Conversation>()
+			            .HasMany(c => c.Emails)
+			            .WithRequired()
+			            .WillCascadeOnDelete(true);
+
+			modelBuilder.Entity<Conversation>()
+			            .HasMany(c => c.Comments)
+			            .WithOptional(c => c.Conversation)
+						.Map(c => c.MapKey("ConversationId"))
+			            .WillCascadeOnDelete(true);
 		}
 	}
 }

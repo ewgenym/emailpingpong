@@ -5,18 +5,18 @@ v1.0
 ----
 + Hierarchy - One level hierarchy support only
 - Conversation tree panel:
-	+ Conersation tree with Author, Date, Body columns (Use WPF DevExpress control)
+	+ Conersation tree with Author, Date, Body columns
 	+ Refresh (add\update\remove) the conversation tree after send\receive\save
-	+ Locate (but not open in a separate window) e-mail on double click in the conversation tree
+	- Locate (but not open in a separate window) e-mail on double click in the conversation tree
 	+ Monitor all the folders in all the accounts
-	+ Add "Show\Hide conversation pane" button to View ribbon
+	- Add "Show\Hide conversation pane" button to View ribbon
 	+ Group by (Mail subject, Folder)
 	+ Search In (All folders, current folder, current mail)
 	+ Preserve the tree nodes state per each folder\item (on each selection change). The history should be in memory. After the outlook is closed only the current state (for current selection) is persisted.
-	- Comments from unread e-mails styled with bold
+	+ Comments from unread e-mails styled with bold
 	- Persist the selected settings (group by, search in, expanded\collapsed nodes... for the current profile, use database)
-	- Remove "RE: " series from the mail subject when grouping by mail subject (like in native outlook conversation feature)
-	- Replace toggle button in the main ribbon with inplace navigation element
+	+ Remove "RE: " series from the mail subject when grouping by mail subject (like in native outlook conversation feature)
+	+ Replace toggle button in the main ribbon with inplace navigation element
 + Mail tagging:
 	+ Question tag removal after the second click
 	+ Ctrl+Z support

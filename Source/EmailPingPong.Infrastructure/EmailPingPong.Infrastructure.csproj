@@ -95,7 +95,7 @@
     <Compile Include="Events\EmailItemChangedEvent.cs" />
     <Compile Include="Events\EmailItemSwitchedEvent.cs" />
     <Compile Include="Events\MailFolderSwitchedEvent.cs" />
-    <Compile Include="Events\PingPongItemSelectedEvent.cs" />
+    <Compile Include="Events\OpenMailItemEvent.cs" />
     <Compile Include="IConnectionStringProvider.cs" />
     <Compile Include="NoHandlerForCommandException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

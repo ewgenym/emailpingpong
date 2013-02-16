@@ -32,6 +32,8 @@ namespace EmailPingPong.Core.Model
 
 		public virtual EmailItem OriginalEmail { get; set; }
 
+		public virtual Conversation Conversation { get; set; }
+
 		public virtual void AddAnswer(Comment answer)
 		{
 			answer.Parent = this;

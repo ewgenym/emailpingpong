@@ -588,6 +588,29 @@ namespace EmailPingPong.Tests.Infrastructure
 			actual.Comments[0].Answers.Should().HaveCount(1);
 		}
 
+		[Fact]
+		public void should_map_parent_conversation_for_comments()
+		{
+			// arrange
+			var conversation = Create.Conversation()
+									 .WithConversationId("3")
+									 .WithTopic("Topic3")
+									 .WithAccountId("1")
+									 .WithComment(Create.Comment()
+														.WithAuthor("Author1")
+														.WithBody("Body1")
+														.WithOrder(1)
+														.Build())
+									 .Build();
+
+			// act
+			AddConversation(conversation);
+
+			// assert
+			var actual = _conversationRepository.GetByAccountIdAndConversationId(conversation.AccountId, conversation.ConversationId);
+			actual.Comments[0].Conversation.Should().BeSameAs(conversation);
+		}
+		
 		private void AddConversation(Conversation conversation)
 		{
 			_conversationRepository.Add(conversation);

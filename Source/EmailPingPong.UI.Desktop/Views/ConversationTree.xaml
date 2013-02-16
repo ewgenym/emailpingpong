@@ -32,7 +32,9 @@
 				  SelectedValue="{Binding Path=SearchIn}"
 				  SelectedValuePath="Value"/>
 		<TreeView ItemsSource="{Binding Items}"
-		          Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2">
+		          Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" 
+				  PreviewMouseLeftButtonDown="TreeView_PreviewMouseLeftButtonDown"
+				  Name="conversationTree">
 			<TreeView.ItemContainerStyle>
 				<Style TargetType="{x:Type TreeViewItem}">
 					<Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />

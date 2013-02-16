@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using EmailPingPong.Core.Model;
+using EmailPingPong.Core.Utils;
 using EmailPingPong.Infrastructure.Events;
+using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Events;
 
 namespace EmailPingPong.UI.Desktop.ViewModels
@@ -26,6 +29,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			_treeViewItemsBinder = treeViewItemsBinder;
 			_eventAggregator = eventAggregator;
 			_statePersister = new TreeViewItemsState<ConversationViewCriteria>();
+			OpenMailItem = new DelegateCommand<TreeViewItemViewModel>(OpenMailItemExecute);
 
 			ListenToEvents();
 		}
@@ -69,6 +73,42 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		private void OnConversationRemoved(ConversationRemovedArgs args)
 		{
 			BindData();
+		}
+
+		public ICommand OpenMailItem { get; private set; }
+
+		private void OpenMailItemExecute(TreeViewItemViewModel itemViewModel)
+		{
+			var emailItem = GetEmailItem((dynamic) itemViewModel);
+			if (emailItem != null)
+			{
+				_eventAggregator.GetEvent<OpenMailItemEvent>().Publish(new OpenMailItemArgs(emailItem));
+			}
+		}
+
+		private EmailItem GetEmailItem(CommentViewModel commentViewModel)
+		{
+			var comment = commentViewModel.Comment;
+			while (comment.Conversation == null)
+			{
+				comment = comment.Parent;
+				if (comment == null)
+				{
+					break;
+				}
+			}
+
+			return comment.With(c => c.Conversation).Return(c => c.LatestEmail);
+		}
+
+		private EmailItem GetEmailItem(ConversationViewModel conversationViewModel)
+		{
+			return conversationViewModel.Conversation.LatestEmail;
+		}
+
+		private EmailItem GetEmailItem(FolderViewModel folderViewModel)
+		{
+			return null;
 		}
 
 		public GroupBy GroupBy

@@ -29,6 +29,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.Outlook.Commo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.TestApp", "EmailPingPong.TestApp\EmailPingPong.TestApp.csproj", "{B887B1F8-673A-4E4C-903F-64C35F5D91AB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B6320304-7D13-4B7A-A682-23FA5A0AA855}"
+	ProjectSection(SolutionItems) = preProject
+		..\_TODO.txt = ..\_TODO.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
