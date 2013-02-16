@@ -28,25 +28,34 @@ namespace EmailPingPong.Outlook2010.Controllers
 		{
 			if (Functions.IsKeyDown(Keys.ControlKey))
 			{
-				var ping = Functions.IsKeyDown(Keys.D1);
-				var pong = Functions.IsKeyDown(Keys.D2);
-				if (ping || pong)
+				if (Functions.IsKeyDown(Keys.D1))
 				{
-					var inspector = Globals.ThisAddIn.Application.ActiveInspector();
-					if (inspector != null)
-					{
-						if (ping)
-						{
-							Ping(inspector);
-							keyData.SuppressKeyPress = true;
-						}
-						else if (pong)
-						{
-							Pong(inspector);
-							keyData.SuppressKeyPress = true;
-						}
-					}
+					Ping();
+					keyData.SuppressKeyPress = true;
 				}
+				else if (Functions.IsKeyDown(Keys.D2))
+				{
+					Pong();
+					keyData.SuppressKeyPress = true;
+				}
+			}
+		}
+
+		public void Ping()
+		{
+			var inspector = Globals.ThisAddIn.Application.ActiveInspector();
+			if (inspector != null)
+			{
+				Ping(inspector);
+			}
+		}
+
+		public void Pong()
+		{
+			var inspector = Globals.ThisAddIn.Application.ActiveInspector();
+			if (inspector != null)
+			{
+				Pong(inspector);
 			}
 		}
 

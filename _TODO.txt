@@ -1,7 +1,7 @@
 EPP TODO:
 + (Small) Locate (but not open in a separate window) e-mail on double click in the conversation tree
-- (Big) Tag the entire mail as the one conversation (like the native outlook conversation feature)
-- (Small) Add Question\Asnwer buttons to the "Mail dialog", somewhere on the main ribbon
++ (Small) Add Question\Asnwer buttons to the "Mail dialog", somewhere on the main ribbon
+- (Small) Order conversations by date in descending manner
 - (Big) Tree representation (make it look like in iOS\Android chat)
 - (Big) When content controls are getting lost try restoring them from metadata attachment
 - (Medium) Add "Show\Hide conversation pane", the same as for To-Do bar in Outlook
@@ -11,4 +11,4 @@ EPP TODO:
 - (Medium) Security: consider generating password for database or prefrably use Windows Authentication if possible.
 - (Big) Install package with new installer engine
 - (Medium) Support for Outlook 2013
-- (Small) Order conversations by date in descending manner
+- (Big) Tag the entire mail as the one conversation (like the native outlook conversation feature)

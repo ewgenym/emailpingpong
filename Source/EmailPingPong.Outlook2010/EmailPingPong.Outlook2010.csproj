@@ -221,6 +221,12 @@
     <Compile Include="Configuration\EmailPingPongOutlook2010AddInConfigurator.cs" />
     <Compile Include="Configuration\Outlook2010ConversationTreeStarter.cs" />
     <Compile Include="Controllers\InspectorController.cs" />
+    <Compile Include="Ribbons\MailCompose.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ribbons\MailCompose.Designer.cs">
+      <DependentUpon>MailCompose.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\ConversationMetadataTracker.cs" />
     <Compile Include="Services\FolderBinder.cs" />
     <Compile Include="Services\ConversationBinder.cs" />
@@ -239,7 +245,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Ribbons\MailCompose.resx">
+      <DependentUpon>MailCompose.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="App.config" />
     <None Include="EmailPingPong.Outlook2010_TemporaryKey.pfx" />
     <None Include="packages.config" />
@@ -282,6 +292,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Question_icon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Answer-Icon.jpg" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

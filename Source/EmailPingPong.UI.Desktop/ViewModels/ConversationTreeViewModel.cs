@@ -79,6 +79,11 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 
 		private void OpenMailItemExecute(TreeViewItemViewModel itemViewModel)
 		{
+			if (itemViewModel == null)
+			{
+				return;
+			}
+
 			var emailItem = GetEmailItem((dynamic) itemViewModel);
 			if (emailItem != null)
 			{
