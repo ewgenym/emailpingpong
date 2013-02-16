@@ -64,6 +64,8 @@
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Services\IMergeConversationService.cs" />
     <Compile Include="Services\Implementation\MergeConversationService.cs" />
+    <Compile Include="Services\Implementation\TimeProvider.cs" />
+    <Compile Include="Services\ITimeProvider.cs" />
     <Compile Include="Specifications\ConversationSpecifications.cs" />
     <Compile Include="Utils\DateTimeExtensions.cs" />
     <Compile Include="Utils\EnumerableExtensions.cs" />

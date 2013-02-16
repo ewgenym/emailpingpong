@@ -73,7 +73,9 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 						{
 							lock (_conversationRepository)
 							{
-								return _conversationRepository.GetByAccountId(criteria.AccountId).ToList();
+								return _conversationRepository.GetByAccountId(criteria.AccountId)
+															  .OrderByDescending(c => c.CreatedOn)
+															  .ToList();
 							}
 						});
 				case SearchIn.CurrentFolder:
@@ -81,7 +83,9 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 						{
 							lock (_conversationRepository)
 							{
-								return _conversationRepository.GetByAccountIdAndFolder(criteria.AccountId, criteria.Folder).ToList();
+								return _conversationRepository.GetByAccountIdAndFolder(criteria.AccountId, criteria.Folder)
+															  .OrderByDescending(c => c.CreatedOn)
+															  .ToList();
 							}
 						});
 				case SearchIn.CurrentEmail:
@@ -89,7 +93,9 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 						{
 							lock (_conversationRepository)
 							{
-								return _conversationRepository.GetByAccountIdAndEmails(criteria.AccountId, criteria.Emails).ToList();
+								return _conversationRepository.GetByAccountIdAndEmails(criteria.AccountId, criteria.Emails)
+															  .OrderByDescending(c => c.CreatedOn)
+															  .ToList();
 							}
 						});
 				default:

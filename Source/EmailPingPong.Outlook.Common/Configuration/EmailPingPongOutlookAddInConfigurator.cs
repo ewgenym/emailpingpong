@@ -49,6 +49,8 @@ namespace EmailPingPong.Outlook.Common.Configuration
 		private void ConfigureServices()
 		{
 			_container.Register(Component.For<IMergeConversationService>().ImplementedBy<MergeConversationService>());
+			_container.Register(Component.For<ITimeProvider>().ImplementedBy<TimeProvider>());
+			
 		}
 
 		private void ConfigureKeyInterceptorStarter()

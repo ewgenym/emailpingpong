@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using EmailPingPong.Core.Utils;
@@ -20,6 +21,9 @@ namespace EmailPingPong.Core.Model
 		public virtual string AccountId { get; set; }
 
 		public virtual string Topic { get; set; }
+
+		[Required]
+		public virtual DateTime CreatedOn { get; set; }
 
 		public virtual IList<Comment> Comments { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using EmailPingPong.Core.Utils;
+﻿using EmailPingPong.Core.Services;
+using EmailPingPong.Core.Utils;
 using EmailPingPong.Outlook.Common.Word;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Office.Interop.Word;
@@ -11,14 +12,17 @@ namespace EmailPingPong.Outlook2010.Services
 		private readonly IConversationParser _parser;
 		private readonly IEmailItemBinder _emailItemBinder;
 		private readonly IConversationMetadataTracker _metadataTracker;
+		private readonly ITimeProvider _timeProvider;
 
 		public ConversationBinder(IConversationParser parser,
-			IEmailItemBinder emailItemBinder, 
-			IConversationMetadataTracker metadataTracker)
+								  IEmailItemBinder emailItemBinder,
+								  IConversationMetadataTracker metadataTracker,
+								  ITimeProvider timeProvider)
 		{
 			_parser = parser;
 			_emailItemBinder = emailItemBinder;
 			_metadataTracker = metadataTracker;
+			_timeProvider = timeProvider;
 		}
 
 		public Conversation Bind(MailItem mailItem)
@@ -36,6 +40,7 @@ namespace EmailPingPong.Outlook2010.Services
 					ConversationId = metadata.ConversationId,
 					AccountId = email.AccountId,
 					Topic = BindTopic(mailItem),
+					CreatedOn = _timeProvider.Now,
 				};
 			conversation.AddEmail(email);
 			BindComments(mailItem, conversation);

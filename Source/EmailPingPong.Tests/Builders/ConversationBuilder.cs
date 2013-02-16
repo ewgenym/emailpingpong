@@ -1,4 +1,5 @@
-﻿using EmailPingPong.Core.Model;
+﻿using System;
+using EmailPingPong.Core.Model;
 
 namespace EmailPingPong.Tests.Builders
 {
@@ -6,6 +7,10 @@ namespace EmailPingPong.Tests.Builders
 	{
 		protected override void InitWithValidValues()
 		{
+			if (EntityToBuild.CreatedOn == default (DateTime))
+			{
+				EntityToBuild.CreatedOn = DateTime.Now;
+			}
 		}
 
 		public ConversationBuilder WithConversationId(string id)
