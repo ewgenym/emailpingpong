@@ -428,6 +428,40 @@ namespace EmailPingPong.Tests.Core
 			original.Emails[0].IsUnread.Should().BeTrue();
 		}
 
+		[Fact]
+		public void should_merge_conversation_topic()
+		{
+			// arrange
+			const string expected = "New topic";
+
+			var original = Create.Conversation()
+								 .WithConversationId("1")
+								 .WithEmail(Create.EmailItem()
+												  .WithAccountId("1")
+												  .WithItemId("1")
+												  .WithFolder("1", "1", "1")
+												  .WithCreationTime(new DateTime(2013, 1, 12))
+												  .Build())
+								 .Build();
+
+			var proposed = Create.Conversation()
+								 .WithConversationId("1")
+								 .WithTopic(expected)
+								 .WithEmail(Create.EmailItem()
+												  .WithAccountId("1")
+												  .WithItemId("1")
+												  .WithFolder("1", "1", "1")
+												  .WithCreationTime(new DateTime(2013, 1, 12))
+												  .Build())
+								 .Build();
+
+			// act
+			MergeConversation(original, proposed);
+
+			// assert
+			original.Topic.Should().Be(expected);
+		}
+
 		private void MergeConversation(Conversation target, Conversation source)
 		{
 			_mergeConversationService.Merge(target, source);

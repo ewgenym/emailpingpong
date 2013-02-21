@@ -32,6 +32,12 @@ namespace EmailPingPong.Core.Services.Implementation
 			}
 
 			MergeComments(original, proposed);
+			MergeTopic(original, proposed);
+		}
+
+		private void MergeTopic(Conversation original, Conversation proposed)
+		{
+			original.Topic = proposed.Topic;
 		}
 
 		private void MergeEmails(Conversation original, Conversation proposed)
