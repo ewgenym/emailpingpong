@@ -194,8 +194,8 @@ namespace EmailPingPong.Outlook2010.Services
 
 			if (_explorer.Selection.Count > 0)
 			{
-				_selectedItem = (MailItem)_explorer.Selection[1];
-				if (_conversationMetadataTracker.TracksConversation(_selectedItem))
+				_selectedItem = _explorer.Selection[1] as MailItem;
+				if (_selectedItem != null && _conversationMetadataTracker.TracksConversation(_selectedItem))
 				{
 					((ItemEvents_10_Event) _selectedItem).Reply += OnMailItemReply;
 					((ItemEvents_10_Event)_selectedItem).ReplyAll += OnMailItemReply;
