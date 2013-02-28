@@ -119,8 +119,7 @@ namespace EmailPingPong.Outlook.Common.Configuration
 	{
 		public string ConnectionString
 		{
-			//get { return "Data Source=c:\\Projects\\emailpingpong\\Source\\EmailPingPong.Tests\\emailpingpong.sdf"; }
-			get { return "Data Source=c:\\Projects\\emailpingpong\\Source\\emailpingpong.sdf"; }
+			get { return "Data Source=c:\\Projects\\emailpingpong\\Source\\EmailPingPong.Tests\\emailpingpong.sdf"; }
 		}
 	}
 }

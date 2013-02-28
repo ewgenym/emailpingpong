@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using EmailPingPong.Tests.Builders;
 using EmailPingPong.UI.Word.Controls;
 using FluentAssertions;
@@ -27,6 +28,8 @@ namespace EmailPingPong.Tests.Word
 			// assert
 			document.ContentControls.Count.Should().Be(0);
 			document.Application.Selection.Text.Should().Be(expected);
+
+			Marshal.ReleaseComObject(document);
 		}
 
 		[Fact]
@@ -50,6 +53,8 @@ namespace EmailPingPong.Tests.Word
 			// assert
 			document.Application.Selection.Text.Should().Be(expected);
 			document.Application.Selection.Range.ParentContentControl.Should().BeNull();
+
+			Marshal.ReleaseComObject(document);
 		}
 
 		[Fact]
@@ -65,6 +70,8 @@ namespace EmailPingPong.Tests.Word
 			// assert
 			var pingContentControl = document.Application.Selection.Range.ParentContentControl;
 			pingContentControl.Range.Text.Should().Be(expected);
+
+			Marshal.ReleaseComObject(document);
 		}
 		
 		[Fact]
@@ -82,6 +89,8 @@ namespace EmailPingPong.Tests.Word
 			// assert
 			var pongContentControl = document.Application.Selection.Range.ParentContentControl;
 			pongContentControl.Range.Text.Should().Be(expected);
+
+			Marshal.ReleaseComObject(document);
 		}
 	}
 }

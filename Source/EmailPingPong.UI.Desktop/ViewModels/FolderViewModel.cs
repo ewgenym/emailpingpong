@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using EmailPingPong.Core.Model;
@@ -7,21 +8,32 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 {
 	public class FolderViewModel : TreeViewItemViewModel
 	{
+		private readonly EmailFolder _folder;
+		private readonly IEnumerable<Conversation> _conversations;
 		private readonly Conversation _conversation;
 		private readonly ReadOnlyCollection<CommentViewModel> _comments;
 
-		public FolderViewModel(TreeViewItemViewModel parent, Conversation conversation) : base(parent)
+		public FolderViewModel(TreeViewItemViewModel parent, EmailFolder folder, IEnumerable<Conversation> conversations) 
+			: base(parent)
 		{
-			_conversation = conversation;
-			_comments = new ReadOnlyCollection<CommentViewModel>(conversation.Comments.Select(c => new CommentViewModel(this, c)).ToList());
-			IsUnread = conversation.Emails.Any(e => e.IsUnread);
+			_folder = folder;
+			_conversations = conversations;
+			//_conversatioViews = conversations.Select()
 		}
+
+		//public FolderViewModel(TreeViewItemViewModel parent, Conversation conversation) : base(parent)
+		//{
+		//	_conversation = conversation;
+		//	_comments = new ReadOnlyCollection<CommentViewModel>(conversation.Comments.Select(c => new CommentViewModel(this, c)).ToList());
+		//	IsUnread = conversation.Emails.Any(e => e.IsUnread);
+		//}
 
 		public override IEnumerable<TreeViewItemViewModel> Childs
 		{
 			get
 			{
-				return _comments;
+				throw new NotImplementedException();
+				//return _comments;
 			}
 		}
 

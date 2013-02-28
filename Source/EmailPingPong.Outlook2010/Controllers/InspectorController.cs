@@ -64,6 +64,7 @@ namespace EmailPingPong.Outlook2010.Controllers
 			var emailItem = e.EmailItem;
 			var olns = Globals.ThisAddIn.Application.GetNamespace("MAPI");
 			var explorer = Globals.ThisAddIn.Application.ActiveExplorer();
+			// TODO: sometimes search fails. Should not be the case but handle it correctly
 			var item = (MailItem)olns.GetItemFromID(emailItem.ItemId, emailItem.Folder.StoreId);
 			try
 			{

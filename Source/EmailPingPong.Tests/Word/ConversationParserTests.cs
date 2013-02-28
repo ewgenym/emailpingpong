@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using EmailPingPong.Outlook.Common.Word;
 using EmailPingPong.Tests.Builders;
 using FluentAssertions;
@@ -30,6 +31,8 @@ namespace EmailPingPong.Tests.Word
 
 			// assert
 			comments.Should().BeEmpty();
+
+			Marshal.ReleaseComObject(document);
 		}
 
 		[Fact]
@@ -49,6 +52,7 @@ namespace EmailPingPong.Tests.Word
 			// assert
 			comments.Should().HaveCount(1);
 			AssertComment(comments.First(), expectedAuthor, expectedBody);
+			Marshal.ReleaseComObject(document);
 		}
 
 		[Fact]
@@ -71,6 +75,8 @@ namespace EmailPingPong.Tests.Word
 
 			// assert
 			comments.Should().HaveCount(3);
+			
+			Marshal.ReleaseComObject(document);
 		}
 
 		[Fact]
@@ -98,6 +104,8 @@ namespace EmailPingPong.Tests.Word
 
 			comments.First().Answers.Should().HaveCount(1);
 			AssertComment(comments.First().Answers.First(), author2, answer);
+
+			Marshal.ReleaseComObject(document);
 		}
 
 		[Fact]
@@ -121,6 +129,8 @@ namespace EmailPingPong.Tests.Word
 			// assert
 			comments.Should().HaveCount(1);
 			comments[0].Answers.Should().HaveCount(3);
+
+			Marshal.ReleaseComObject(document);
 		}
 
 		[Fact]
@@ -137,6 +147,8 @@ namespace EmailPingPong.Tests.Word
 
 			// assert
 			comments.Should().BeEmpty();
+
+			Marshal.ReleaseComObject(document);
 		}
 
 		[Fact]
@@ -154,6 +166,8 @@ namespace EmailPingPong.Tests.Word
 			// assert
 			comments.Should().HaveCount(1);
 			comments[0].Author.Should().BeNull();
+
+			Marshal.ReleaseComObject(document);
 		}
 
 		[Fact]
@@ -173,6 +187,8 @@ namespace EmailPingPong.Tests.Word
 			comments.Should().HaveCount(1);
 			comments[0].Answers.Should().HaveCount(1);
 			comments[0].Answers[0].Author.Should().BeNull();
+
+			Marshal.ReleaseComObject(document);
 		}
 
 		private IList<Comment> Parse(Document document)

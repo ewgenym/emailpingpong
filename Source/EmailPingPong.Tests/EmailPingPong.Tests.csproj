@@ -127,6 +127,7 @@
     <Compile Include="ViewModel\ConversationTreeViewModelStatePersistanceTests.cs" />
     <Compile Include="ViewModel\ConversationTreeViewTestsBase.cs" />
     <Compile Include="ViewModel\ConversationViewCriteriaTests.cs" />
+    <Compile Include="ViewModel\FolderViewModelTests.cs" />
     <Compile Include="Word\ConversationParserTests.cs" />
     <Compile Include="Word\PingPongControlTests.cs" />
   </ItemGroup>
