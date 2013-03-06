@@ -19,14 +19,14 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-		<TextBlock Text="Group by:" Grid.Row="0" Grid.Column="0" />
-		<ComboBox Grid.Row="1" Grid.Column="0" 
+		<TextBlock Text="Group by:" Grid.Row="0" Grid.Column="0" Padding="0,3,3,3"/>
+		<ComboBox Grid.Row="1" Grid.Column="0" Margin="0,0,3,3"
 				  ItemsSource="{Binding Source={utils:Enumeration {x:Type local:GroupBy}}}"
 				  DisplayMemberPath="Description"
 				  SelectedValue="{Binding Path=GroupBy}"
 				  SelectedValuePath="Value"/>
-		<TextBlock Text="Search in:" Grid.Row="3" Grid.Column="0" />
-		<ComboBox Grid.Row="4" Grid.Column="0" 
+		<TextBlock Text="Search in:" Grid.Row="3" Grid.Column="0" Padding="0,3,3,3"/>
+		<ComboBox Grid.Row="4" Grid.Column="0" Margin="0,0,3,3"
 				  ItemsSource="{Binding Source={utils:Enumeration {x:Type local:SearchIn}}}"
 				  DisplayMemberPath="Description"
 				  SelectedValue="{Binding Path=SearchIn}"
@@ -198,14 +198,26 @@
 					</HierarchicalDataTemplate.Triggers>
 				</HierarchicalDataTemplate>
 				<HierarchicalDataTemplate DataType="{x:Type local:ConversationViewModel}" ItemsSource="{Binding Comments}">
-					<StackPanel Margin="3">
-						<TextBlock Text="{Binding Topic}" />
+					<StackPanel>
+						<TextBlock Text="{Binding Topic}" Name="TopicTextBlock" Padding="3" FontSize="13"/>
 					</StackPanel>
+					<HierarchicalDataTemplate.Triggers>
+						<DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+							<Setter TargetName="TopicTextBlock" Property="TextBlock.FontWeight" Value="Bold"/>
+							<Setter TargetName="TopicTextBlock" Property="TextBlock.Background" Value="#FFE1E1E1"/>
+						</DataTrigger>
+					</HierarchicalDataTemplate.Triggers>
 				</HierarchicalDataTemplate>
 				<HierarchicalDataTemplate DataType="{x:Type local:FolderViewModel}" ItemsSource="{Binding Comments}">
-					<StackPanel Margin="3">
-						<TextBlock Text="{Binding Folder}"/>
+					<StackPanel>
+						<TextBlock Text="{Binding Folder}" Name="FolderTextBlock" Padding="3" FontSize="13"/>
 					</StackPanel>
+					<HierarchicalDataTemplate.Triggers>
+						<DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+							<Setter TargetName="FolderTextBlock" Property="TextBlock.FontWeight" Value="Bold"/>
+							<Setter TargetName="FolderTextBlock" Property="TextBlock.Background" Value="#FFE1E1E1"/>
+						</DataTrigger>
+					</HierarchicalDataTemplate.Triggers>
 				</HierarchicalDataTemplate>
 			</TreeView.Resources>
 		</TreeView>
