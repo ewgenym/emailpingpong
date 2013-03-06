@@ -10,51 +10,43 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 	{
 		private readonly EmailFolder _folder;
 		private readonly IEnumerable<Conversation> _conversations;
-		private readonly Conversation _conversation;
-		private readonly ReadOnlyCollection<CommentViewModel> _comments;
+		private readonly ReadOnlyCollection<ConversationViewModel> _conversationViews;
 
 		public FolderViewModel(TreeViewItemViewModel parent, EmailFolder folder, IEnumerable<Conversation> conversations) 
 			: base(parent)
 		{
 			_folder = folder;
-			_conversations = conversations;
-			//_conversatioViews = conversations.Select()
+			_conversations = conversations.ToList();
+			_conversationViews = new ReadOnlyCollection<ConversationViewModel>(_conversations.Select(c => new ConversationViewModel(this, c)).ToList());
+			IsUnread = _conversations.SelectMany(c => c.Emails).Any(e => e.IsUnread);
 		}
-
-		//public FolderViewModel(TreeViewItemViewModel parent, Conversation conversation) : base(parent)
-		//{
-		//	_conversation = conversation;
-		//	_comments = new ReadOnlyCollection<CommentViewModel>(conversation.Comments.Select(c => new CommentViewModel(this, c)).ToList());
-		//	IsUnread = conversation.Emails.Any(e => e.IsUnread);
-		//}
 
 		public override IEnumerable<TreeViewItemViewModel> Childs
 		{
 			get
 			{
-				throw new NotImplementedException();
-				//return _comments;
+				return _conversationViews;
 			}
 		}
 
-		public string Folder
+		public EmailFolder Folder
 		{
-			get { return _conversation.LatestEmail.Folder.FolderName; }
+			get { return _folder; }
 		}
 
-		public ReadOnlyCollection<CommentViewModel> Comments
+		public string FolderName
 		{
-			get { return _comments; }
+			get { return _folder.FolderName; }
 		}
 
-		public Conversation Conversation
+		public ReadOnlyCollection<ConversationViewModel> Conversations 
 		{
-			get { return _conversation; }
+			get { return _conversationViews; }
 		}
 
 		public override int GetHashCode()
 		{
-			return _conversation.GetHashCode();
+			return _folder.GetHashCode();
 		}
 
 		public override bool Equals(object other)
@@ -77,7 +69,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 				return false;
 			}
 
-			return Conversation == (other as FolderViewModel).Conversation;
+			return Folder == (other as FolderViewModel).Folder;
 		}
 	}
 }

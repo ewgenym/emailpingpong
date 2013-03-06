@@ -208,9 +208,9 @@
 						</DataTrigger>
 					</HierarchicalDataTemplate.Triggers>
 				</HierarchicalDataTemplate>
-				<HierarchicalDataTemplate DataType="{x:Type local:FolderViewModel}" ItemsSource="{Binding Comments}">
+				<HierarchicalDataTemplate DataType="{x:Type local:FolderViewModel}" ItemsSource="{Binding Conversations}">
 					<StackPanel>
-						<TextBlock Text="{Binding Folder}" Name="FolderTextBlock" Padding="3" FontSize="13"/>
+						<TextBlock Text="{Binding FolderName}" Name="FolderTextBlock" Padding="3" FontSize="13"/>
 					</StackPanel>
 					<HierarchicalDataTemplate.Triggers>
 						<DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource TemplatedParent}}" Value="True">

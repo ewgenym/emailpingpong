@@ -42,12 +42,11 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 
 		private IList<TreeViewItemViewModel> BindByFolder(IEnumerable<Conversation> conversations)
 		{
-			throw new NotImplementedException();
-			//var conversationGroups = conversations
-			//	.GroupBy(c => c.LatestEmail.Folder)
-			//	.Select(g => new FolderViewModel(null, g.Key, g))
-			//	.Cast<TreeViewItemViewModel>()
-			//	.ToList();
+			return conversations
+				.GroupBy(c => c.LatestEmail.Folder)
+				.Select(g => new FolderViewModel(null, g.Key, g))
+				.Cast<TreeViewItemViewModel>()
+				.ToList();
 		}
 
 		private IList<TreeViewItemViewModel> BindByEmail(IEnumerable<Conversation> conversations)
