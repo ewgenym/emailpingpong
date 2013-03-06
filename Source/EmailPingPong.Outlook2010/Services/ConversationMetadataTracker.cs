@@ -31,6 +31,15 @@ namespace EmailPingPong.Outlook2010.Services
 				var doc = new XDocument(new XElement("conversation", new XAttribute("id", metadata.ConversationId)));
 				doc.Save(writer);
 			}
+			
+			var attachmentsToRemove = mailItem.Attachments
+			                                  .Cast<Attachment>()
+											  .Where(attachment => attachment.FileName == EmailpingpongMetadataXml);
+			foreach (var attachment in attachmentsToRemove)
+			{
+				mailItem.Attachments.Remove(attachment.Index);
+			}
+
 			mailItem.Attachments.Add(metadataFilePath, OlAttachmentType.olByValue, 0, null);
 		}
 
@@ -73,10 +82,9 @@ namespace EmailPingPong.Outlook2010.Services
 
 		private static Attachment ReadMetadataAttachment(MailItem mailItem)
 		{
-			const string metadataFileName = EmailpingpongMetadataXml;
 			var metadataAttachment = mailItem.Attachments
 			                                 .Cast<Attachment>()
-			                                 .SingleOrDefault(attachment => attachment.FileName == metadataFileName);
+			                                 .SingleOrDefault(attachment => attachment.FileName == EmailpingpongMetadataXml);
 			return metadataAttachment;
 		}
 	}

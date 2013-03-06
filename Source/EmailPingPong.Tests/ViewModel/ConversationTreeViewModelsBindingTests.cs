@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using EmailPingPong.Core.Model;
 using EmailPingPong.Tests.Builders;
@@ -13,7 +14,14 @@ namespace EmailPingPong.Tests.ViewModel
 	{
 		public ConversationTreeViewModelsBindingTests()
 		{
+			var email = Create.EmailItem()
+							  .WithSubject("Subject1")
+							  .WithFolder("1", "1", "1")
+							  .WithCreationTime(new DateTime(2013, 1, 12))
+							  .Build();
+
 			var conversation = Create.Conversation()
+									 .WithEmail(email)
 									 .WithComment(Create.Comment().Build())
 									 .Build();
 			ConversationRepository.GetByAccountId("").ReturnsForAnyArgs(new List<Conversation> { conversation });

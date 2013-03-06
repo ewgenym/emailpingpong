@@ -46,7 +46,18 @@ namespace EmailPingPong.Outlook2010.Controllers
 			var inspector = Globals.ThisAddIn.Application.ActiveInspector();
 			if (inspector != null)
 			{
-				Ping(inspector);
+				var item = (MailItem)inspector.CurrentItem;
+				var document = (Document)inspector.WordEditor;
+
+				Ping(item, document);
+			}
+			else
+			{
+				var explorer = Globals.ThisAddIn.Application.ActiveExplorer();
+				if (explorer.ActiveInlineResponse != null && explorer.ActiveInlineResponseWordEditor != null)
+				{
+					Ping(explorer.ActiveInlineResponse, explorer.ActiveInlineResponseWordEditor);
+				}
 			}
 		}
 
@@ -55,7 +66,18 @@ namespace EmailPingPong.Outlook2010.Controllers
 			var inspector = Globals.ThisAddIn.Application.ActiveInspector();
 			if (inspector != null)
 			{
-				Pong(inspector);
+				var item = (MailItem)inspector.CurrentItem;
+				var document = (Document)inspector.WordEditor;
+
+				Pong(item, document);
+			}
+			else
+			{
+				var explorer = Globals.ThisAddIn.Application.ActiveExplorer();
+				if (explorer.ActiveInlineResponse != null && explorer.ActiveInlineResponseWordEditor != null)
+				{
+					Pong(explorer.ActiveInlineResponse, explorer.ActiveInlineResponseWordEditor);
+				}
 			}
 		}
 
@@ -94,17 +116,14 @@ namespace EmailPingPong.Outlook2010.Controllers
 			}
 		}
 
-		private void Ping(Inspector inspector)
+		private void Ping(MailItem item, Document document)
 		{
-			var item = (MailItem)inspector.CurrentItem;
-			var document = (Document)inspector.WordEditor;
-
 			EnsureTracking(document, item);
 
 			var range = document.Application.Selection.Range;
 
 			var pingPongControl = range.PingPongControl();
-			var qr = new PingControl(inspector.WordEditor);
+			var qr = new PingControl(document);
 			if (pingPongControl == null)
 			{
 				var author = item.SendUsingAccount.CurrentUser.Name;
@@ -117,16 +136,13 @@ namespace EmailPingPong.Outlook2010.Controllers
 			else
 			{
 				// We are in pong control, but uses pressed ping. WTF he wants?
-				var qp = new PongControl(inspector.WordEditor);
+				var qp = new PongControl(document);
 				qp.Undo(pingPongControl);
 			}
 		}
 
-		private void Pong(Inspector inspector)
+		private void Pong(MailItem item, Document document)
 		{
-			var item = (MailItem)inspector.CurrentItem;
-			var document = (Document)inspector.WordEditor;
-
 			EnsureTracking(document, item);
 
 			var range = document.Application.Selection.Range;

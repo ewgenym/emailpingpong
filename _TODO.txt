@@ -2,10 +2,11 @@ beta:
 + (Small) Locate (but not open in a separate window) e-mail on double click in the conversation tree
 + (Small) Add Question\Asnwer buttons to the "Mail dialog", somewhere on the main ribbon
 + (Small) Order conversations by date in descending manner
-- (Big) Tree representation (make it look like in iOS\Android chat)
++ (Big) Tree representation (make it look like in iOS\Android chat)
+- (Small) Add a button to ribbon that toggle conversation panel
+- (Medium) Support for Outlook 2013
 - (Medium) Security: consider generating password for database or prefrably use Windows Authentication if possible.
 - (Big) Install package with new installer engine
-- (Medium) Support for Outlook 2013
 
 vNext:
 - (Big) When content controls are getting lost try restoring them from metadata attachment

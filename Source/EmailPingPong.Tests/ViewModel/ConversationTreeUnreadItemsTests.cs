@@ -21,6 +21,7 @@ namespace EmailPingPong.Tests.ViewModel
 			// arrange
 			_email = Create.EmailItem()
 							  .WithSubject("Subject1")
+							  .WithFolder("1", "1", "1")
 							  .WithCreationTime(new DateTime(2013, 1, 12))
 							  .Build();
 			_conversation = Create.Conversation()

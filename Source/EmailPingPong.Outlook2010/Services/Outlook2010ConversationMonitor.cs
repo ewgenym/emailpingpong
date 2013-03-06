@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Runtime.InteropServices;
 using EmailPingPong.Core.Commands;
-using EmailPingPong.Infrastructure;
 using EmailPingPong.Infrastructure.Events;
 using EmailPingPong.Infrastructure.Repositories;
 using EmailPingPong.Outlook.Common.Conversation.Implementation;
