@@ -34,12 +34,116 @@
 		<TreeView ItemsSource="{Binding Items}"
 		          Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" 
 				  PreviewMouseLeftButtonDown="TreeView_PreviewMouseLeftButtonDown"
-				  Name="conversationTree">
+				  Name="conversationTree" 
+				  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 			<TreeView.ItemContainerStyle>
-				<Style TargetType="{x:Type TreeViewItem}">
+				<Style TargetType="TreeViewItem" BasedOn="{StaticResource {x:Type TreeViewItem}}">
+					<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 					<Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
 					<Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
 					<Setter Property="FontWeight" Value="{Binding IsUnread, Mode=OneWay}" />
+					<Setter Property="Template">
+						<Setter.Value>
+							<ControlTemplate TargetType="TreeViewItem">
+								<StackPanel>
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="Auto" MinWidth="19" />
+											<ColumnDefinition Width="*" />
+										</Grid.ColumnDefinitions>
+										<Grid.RowDefinitions>
+											<RowDefinition Height="Auto" />
+											<RowDefinition />
+										</Grid.RowDefinitions>
+										<ToggleButton IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" Name="Expander">
+											<ToggleButton.Style>
+												<Style TargetType="ToggleButton">
+													<Setter Property="UIElement.Focusable" Value="false" />
+													<Setter Property="FrameworkElement.Width" Value="16" />
+													<Setter Property="FrameworkElement.Height" Value="16" />
+													<Setter Property="Control.Template">
+														<Setter.Value>
+															<ControlTemplate TargetType="ToggleButton">
+																<Border Padding="5,5,5,5" Background="#00FFFFFF" Width="16" Height="16">
+																	<Path Fill="#00FFFFFF" Stroke="#FF989898" Name="ExpandPath">
+																		<Path.Data>
+																			<PathGeometry Figures="M0,0L0,6L6,0z" />
+																		</Path.Data>
+																		<Path.RenderTransform>
+																			<RotateTransform Angle="135" CenterX="3" CenterY="3" />
+																		</Path.RenderTransform>
+																	</Path>
+																</Border>
+																<ControlTemplate.Triggers>
+																	<Trigger Property="UIElement.IsMouseOver" Value="True">
+																		<Setter TargetName="ExpandPath" Property="Shape.Stroke" Value="#FF1BBBFA" />
+																		<Setter TargetName="ExpandPath" Property="Shape.Fill" Value="#00FFFFFF" />
+																	</Trigger>
+																	<Trigger Property="ToggleButton.IsChecked" Value="True">
+																		<Setter TargetName="ExpandPath" Property="UIElement.RenderTransform">
+																			<Setter.Value>
+																				<RotateTransform Angle="180" CenterX="3" CenterY="3" />
+																			</Setter.Value>
+																		</Setter>
+																		<Setter TargetName="ExpandPath" Property="Shape.Fill" Value="#FF595959" />
+																		<Setter TargetName="ExpandPath" Property="Shape.Stroke" Value="#FF262626" />
+																	</Trigger>
+																</ControlTemplate.Triggers>
+															</ControlTemplate>
+														</Setter.Value>
+													</Setter>
+												</Style>
+											</ToggleButton.Style>
+										</ToggleButton>
+										<Border x:Name="Bd"
+												HorizontalAlignment="Stretch"
+												BorderThickness="{TemplateBinding Border.BorderThickness}"
+												BorderBrush="{TemplateBinding Border.BorderBrush}"
+												Padding="{TemplateBinding Control.Padding}"
+												Background="{TemplateBinding Panel.Background}"
+												SnapsToDevicePixels="True"
+												Grid.Column="1">
+											<ContentPresenter x:Name="PART_Header"
+															  Content="{TemplateBinding HeaderedContentControl.Header}"
+															  ContentTemplate="{TemplateBinding HeaderedContentControl.HeaderTemplate}"
+															  ContentStringFormat="{TemplateBinding HeaderedItemsControl.HeaderStringFormat}"
+															  ContentTemplateSelector="{TemplateBinding HeaderedItemsControl.HeaderTemplateSelector}"
+															  ContentSource="Header"
+															  HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
+															  SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+										</Border>
+										<ItemsPresenter x:Name="ItemsHost" Grid.Column="1" Grid.Row="1" />
+									</Grid>
+								</StackPanel>
+								<ControlTemplate.Triggers>
+									<Trigger Property="TreeViewItem.IsExpanded" Value="False">
+										<Setter TargetName="ItemsHost" Property="UIElement.Visibility" Value="Collapsed" />
+									</Trigger>
+									<Trigger Property="ItemsControl.HasItems" Value="False">
+										<Setter TargetName="Expander" Property="UIElement.Visibility" Value="Hidden" />
+									</Trigger>
+									<Trigger Property="TreeViewItem.IsSelected" Value="True">
+										<!--<Setter TargetName="Bd" Property="Panel.Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />-->
+										<Setter TargetName="Bd" Property="Panel.Background" Value="Transparent" />
+										<!--<Setter Property="TextElement.Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />-->
+									</Trigger>
+									<MultiTrigger>
+										<MultiTrigger.Conditions>
+											<Condition Property="TreeViewItem.IsSelected" Value="True" />
+											<Condition Property="Selector.IsSelectionActive" Value="False" />
+										</MultiTrigger.Conditions>
+										<!--<Setter TargetName="Bd" Property="Panel.Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />-->
+										<Setter TargetName="Bd" Property="Panel.Background" Value="Transparent" />
+										<Setter Property="TextElement.Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+									</MultiTrigger>
+									<Trigger Property="UIElement.IsEnabled" Value="False">
+										<!--<Setter Property="TextElement.Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />-->
+										<Setter Property="TextElement.Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+									</Trigger>
+								</ControlTemplate.Triggers>
+							</ControlTemplate>
+						</Setter.Value>
+					</Setter>
 					<Style.Triggers>
 						<DataTrigger Binding="{Binding IsUnread}" Value="True">
 							<Setter Property="FontWeight" Value="Bold" />
@@ -52,41 +156,56 @@
 			</TreeView.ItemContainerStyle>
 			<TreeView.Resources>
 				<HierarchicalDataTemplate DataType="{x:Type local:CommentViewModel}" ItemsSource="{Binding Answers}">
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="*" />
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
-						</Grid.RowDefinitions>
-						
-						<TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Author}" FontStyle="Italic" Foreground="Gray" Margin="0,0,5,0" />
-
-						
-						<TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding CreatedOn, StringFormat={}{0:MMMM dd\, yyyy} at {0:t}}" Foreground="Gray" />
-
-						<TextBlock Grid.ColumnSpan="2" Grid.Row="1" Text="{Binding Body}" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxHeight="38" MinHeight="38" />
-					</Grid>
+					<StackPanel Margin="0,3,3,3">
+					<Border BorderBrush="Black" Name="CommentBorder">
+						<Border.Style>
+							<Style TargetType="Border">
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding IsOdd}" Value="True">
+										<Setter Property="Background" Value="#FFD1EBC9"></Setter>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding IsOdd}" Value="False">
+										<Setter Property="Background" Value="#FFC3D9E4"></Setter>
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</Border.Style>
+						<StackPanel Margin="3">
+							<TextBlock TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxHeight="38">
+								<utils:BindableRun BoundText="{Binding Author}" FontWeight="Bold"/>
+								<Run Text=": "></Run>
+								<utils:BindableRun BoundText="{Binding Body}" />
+							</TextBlock>
+							<TextBlock Text="{Binding CreatedOn, StringFormat={}{0:MMMM dd\, yyyy} at {0:t}}" 
+									   Foreground="Gray" FontWeight="Normal" Padding="0,6,0,0" FontSize="11" />
+						</StackPanel>
+					</Border>
+					</StackPanel>
+					<HierarchicalDataTemplate.Triggers>
+						<DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+							<Setter TargetName="CommentBorder" Property="BorderThickness" Value="2"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
+							<Setter TargetName="CommentBorder" Property="BorderThickness" Value="0"/>
+						</DataTrigger>
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
+								<Condition Binding="{Binding Path=IsSelectionActive, RelativeSource={RelativeSource TemplatedParent}}" Value="False" />
+							</MultiDataTrigger.Conditions>
+							<Setter TargetName="CommentBorder" Property="Border.BorderBrush" Value="Gray" />
+						</MultiDataTrigger>
+					</HierarchicalDataTemplate.Triggers>
 				</HierarchicalDataTemplate>
 				<HierarchicalDataTemplate DataType="{x:Type local:ConversationViewModel}" ItemsSource="{Binding Comments}">
-					<StackPanel>
+					<StackPanel Margin="3">
 						<TextBlock Text="{Binding Topic}" />
 					</StackPanel>
 				</HierarchicalDataTemplate>
 				<HierarchicalDataTemplate DataType="{x:Type local:FolderViewModel}" ItemsSource="{Binding Comments}">
-					<Grid Margin="8">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto"/>
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto"/>
-						</Grid.RowDefinitions>
-						<Border BorderThickness="0.6" BorderBrush="DarkGray">
-						</Border>
-						<TextBlock Text="{Binding Folder}" />
-					</Grid>
+					<StackPanel Margin="3">
+						<TextBlock Text="{Binding Folder}"/>
+					</StackPanel>
 				</HierarchicalDataTemplate>
 			</TreeView.Resources>
 		</TreeView>

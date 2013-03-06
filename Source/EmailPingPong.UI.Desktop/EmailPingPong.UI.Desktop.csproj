@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Utils\BindableRun.cs" />
     <Compile Include="Utils\EnumerableExtensions.cs" />
     <Compile Include="Utils\ExplorerExtensions.cs" />
     <Compile Include="Utils\EnumerationExtension.cs" />

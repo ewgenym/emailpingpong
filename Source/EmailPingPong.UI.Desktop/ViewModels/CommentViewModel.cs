@@ -47,6 +47,11 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			get { return _comment.CreatedOn; }
 		}
 
+		public bool IsOdd
+		{
+			get { return _comment.Index%2 == 0; }
+		}
+
 		public ReadOnlyCollection<CommentViewModel> Answers
 		{
 			get { return _answers; }
