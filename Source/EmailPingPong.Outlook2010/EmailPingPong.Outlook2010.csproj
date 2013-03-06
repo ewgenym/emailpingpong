@@ -228,6 +228,7 @@
   <ItemGroup>
     <Compile Include="Configuration\EmailPingPongOutlook2010AddInConfigurator.cs" />
     <Compile Include="Configuration\Outlook2010ConversationTreeStarter.cs" />
+    <Compile Include="Configuration\OutlookConnectionStringProvider.cs" />
     <Compile Include="Controllers\InspectorController.cs" />
     <Compile Include="Ribbons\MailCompose.cs">
       <SubType>Component</SubType>

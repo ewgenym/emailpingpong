@@ -32,6 +32,7 @@ namespace EmailPingPong.Outlook.Common.Configuration
 		public void Configure()
 		{
 			ConfigureEntityFramework();
+			ConfigureConnectionStringProvider();
 			ConfigureRepositories();
 			ConfigureServices();
 			ConfigureConsumerUnitOfWorkInterceptor();
@@ -75,9 +76,10 @@ namespace EmailPingPong.Outlook.Common.Configuration
 			Container.Register(Component.For<UnitOfWorkInterceptor>().LifeStyle.Transient);
 		}
 
+		protected abstract void ConfigureConnectionStringProvider();
+
 		private void ConfigureRepositories()
 		{
-			_container.Register(Component.For<IConnectionStringProvider>().ImplementedBy<SimpleConnectionStringProvider>());
 			_container.Register(Component.For<DbContext, ConversationContext>().ImplementedBy<ConversationContext>());
 			_container.Register(Component.For<IConversationRepository>().ImplementedBy<ConversationRepository>());
 
@@ -113,13 +115,5 @@ namespace EmailPingPong.Outlook.Common.Configuration
 		}
 
 		protected abstract void ConfigureConversationTreeStarter();
-	}
-
-	public class SimpleConnectionStringProvider : IConnectionStringProvider
-	{
-		public string ConnectionString
-		{
-			get { return "Data Source=c:\\Projects\\emailpingpong\\Source\\EmailPingPong.Tests\\emailpingpong.sdf"; }
-		}
 	}
 }

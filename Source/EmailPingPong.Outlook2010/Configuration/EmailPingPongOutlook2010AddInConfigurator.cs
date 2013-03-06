@@ -1,5 +1,6 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using EmailPingPong.Infrastructure;
 using EmailPingPong.Outlook.Common.Configuration;
 using EmailPingPong.Outlook.Common.Controllers;
 using EmailPingPong.Outlook.Common.Conversation;
@@ -34,6 +35,10 @@ namespace EmailPingPong.Outlook2010.Configuration
 			Container.Register(Component.For<IEmailItemBinder>().ImplementedBy<EmailItemBinder>());
 			Container.Register(Component.For<IConversationBinder>().ImplementedBy<ConversationBinder>());
 			Container.Register(Component.For<IConversationMetadataTracker>().ImplementedBy<ConversationMetadataTracker>());
+		}
+		protected override void ConfigureConnectionStringProvider()
+		{
+			Container.Register(Component.For<IConnectionStringProvider>().ImplementedBy<OutlookConnectionStringProvider>());
 		}
 
 		protected override void ConfigureControllers()
