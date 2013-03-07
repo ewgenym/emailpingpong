@@ -45,10 +45,10 @@
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>days</UpdateIntervalUnits>
-    <ProductName>EmailPingPong.Outlook2010</ProductName>
+    <ProductName>Email Ping Pong</ProductName>
     <PublisherName />
     <SupportUrl />
-    <FriendlyName>EmailPingPong.Outlook2010</FriendlyName>
+    <FriendlyName>EmailPingPong.Outlook</FriendlyName>
     <OfficeApplicationDescription />
     <LoadBehavior>3</LoadBehavior>
   </PropertyGroup>

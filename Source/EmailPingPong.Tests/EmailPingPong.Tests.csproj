@@ -150,7 +150,7 @@
       <Project>{2E03CD34-6967-4D89-B90E-FB2D8D0FE291}</Project>
       <Name>EmailPingPong.Outlook.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EmailPingPong.Outlook2010\EmailPingPong.Outlook.csproj">
+    <ProjectReference Include="..\EmailPingPong.Outlook\EmailPingPong.Outlook.csproj">
       <Project>{A027280D-09DF-4CC1-87EF-A191EC70B804}</Project>
       <Name>EmailPingPong.Outlook</Name>
     </ProjectReference>
