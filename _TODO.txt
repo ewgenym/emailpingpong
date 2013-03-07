@@ -3,8 +3,8 @@ beta:
 + (Small) Add Question\Asnwer buttons to the "Mail dialog", somewhere on the main ribbon
 + (Small) Order conversations by date in descending manner
 + (Big) Tree representation (make it look like in iOS\Android chat)
++ (Medium) Support for Outlook 2013
 - (Small) Add a button to ribbon that toggle conversation panel
-- (Medium) Support for Outlook 2013
 - (Medium) Security: consider generating password for database or prefrably use Windows Authentication if possible.
 - (Big) Install package with new installer engine
 

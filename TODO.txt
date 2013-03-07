@@ -7,7 +7,7 @@ v1.0
 - Conversation tree panel:
 	+ Conersation tree with Author, Date, Body columns
 	+ Refresh (add\update\remove) the conversation tree after send\receive\save
-	- Locate (but not open in a separate window) e-mail on double click in the conversation tree
+	+ Locate (but not open in a separate window) e-mail on double click in the conversation tree
 	+ Monitor all the folders in all the accounts
 	- Add "Show\Hide conversation pane" button to View ribbon
 	+ Group by (Mail subject, Folder)
@@ -25,13 +25,10 @@ v1.0
 	- Can't press Enter in comments (Standard behaviour)
 - Tag the entire mail as the one conversation (like the native outlook conversation feature)
 - Final answer (add a checkbox to each question, when user checks the box it means that last answer is final, show it somehow in the tree)
-- TFS integration
 - Bugs:
 	+ Double click on the tree element has stopped working. Related to the grouping feature implementation
 	- Баг = когда на ответе клацаешь вопрос, после этого нельзя добавить вопрос вообще в письмо
 	- SearchIn dropdown: have to click it twice for the first time
-	- Investigate the possibility to implement grouping by means of standard TreeListControl functionality
-	- NRE on double click when the tree is empty
 - Technical:
 	+ Change terminology. Use ping\pong instead of q\a
 	+ database file location (use account profile folder)
@@ -64,6 +61,7 @@ vNext+
 - Mail subject parsing (key words extraction)????
 - Jira integration add-in
 - Cool Date&Time representation like in face book (e.g. 19 hours ago, Yesterdat at 6:45pm, etc.)
+- TFS integration
 - Skype add-in
 - Mobile devices
 - Technical:
