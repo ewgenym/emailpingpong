@@ -26,9 +26,16 @@
     <OutputType>Library</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
     <RootNamespace>EmailPingPong.Outlook2010</RootNamespace>
-    <AssemblyName>EmailPingPong.Outlook2010</AssemblyName>
+    <AssemblyName>EmailPingPong.Outlook</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <DefineConstants>VSTO40</DefineConstants>
+    <IsWebBootstrapper>False</IsWebBootstrapper>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <VSTO_TrustAssembliesLocation>true</VSTO_TrustAssembliesLocation>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <PublishUrl>publish\</PublishUrl>
     <InstallUrl />
@@ -38,20 +45,12 @@
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>days</UpdateIntervalUnits>
-    <IsWebBootstrapper>False</IsWebBootstrapper>
     <ProductName>EmailPingPong.Outlook2010</ProductName>
     <PublisherName />
     <SupportUrl />
     <FriendlyName>EmailPingPong.Outlook2010</FriendlyName>
     <OfficeApplicationDescription />
     <LoadBehavior>3</LoadBehavior>
-    <BootstrapperComponentsLocation>HomeSite</BootstrapperComponentsLocation>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>4.0</OldToolsVersion>
-    <VSTO_TrustAssembliesLocation>true</VSTO_TrustAssembliesLocation>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -226,8 +225,8 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="Configuration\EmailPingPongOutlook2010AddInConfigurator.cs" />
-    <Compile Include="Configuration\Outlook2010ConversationTreeStarter.cs" />
+    <Compile Include="Configuration\EmailPingPongOutlookAddInConfigurator.cs" />
+    <Compile Include="Configuration\OutlookConversationTreeStarter.cs" />
     <Compile Include="Configuration\OutlookConnectionStringProvider.cs" />
     <Compile Include="Controllers\InspectorController.cs" />
     <Compile Include="Ribbons\MailCompose.cs">
@@ -242,7 +241,7 @@
     <Compile Include="Services\IConversationBinder.cs" />
     <Compile Include="Services\IEmailItemBinder.cs" />
     <Compile Include="Services\IFolderBinder.cs" />
-    <Compile Include="Services\Outlook2010ConversationMonitor.cs" />
+    <Compile Include="Services\OutlookConversationMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -259,7 +258,9 @@
     <EmbeddedResource Include="Ribbons\MailCompose.resx">
       <DependentUpon>MailCompose.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="EmailPingPong.Outlook2010_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

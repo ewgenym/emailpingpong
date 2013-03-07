@@ -4,27 +4,26 @@ using EmailPingPong.Infrastructure;
 using EmailPingPong.Outlook.Common.Configuration;
 using EmailPingPong.Outlook.Common.Controllers;
 using EmailPingPong.Outlook.Common.Conversation;
-using EmailPingPong.Outlook.Common.Word;
 using EmailPingPong.Outlook2010.Controllers;
 using EmailPingPong.Outlook2010.Services;
 
 namespace EmailPingPong.Outlook2010.Configuration
 {
-	public class EmailPingPongOutlook2010AddInConfigurator : EmailPingPongOutlookAddInConfigurator
+	public class EmailPingPongOutlookAddInConfigurator : Outlook.Common.Configuration.EmailPingPongOutlookAddInConfigurator
 	{
-		public EmailPingPongOutlook2010AddInConfigurator(IWindsorContainer container)
+		public EmailPingPongOutlookAddInConfigurator(IWindsorContainer container)
 			: base(container)
 		{
 		}
 
 		protected override void ConfigureConversationTreeStarter()
 		{
-			Container.Register(Component.For<IConversationTreeStarter>().ImplementedBy<Outlook2010ConversationTreeStarter>());
+			Container.Register(Component.For<IConversationTreeStarter>().ImplementedBy<OutlookConversationTreeStarter>());
 		}
 
 		protected override void ConfigureConversationMonitor()
 		{
-			Container.Register(Component.For<IOutlookConversationMonitor>().ImplementedBy<Outlook2010ConversationMonitor>());
+			Container.Register(Component.For<IOutlookConversationMonitor>().ImplementedBy<OutlookConversationMonitor>());
 		}
 
 		protected override void ConfigureBinders()

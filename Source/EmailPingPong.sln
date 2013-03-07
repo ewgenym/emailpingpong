@@ -14,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.UI.Desktop", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.Tests", "EmailPingPong.Tests\EmailPingPong.Tests.csproj", "{1012C923-A49F-4977-AF82-539E46C23F78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.Outlook2010", "EmailPingPong.Outlook2010\EmailPingPong.Outlook2010.csproj", "{A027280D-09DF-4CC1-87EF-A191EC70B804}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.Outlook", "EmailPingPong.Outlook2010\EmailPingPong.Outlook.csproj", "{A027280D-09DF-4CC1-87EF-A191EC70B804}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4FBA0676-7A05-4716-B111-1701427921E3} = {4FBA0676-7A05-4716-B111-1701427921E3}
 	EndProjectSection

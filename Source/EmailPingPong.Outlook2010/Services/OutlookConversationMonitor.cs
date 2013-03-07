@@ -3,7 +3,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using EmailPingPong.Core.Commands;
 using EmailPingPong.Infrastructure.Events;
-using EmailPingPong.Infrastructure.Repositories;
 using EmailPingPong.Outlook.Common.Conversation.Implementation;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Practices.Prism.Events;
@@ -11,9 +10,8 @@ using Conversation = EmailPingPong.Core.Model.Conversation;
 
 namespace EmailPingPong.Outlook2010.Services
 {
-	public class Outlook2010ConversationMonitor : ConversationMonitorBase
+	public class OutlookConversationMonitor : ConversationMonitorBase
 	{
-		private readonly ConversationContext _context;
 		private readonly ICommandDispatcher _commands;
 		private Dictionary<Folder, Items> _folderItems;
 		private readonly IConversationBinder _conversationBinder;
@@ -24,15 +22,13 @@ namespace EmailPingPong.Outlook2010.Services
 		private readonly IEmailItemBinder _emailItemBinder;
 		private readonly IConversationMetadataTracker _conversationMetadataTracker;
 
-		public Outlook2010ConversationMonitor(ConversationContext context,
-											  ICommandDispatcher commands,
-											  IConversationBinder conversationBinder,
-											  IEventAggregator eventAggregator,
-											  IFolderBinder folderBinder,
-											  IEmailItemBinder emailItemBinder,
-											  IConversationMetadataTracker conversationMetadataTracker)
+		public OutlookConversationMonitor(ICommandDispatcher commands,
+										  IConversationBinder conversationBinder,
+										  IEventAggregator eventAggregator,
+										  IFolderBinder folderBinder,
+										  IEmailItemBinder emailItemBinder,
+										  IConversationMetadataTracker conversationMetadataTracker)
 		{
-			_context = context;
 			_commands = commands;
 			_conversationBinder = conversationBinder;
 			_eventAggregator = eventAggregator;
@@ -162,8 +158,9 @@ namespace EmailPingPong.Outlook2010.Services
 
 		private void OnFolderSwitch()
 		{
-			var folder = (Folder) _explorer.CurrentFolder;
-			_eventAggregator.GetEvent<MailFolderSwitchedEvent>().Publish(new MailFolderSwitchedArgs(folder.Store.DisplayName, _folderBinder.Bind(folder)));
+			var folder = (Folder)_explorer.CurrentFolder;
+			_eventAggregator.GetEvent<MailFolderSwitchedEvent>()
+							.Publish(new MailFolderSwitchedArgs(folder.Store.DisplayName, _folderBinder.Bind(folder)));
 		}
 
 		private void OnSelectionChange()
@@ -179,7 +176,8 @@ namespace EmailPingPong.Outlook2010.Services
 			{
 				var folder = (Folder)_explorer.CurrentFolder;
 				var emails = _explorer.Selection.Cast<MailItem>().Select(e => _emailItemBinder.Bind(e));
-				_eventAggregator.GetEvent<EmailItemSwitchedEvent>().Publish(new EmailItemSwitchedArgs(folder.Store.DisplayName, emails));
+				_eventAggregator.GetEvent<EmailItemSwitchedEvent>()
+								.Publish(new EmailItemSwitchedArgs(folder.Store.DisplayName, emails));
 			}
 		}
 
@@ -196,7 +194,7 @@ namespace EmailPingPong.Outlook2010.Services
 				_selectedItem = _explorer.Selection[1] as MailItem;
 				if (_selectedItem != null && _conversationMetadataTracker.TracksConversation(_selectedItem))
 				{
-					((ItemEvents_10_Event) _selectedItem).Reply += OnMailItemReply;
+					((ItemEvents_10_Event)_selectedItem).Reply += OnMailItemReply;
 					((ItemEvents_10_Event)_selectedItem).ReplyAll += OnMailItemReply;
 				}
 			}

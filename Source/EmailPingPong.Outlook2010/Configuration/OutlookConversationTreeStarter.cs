@@ -4,7 +4,7 @@ using Microsoft.Office.Core;
 
 namespace EmailPingPong.Outlook2010.Configuration
 {
-	public class Outlook2010ConversationTreeStarter : ConversationTreeStarter
+	public class OutlookConversationTreeStarter : ConversationTreeStarter
 	{
 		protected override void AddConversationTreePane(UserControl control)
 		{
