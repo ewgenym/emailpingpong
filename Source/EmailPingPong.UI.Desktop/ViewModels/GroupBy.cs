@@ -6,7 +6,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 	{
 		[DisplayString("None")]
 		None = 0,
-		[DisplayString("Mail subject")]
+		[DisplayString("Topic")]
 		Email = 1,
 		[DisplayString("Folder")]
 		Folder = 2,
