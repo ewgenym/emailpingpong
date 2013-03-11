@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<customUI onLoad="Ribbon_Load" xmlns="http://schemas.microsoft.com/office/2006/01/customui">
+    <ribbon>
+			<contextualTabs>
+				<tabSet idMso="TabComposeTools">
+					<tab idMso="TabMessage">
+						<group label="Email ping pong" id="emailPingPongGroup">
+							<button id="btnQuestion" label="Question" size="large" />
+							<button id="btnAnswer" label="Answer" size="large" />
+						</group>
+					</tab>
+				</tabSet>
+			</contextualTabs>
+    </ribbon>
+</customUI>

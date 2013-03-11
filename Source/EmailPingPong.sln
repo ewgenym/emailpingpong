@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailPingPong.Outlook", "EmailPingPong.Outlook\EmailPingPong.Outlook.csproj", "{A027280D-09DF-4CC1-87EF-A191EC70B804}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookAddIn1", "OutlookAddIn1\OutlookAddIn1.csproj", "{61F70742-2F6F-4C28-AEEE-781A17D9182C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -105,6 +107,16 @@ Global
 		{A027280D-09DF-4CC1-87EF-A191EC70B804}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A027280D-09DF-4CC1-87EF-A191EC70B804}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
 		{A027280D-09DF-4CC1-87EF-A191EC70B804}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{61F70742-2F6F-4C28-AEEE-781A17D9182C}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{61F70742-2F6F-4C28-AEEE-781A17D9182C}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{61F70742-2F6F-4C28-AEEE-781A17D9182C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61F70742-2F6F-4C28-AEEE-781A17D9182C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61F70742-2F6F-4C28-AEEE-781A17D9182C}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{61F70742-2F6F-4C28-AEEE-781A17D9182C}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{61F70742-2F6F-4C28-AEEE-781A17D9182C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61F70742-2F6F-4C28-AEEE-781A17D9182C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61F70742-2F6F-4C28-AEEE-781A17D9182C}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{61F70742-2F6F-4C28-AEEE-781A17D9182C}.SingleImage|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -65,7 +65,17 @@ namespace EmailPingPong.Outlook2010.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap Answer_Icon {
             get {
-                object obj = ResourceManager.GetObject("Answer-Icon", resourceCulture);
+                object obj = ResourceManager.GetObject("Answer_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap emailpingpong {
+            get {
+                object obj = ResourceManager.GetObject("emailpingpong", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
