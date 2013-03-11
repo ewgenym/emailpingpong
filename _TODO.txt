@@ -4,9 +4,12 @@ beta:
 + (Small) Order conversations by date in descending manner
 + (Big) Tree representation (make it look like in iOS\Android chat)
 + (Medium) Support for Outlook 2013
-- (Small) Add a button to ribbon that toggle conversation panel
-- (Medium) Security: consider generating password for database or prefrably use Windows Authentication if possible.
++ (Small) Add a button to ribbon that toggle conversation panel
+- (Medium) Security: consider generating password for database or prefrably use Windows Authentication if possible (Windows Authentication not supported in SQL CE).
 - (Big) Install package with new installer engine
+
+After beta release:
+- (Medium) Add 'Close conversation' functionality (High priority)
 
 vNext:
 - (Big) When content controls are getting lost try restoring them from metadata attachment
