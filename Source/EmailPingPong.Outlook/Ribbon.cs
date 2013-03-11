@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
+using EmailPingPong.Infrastructure;
+using EmailPingPong.Outlook.Common.Controllers;
 using Office = Microsoft.Office.Core;
 
 // TODO:  Follow these steps to enable the Ribbon (XML) item:
@@ -54,6 +55,27 @@ namespace EmailPingPong.Outlook2010
 			this.ribbon = ribbonUI;
 		}
 
+		public void btnQuestion_Click(Office.IRibbonControl control)
+		{
+			var controller = ServiceLocator.Container.Resolve<IInspectorController>();
+			controller.Ping();
+		}
+
+		public void btnAnswer_Click(Office.IRibbonControl control)
+		{
+			var controller = ServiceLocator.Container.Resolve<IInspectorController>();
+			controller.Pong();
+		}
+
+		public void conversationsButton_Click(Office.IRibbonControl control)
+		{
+			var conversationPane = Globals.ThisAddIn.CustomTaskPanes.SingleOrDefault(p => p.Title == "Conversations");
+			if (conversationPane != null)
+			{
+				conversationPane.Visible = !conversationPane.Visible;
+			}
+		}
+
 		#endregion
 
 		#region Helpers
@@ -74,6 +96,22 @@ namespace EmailPingPong.Outlook2010
 						}
 					}
 				}
+			}
+			return null;
+		}
+
+		public Bitmap GetImage(Office.IRibbonControl control)
+		{
+			switch (control.Id)
+			{
+				case "conversationsButton":
+					return new Bitmap(Properties.Resources.emailpingpong);
+				case "btnQuestion":
+				case "btnQuestion2":
+					return new Bitmap(Properties.Resources.Question_icon);
+				case "btnAnswer":
+				case "btnAnswer2":
+					return new Bitmap(Properties.Resources.Answer_Icon);
 			}
 			return null;
 		}

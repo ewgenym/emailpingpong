@@ -237,18 +237,6 @@
     <Compile Include="Ribbon.cs">
       <XmlRibbon>true</XmlRibbon>
     </Compile>
-    <Compile Include="Ribbons\Explorer.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Ribbons\Explorer.Designer.cs">
-      <DependentUpon>Explorer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Ribbons\MailCompose.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Ribbons\MailCompose.Designer.cs">
-      <DependentUpon>MailCompose.cs</DependentUpon>
-    </Compile>
     <Compile Include="Services\ConversationMetadataTracker.cs" />
     <Compile Include="Services\FolderBinder.cs" />
     <Compile Include="Services\ConversationBinder.cs" />
@@ -263,12 +251,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Ribbons\Explorer.resx">
-      <DependentUpon>Explorer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Ribbons\MailCompose.resx">
-      <DependentUpon>MailCompose.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config">
       <SubType>Designer</SubType>
@@ -323,12 +305,10 @@
     <None Include="Resources\Answer-Icon.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Ribbon.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <None Include="Resources\emailpingpong.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\emailpingpong.png" />
+    <EmbeddedResource Include="Ribbon.xml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

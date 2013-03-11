@@ -44,6 +44,15 @@ namespace EmailPingPong.Outlook2010
 			EventLog.WriteEntry("EmailPingPong", errorMessage, EventLogEntryType.Error);
 		}
 
+		#region Ribbons
+
+		protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()
+		{
+			return new Ribbon();
+		}
+
+		#endregion
+
 		#region VSTO generated code
 
 		/// <summary>

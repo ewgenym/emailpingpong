@@ -1,15 +1,34 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <customUI onLoad="Ribbon_Load" xmlns="http://schemas.microsoft.com/office/2006/01/customui">
-    <ribbon>
-			<contextualTabs>
-				<tabSet idMso="TabComposeTools">
-					<tab idMso="TabMessage">
-						<group label="Email ping pong" id="emailPingPongGroup">
-							<button id="btnQuestion" label="Question" size="large" />
-							<button id="btnAnswer" label="Answer" size="large" />
-						</group>
-					</tab>
-				</tabSet>
-			</contextualTabs>
-    </ribbon>
+	<ribbon>
+		<tabs>
+			<tab idMso="TabMail">
+				<group id="emailPingPongGroup" label="Email ping pong">
+					<button id="conversationsButton" 
+									onAction="conversationsButton_Click" 
+									supertip="Toggle conversation panel" 
+									description="Toggle conversation panel" 
+									label="Conversations"
+									getImage="GetImage"
+									size="large" />
+				</group>
+			</tab>
+			<tab idMso="TabNewMailMessage">
+				<group id="GroupEmailPingPong" insertAfterMso="GroupIncludeMainTab" label="Email ping pong">
+					<button id="btnQuestion" onAction="btnQuestion_Click" label="Question" size="large" getImage="GetImage"/>
+					<button id="btnAnswer" onAction="btnAnswer_Click" label="Answer" size="large" getImage="GetImage"/>
+				</group>
+			</tab>
+		</tabs>
+		<contextualTabs>
+			<tabSet idMso="TabComposeTools">
+				<tab idMso="TabMessage">
+					<group label="Email ping pong" insertAfterMso="GroupIncludeMainTab" id="GroupEmailPingPong2">
+						<button id="btnQuestion2" onAction="btnQuestion_Click" label="Question" size="large" getImage="GetImage"/>
+						<button id="btnAnswer2" onAction="btnAnswer_Click" label="Answer" size="large" getImage="GetImage"/>
+					</group>
+				</tab>
+			</tabSet>
+		</contextualTabs>
+	</ribbon>
 </customUI>
