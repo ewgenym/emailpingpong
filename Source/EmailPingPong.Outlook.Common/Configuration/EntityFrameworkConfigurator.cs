@@ -9,8 +9,7 @@ namespace EmailPingPong.Outlook.Common.Configuration
 		public void ConfigureEntityFramework()
 		{
 			Database.DefaultConnectionFactory = new SqlCeConnectionFactory("System.Data.SqlServerCe.4.0");
-			Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ConversationContext>());
-			//Database.SetInitializer(new DropCreateDatabaseAlways<ConversationContext>());
+			Database.SetInitializer(new CreateDatabaseIfNotExists<ConversationContext>());
 		}
 	}
 }
