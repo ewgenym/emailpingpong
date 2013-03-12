@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using EmailPingPong.Core.Model;
@@ -16,7 +17,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		private GroupBy _groupBy;
 		private SearchIn _searchIn;
 		private string _accountId;
-		private IEnumerable<EmailItem> _emails;
+		private IList<EmailItem> _emails;
 		private EmailFolder _folder;
 		private readonly IConversationTreeItemsBinder _treeViewItemsBinder;
 		private readonly TreeViewItemsState<ConversationViewCriteria> _statePersister;
@@ -46,7 +47,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		private void OnEmailItemSwitched(EmailItemSwitchedArgs args)
 		{
 			_accountId = args.AccountId;
-			_emails = args.Emails;
+			_emails = args.Emails.Return(e => e.ToList());
 			if (_searchIn == SearchIn.CurrentEmail)
 			{
 				BindData();

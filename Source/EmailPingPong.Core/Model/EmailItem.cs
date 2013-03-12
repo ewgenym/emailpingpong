@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using EmailPingPong.Core.Utils;
 
 namespace EmailPingPong.Core.Model
 {
@@ -22,16 +23,53 @@ namespace EmailPingPong.Core.Model
 		[Required]
 		public virtual bool IsUnread { get; set; }
 
-		public virtual bool SameAs(EmailItem other)
+		public override int GetHashCode()
 		{
-			if (other == null)
+			return (((AccountId.GetHashCode() << 5)
+					 ^ ItemId.GetHashCode() << 5)
+					^ Folder.GetHashCode() << 5);
+		}
+
+		public override bool Equals(object other)
+		{
+			if (ReferenceEquals(this, other))
+			{
+				return true;
+			}
+
+			if ((other == null) || !(other is EmailItem))
 			{
 				return false;
 			}
 
-			return AccountId == other.AccountId
-				   && Folder == other.Folder
-				   && ItemId == other.ItemId;
+			var thisType = GetType();
+			var otherType = other.GetType();
+
+			if (thisType != otherType)
+			{
+				return false;
+			}
+
+			return AccountId == (other as EmailItem).AccountId
+				&& ItemId == (other as EmailItem).ItemId
+				&& Folder == (other as EmailItem).Folder;
+		}
+
+		public static bool operator ==(EmailItem entity1, EmailItem entity2)
+		{
+			var obj1 = (object)entity1;
+			var obj2 = (object)entity2;
+			if (obj1 == null && obj2 == null)
+			{
+				return true;
+			}
+
+			return !(obj1 == null) && entity1.Equals(entity2);
+		}
+
+		public static bool operator !=(EmailItem entity1, EmailItem entity2)
+		{
+			return !(entity1 == entity2);
 		}
 	}
 }

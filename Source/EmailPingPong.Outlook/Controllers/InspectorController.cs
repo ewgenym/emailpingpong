@@ -99,6 +99,7 @@ namespace EmailPingPong.Outlook2010.Controllers
 				}
 				else
 				{
+					//TODO: that magic doesn't work for Office 2013
 					ExplorerEvents_10_ViewSwitchEventHandler viewSwitchHandler = () => explorer.AddToSelection(item);
 					ExplorerEvents_10_FolderSwitchEventHandler folderSwitchHandler = () => explorer.ViewSwitch += viewSwitchHandler;
 

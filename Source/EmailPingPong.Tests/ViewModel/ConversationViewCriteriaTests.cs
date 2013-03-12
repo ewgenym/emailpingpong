@@ -65,7 +65,114 @@ namespace EmailPingPong.Tests.ViewModel
 			// assert
 			result.Should().BeFalse();
 		}
-		
+
+		[Fact]
+		public void should_report_empty_email_items_are_equal()
+		{
+			// arrange
+			var email1 = new EmailItem();
+			var email2 = new EmailItem();
+
+			// act
+			var result = email1 == email2;
+
+			// assert
+			result.Should().BeTrue();
+		}
+
+		[Fact]
+		public void should_report_email_items_are_equal()
+		{
+			// arrange
+			var email1 = Create.EmailItem()
+			                   .WithAccountId("1")
+			                   .WithItemId("1")
+			                   .WithFolder("1", "1", "1")
+			                   .Build();
+
+			var email2 = Create.EmailItem()
+			                   .WithAccountId("1")
+			                   .WithItemId("1")
+			                   .WithFolder("1", "1", "1")
+			                   .Build();
+
+			// act
+			var result = email1 == email2;
+
+			// assert
+			result.Should().BeTrue();
+
+		}
+
+		[Fact]
+		public void should_report_email_items_are_not_equal_by_account_id()
+		{
+			// arrange
+			var email1 = Create.EmailItem()
+			                   .WithAccountId("1")
+			                   .WithItemId("1")
+			                   .WithFolder("1", "1", "1")
+			                   .Build();
+
+			var email2 = Create.EmailItem()
+			                   .WithAccountId("2")
+			                   .WithItemId("1")
+			                   .WithFolder("1", "1", "1")
+			                   .Build();
+
+			// act
+			var result = email1 == email2;
+
+			// assert
+			result.Should().BeFalse();
+		}
+
+		[Fact]
+		public void should_report_email_items_are_not_equal_by_item_id()
+		{
+			// arrange
+			var email1 = Create.EmailItem()
+			                   .WithAccountId("1")
+			                   .WithItemId("1")
+			                   .WithFolder("1", "1", "1")
+			                   .Build();
+
+			var email2 = Create.EmailItem()
+			                   .WithAccountId("1")
+			                   .WithItemId("2")
+			                   .WithFolder("1", "1", "1")
+			                   .Build();
+
+			// act
+			var result = email1 == email2;
+
+			// assert
+			result.Should().BeFalse();
+		}
+
+		[Fact]
+		public void should_report_email_items_are_not_equal_by_folder()
+		{
+			// arrange
+			var email1 = Create.EmailItem()
+			                   .WithAccountId("1")
+			                   .WithItemId("1")
+			                   .WithFolder("1", "1", "1")
+			                   .Build();
+
+			var email2 = Create.EmailItem()
+			                   .WithAccountId("1")
+			                   .WithItemId("2")
+			                   .WithFolder("2", "2", "2")
+			                   .Build();
+
+			// act
+			var result = email1 == email2;
+
+			// assert
+			result.Should().BeFalse();
+		}
+
 		[Fact]
 		public void should_report_conversation_view_criteria_equals_by_folders()
 		{
@@ -95,6 +202,109 @@ namespace EmailPingPong.Tests.ViewModel
 
 			// assert
 			result.Should().BeTrue();
+		}
+
+		[Fact]
+		public void should_not_take_into_account_current_emails_if_search_in_higher_than_current_email()
+		{
+			// arrange
+			var email1 = Create.EmailItem()
+			                   .WithAccountId("1")
+			                   .WithItemId("1")
+			                   .WithFolder("1", "1", "1")
+			                   .Build();
+
+			var email2 = Create.EmailItem()
+			                   .WithAccountId("1")
+			                   .WithItemId("2")
+			                   .WithFolder("1", "1", "1")
+			                   .Build();
+
+			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentFolder, "account@mail.ru", new[] { email1 }, email1.Folder);
+			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentFolder, "account@mail.ru", new[] { email2 }, email2.Folder);
+
+			// act
+			var result = criteria1 == criteria2;
+
+			// assert
+			result.Should().BeTrue();
+		}
+
+		[Fact]
+		public void should_compare_current_emails_if_search_in_current_email()
+		{
+			// arrange
+			var email1 = Create.EmailItem()
+							   .WithAccountId("1")
+							   .WithItemId("1")
+							   .WithFolder("1", "1", "1")
+							   .Build();
+
+			var email2 = Create.EmailItem()
+							   .WithAccountId("1")
+							   .WithItemId("2")
+							   .WithFolder("1", "1", "1")
+							   .Build();
+
+			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentEmail, "account@mail.ru", new[] { email1 }, email1.Folder);
+			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentEmail, "account@mail.ru", new[] { email2 }, email2.Folder);
+
+			// act
+			var result = criteria1 == criteria2;
+
+			// assert
+			result.Should().BeFalse();
+		}
+
+		[Fact]
+		public void should_not_take_into_account_current_folder_if_search_in_higher_than_current_folder()
+		{
+			// arrange
+			var folder1 = new EmailFolder("1", "1", "1");
+			var folder2 = new EmailFolder("2", "2", "2");
+
+			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, "account@mail.ru", null, folder1);
+			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, "account@mail.ru", null, folder2);
+
+			// act
+			var result = criteria1 == criteria2;
+
+			// assert
+			result.Should().BeTrue();
+		}
+
+		[Fact]
+		public void should_compare_current_folder_if_search_in_current_folder()
+		{
+			// arrange
+			var folder1 = new EmailFolder("1", "1", "1");
+			var folder2 = new EmailFolder("2", "2", "2");
+
+			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentFolder, "account@mail.ru", null, folder1);
+			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentFolder, "account@mail.ru", null, folder2);
+
+			// act
+			var result = criteria1 == criteria2;
+
+			// assert
+			result.Should().BeFalse();
+		}
+
+		[Fact]
+		public void should_compare_current_folder_if_search_in_current_email()
+		{
+			// arrange
+			var folder1 = new EmailFolder("1", "1", "1");
+			var folder2 = new EmailFolder("2", "2", "2");
+
+			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentEmail, "account@mail.ru", null, folder1);
+			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentEmail, "account@mail.ru", null, folder2);
+
+			// act
+			var result = criteria1 == criteria2;
+
+			// assert
+			result.Should().BeFalse();
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EmailPingPong.Core.Model;
@@ -102,6 +103,7 @@ namespace EmailPingPong.Tests.ViewModel
 		public async Task should_save_items_state_when_current_folder_changes(string accountId, EmailFolder folder1, EmailFolder folder2)
 		{
 			// arrage
+			ViewModel.SearchIn = SearchIn.CurrentFolder;
 			MailFolderSwitchedEvent.Publish(new MailFolderSwitchedArgs(accountId, folder1));
 			await ViewModel.BindData();
 
@@ -125,6 +127,7 @@ namespace EmailPingPong.Tests.ViewModel
 		public async Task should_save_items_state_when_current_email_changes(string accountId, EmailItem[] emails1, EmailItem[] emails2)
 		{
 			// arrage
+			ViewModel.SearchIn = SearchIn.CurrentEmail;
 			EmailItemSwitchedEvent.Publish(new EmailItemSwitchedArgs(accountId, emails1));
 			await ViewModel.BindData();
 
@@ -141,6 +144,42 @@ namespace EmailPingPong.Tests.ViewModel
 
 			// assert
 			AssertConversationTreeIsExpanded();
+		}
+
+		[Fact]
+		public async Task should_restore_saved_state_for_criteria_with_the_same_email()
+		{
+			// arrage
+			ViewModel.GroupBy = GroupBy.Email;
+			var email1 = Create.EmailItem()
+			                   .WithAccountId("account@mail.ru")
+			                   .WithCreationTime(new DateTime(2013, 3, 12, 19, 45, 25))
+							   .WithItemId("1")
+							   .WithSubject("Subject1")
+							   .WithFolder("1", "1", "1")
+			                   .Build();
+
+			var email2 = Create.EmailItem()
+			                   .WithAccountId("account@mail.ru")
+			                   .WithCreationTime(new DateTime(2013, 3, 12, 19, 45, 25))
+			                   .WithItemId("1")
+			                   .WithSubject("Subject1")
+			                   .WithFolder("1", "1", "1")
+			                   .Build();
+
+			MailFolderSwitchedEvent.Publish(new MailFolderSwitchedArgs(email1.AccountId, email1.Folder));
+
+			// act
+			EmailItemSwitchedEvent.Publish(new EmailItemSwitchedArgs(email1.AccountId, new[] { email1 }));
+			await ViewModel.BindData();
+
+			ViewModel.Items[0].IsExpanded = true;
+
+			EmailItemSwitchedEvent.Publish(new EmailItemSwitchedArgs(email1.AccountId, new[] { email2 }));
+			await ViewModel.BindData();
+
+			// assert
+			ViewModel.Items[0].IsExpanded.Should().BeTrue();
 		}
 
 		private void AssertConversationTreeIsExpanded()
