@@ -70,3 +70,7 @@ _ReSharper*/
 # /
 /@Stuff
 /TestCoverage
+/Source/EmailPingPong.Setup/EmailPingPong.Setup/Express/SingleImage/LogFiles
+
+/Source/EmailPingPong.Setup/EmailPingPong.Setup/Express/SingleImage/Reports
+/Source/EmailPingPong.Setup/EmailPingPong.Setup/Express/Interm/_IsIcoRes.Exe

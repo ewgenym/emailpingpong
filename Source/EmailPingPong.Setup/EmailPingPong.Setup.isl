@@ -225,6 +225,7 @@
 	<table name="AppSearch">
 		<col key="yes" def="s72">Property</col>
 		<col key="yes" def="s72">Signature_</col>
+		<row><td>DOTNETVERSION40FULL</td><td>DotNet40Full</td></row>
 	</table>
 
 	<table name="BBControl">
@@ -339,8 +340,10 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
-		<row><td>EmailPingPong.Outlook.Primary_output</td><td>{DE1629FE-62DF-4F51-ADB5-1A67B671E36A}</td><td>ProgramFilesFolder</td><td>2</td><td/><td>emailpingpong.outlook.primar</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>EmailPingPong.Outlook.Primary_output</td><td>{222C55F4-E57D-425F-B8C8-0710D183058A}</td><td>INSTALLDIR</td><td>2</td><td/><td>emailpingpong.outlook.primar</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td>{6146FCD5-DA95-43FF-9DCA-A459E4277CD8}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>System.Data.SqlServerCe.Entity.dll</td><td>{A821D911-ABE8-4BDD-B0C8-99CF1A17A62E}</td><td>INSTALLDIR</td><td>2</td><td/><td>system.data.sqlserverce.enti</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>System.Data.SqlServerCe.dll</td><td>{B49374E5-1C6F-411C-A00B-C93D8730DE98}</td><td>INSTALLDIR</td><td>2</td><td/><td>system.data.sqlserverce.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1856,6 +1859,8 @@
 		<col key="yes" def="s72">Component_</col>
 		<row><td>AlwaysInstall</td><td>EmailPingPong.Outlook.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
+		<row><td>AlwaysInstall</td><td>System.Data.SqlServerCe.Entity.dll</td></row>
+		<row><td>AlwaysInstall</td><td>System.Data.SqlServerCe.dll</td></row>
 	</table>
 
 	<table name="File">
@@ -1873,6 +1878,8 @@
 		<row><td>emailpingpong.outlook.dll.ma</td><td>ISX_DEFAULTCOMPONENT</td><td>EMAILP~1.MAN|EmailPingPong.Outlook.dll.manifest</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Projects\emailpingpong\Source\EmailPingPong.Outlook\bin\Release\EmailPingPong.Outlook.dll.manifest</td><td>1</td><td/></row>
 		<row><td>emailpingpong.outlook.primar</td><td>EmailPingPong.Outlook.Primary_output</td><td>EmailPingPong.Outlook.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;EmailPingPong.Outlook&gt;|Built</td><td>3</td><td/></row>
 		<row><td>emailpingpong.outlook.vsto</td><td>ISX_DEFAULTCOMPONENT</td><td>EMAILP~1.VST|EmailPingPong.Outlook.vsto</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Projects\emailpingpong\Source\EmailPingPong.Outlook\bin\Release\EmailPingPong.Outlook.vsto</td><td>1</td><td/></row>
+		<row><td>system.data.sqlserverce.dll</td><td>System.Data.SqlServerCe.dll</td><td>SYSTEM~1.DLL|System.Data.SqlServerCe.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Projects\emailpingpong\Source\EmailPingPong.Outlook\bin\Release\System.Data.SqlServerCe.dll</td><td>1</td><td/></row>
+		<row><td>system.data.sqlserverce.enti</td><td>System.Data.SqlServerCe.Entity.dll</td><td>SYSTEM~1.DLL|System.Data.SqlServerCe.Entity.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Projects\emailpingpong\Source\EmailPingPong.Outlook\bin\Release\System.Data.SqlServerCe.Entity.dll</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -2129,8 +2136,10 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
-		<row><td>EmailPingPong.Outlook.Primary_output</td><td/><td/><td>_61A101B7_E0AD_47E9_9C61_D9E498733CD0_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>EmailPingPong.Outlook.Primary_output</td><td/><td/><td>_213622F9_AC1F_421E_BA35_84C43C347453_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_600CEAEE_FC0B_4297_8F77_F5256A0B10E9_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>System.Data.SqlServerCe.Entity.dll</td><td/><td/><td>_5D9B81D0_81B0_4874_9BE8_2718B6696157_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>System.Data.SqlServerCe.dll</td><td/><td/><td>_FD3C7745_BC14_4606_9669_2714E8C91430_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -2726,9 +2735,8 @@
 		<col def="I2">Order</col>
 		<col def="I2">ISSetupLocation</col>
 		<col def="S255">ISReleaseFlags</col>
-		<row><td>_3AF86A7E_B865_4A25_B6AE_CC8AB0179C8D_</td><td>Microsoft .NET Framework 4.0 Full.prq</td><td/><td/><td/></row>
 		<row><td>_4B372CFF_B3AA_4214_82F2_06381EA730E7_</td><td>Visual Studio 2010 Tools for Office Runtime.prq</td><td/><td/><td/></row>
-		<row><td>_BDE49190_F33F_4433_99CD_96DD37356011_</td><td>Microsoft SQL CE 4.0 x64.prq</td><td/><td/><td/></row>
+		<row><td>_6DDC273C_9743_407C_BADE_F2EB938FE9F6_</td><td>Microsoft SQL CE 4.0 x64.prq</td><td/><td/><td/></row>
 	</table>
 
 	<table name="ISSetupType">
@@ -2765,6 +2773,7 @@
 		<row><td>COMPANY_NAME</td><td>1033</td><td>Your Company Name</td><td>0</td><td/><td>1772209331</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>1772209331</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>1772209331</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION40FULL</td><td>1033</td><td>Microsoft .NET Framework 4.0 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1906389457</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>1772209331</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>1772209331</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>1772209331</td></row>
@@ -4161,6 +4170,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 	<table name="LaunchCondition">
 		<col key="yes" def="s255">Condition</col>
 		<col def="l255">Description</col>
+		<row><td>DOTNETVERSION40FULL&gt;="#1"</td><td>##IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION40FULL##</td></row>
 	</table>
 
 	<table name="ListBox">
@@ -4488,7 +4498,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>RestartManagerOption</td><td>CloseRestart</td><td/></row>
 		<row><td>SERIALNUMBER</td><td/><td/></row>
 		<row><td>SERIALNUMVALSUCCESSRETVAL</td><td>1</td><td/></row>
-		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR</td><td/></row>
+		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION40FULL</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
 		<row><td>UpgradeCode</td><td>{512FDD8C-E989-418F-96D6-080453FF44D4}</td><td/></row>
@@ -4533,6 +4543,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="s255">Key</col>
 		<col def="S255">Name</col>
 		<col def="I2">Type</col>
+		<row><td>DotNet40Full</td><td>2</td><td>SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full</td><td>Install</td><td>2</td></row>
 	</table>
 
 	<table name="Registry">
@@ -4543,10 +4554,11 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S0">Value</col>
 		<col def="s72">Component_</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>Registry1</td><td>-1</td><td>Software\Microsoft\Office\Outlook\Addins\EmailPingPong.Outlook</td><td>Description</td><td>Email Ping Pong Outlook Addin</td><td>ISX_DEFAULTCOMPONENT</td><td>0</td></row>
-		<row><td>Registry2</td><td>-1</td><td>Software\Microsoft\Office\Outlook\Addins\EmailPingPong.Outlook</td><td>FriendlyName</td><td>Email Ping Pong</td><td>ISX_DEFAULTCOMPONENT</td><td>0</td></row>
-		<row><td>Registry3</td><td>-1</td><td>Software\Microsoft\Office\Outlook\Addins\EmailPingPong.Outlook</td><td>LoadBehavior</td><td>#3</td><td>ISX_DEFAULTCOMPONENT</td><td>0</td></row>
-		<row><td>Registry4</td><td>-1</td><td>Software\Microsoft\Office\Outlook\Addins\EmailPingPong.Outlook</td><td>Manifest</td><td>file:///[INSTALLDIR]EmailPingPong.Outlook.vsto|vstolocal</td><td>ISX_DEFAULTCOMPONENT</td><td>0</td></row>
+		<row><td>Registry1</td><td>1</td><td>Software\Microsoft\Office\Outlook\Addins\EmailPingPong.Outlook</td><td>Description</td><td>Email Ping Pong Outlook Addin</td><td>ISX_DEFAULTCOMPONENT</td><td>0</td></row>
+		<row><td>Registry2</td><td>1</td><td>Software\Microsoft\Office\Outlook\Addins\EmailPingPong.Outlook</td><td>FriendlyName</td><td>Email Ping Pong</td><td>ISX_DEFAULTCOMPONENT</td><td>0</td></row>
+		<row><td>Registry3</td><td>1</td><td>Software\Microsoft\Office\Outlook\Addins\EmailPingPong.Outlook</td><td>LoadBehavior</td><td>#3</td><td>ISX_DEFAULTCOMPONENT</td><td>0</td></row>
+		<row><td>Registry4</td><td>1</td><td>Software\Microsoft\Office\Outlook\Addins\EmailPingPong.Outlook</td><td/><td/><td>ISX_DEFAULTCOMPONENT</td><td>1</td></row>
+		<row><td>Registry9</td><td>1</td><td>Software\Microsoft\Office\Outlook\Addins\EmailPingPong.Outlook</td><td>Manifest</td><td>file:///[INSTALLDIR]EmailPingPong.Outlook.vsto|vstolocal</td><td>ISX_DEFAULTCOMPONENT</td><td>0</td></row>
 	</table>
 
 	<table name="RemoveFile">
