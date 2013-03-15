@@ -1,9 +1,0 @@
-﻿<Application x:Class="EmailPingPong.TestApp.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:viewModels="clr-namespace:EmailPingPong.UI.Desktop.ViewModels;assembly=EmailPingPong.UI.Desktop"
-             xmlns:views="clr-namespace:EmailPingPong.UI.Desktop.Views;assembly=EmailPingPong.UI.Desktop"
-             StartupUri="MainWindow.xaml">
-    <Application.Resources>
-    </Application.Resources>
-</Application>
