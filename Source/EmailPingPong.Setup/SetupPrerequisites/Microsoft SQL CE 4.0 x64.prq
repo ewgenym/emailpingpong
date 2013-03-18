@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SetupPrereq>
+<conditions>
+    <condition Type="32" Comparison="2" Path="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server Compact Edition\v4.0\ENU" FileName="DesktopRuntimeVersion" ReturnValue="4.0.8482.1"></condition>
+</conditions>
+<files>
+    <file LocalFile=".\SSCERuntime_x64-ENU.exe" URL="http://download.microsoft.com/download/0/5/D/05DCCDB5-57E0-4314-A016-874F228A8FAD/SSCERuntime_x64-ENU.exe" FileSize="0,0"></file>
+</files>
+<execute file="SSCERuntime_x64-ENU.exe" cmdline="/i /q /norestart" cmdlinesilent="/i /q /norestart" returncodetoreboot="1641,3010,4123"></execute>
+<properties Id="{05DCCDB5-57E0-4314-A016-874F228A8FAD}" Description="This prerequisite installs the Microsoft SQL Server Compact 4.0 x64."></properties>
+<behavior Reboot="4"></behavior>
+</SetupPrereq>
