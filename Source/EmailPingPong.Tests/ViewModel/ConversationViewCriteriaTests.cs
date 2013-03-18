@@ -180,8 +180,8 @@ namespace EmailPingPong.Tests.ViewModel
 			var folder1 = new EmailFolder("1", "1", "1");
 			var folder2 = new EmailFolder("1", "1", "1");
 
-			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, "1", null, folder1);
-			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, "1", null, folder2);
+			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, "1", null, folder1, false);
+			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, "1", null, folder2, false);
 
 			// act
 			var result = criteria1 == criteria2;
@@ -194,8 +194,8 @@ namespace EmailPingPong.Tests.ViewModel
 		public void should_report_empty_conversation_view_criteria_are_equal()
 		{
 			// arrange
-			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, null, null, null);
-			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, null, null, null);
+			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, null, null, null, false);
+			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, null, null, null, false);
 
 			// act
 			var result = criteria1 == criteria2;
@@ -220,8 +220,8 @@ namespace EmailPingPong.Tests.ViewModel
 			                   .WithFolder("1", "1", "1")
 			                   .Build();
 
-			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentFolder, "account@mail.ru", new[] { email1 }, email1.Folder);
-			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentFolder, "account@mail.ru", new[] { email2 }, email2.Folder);
+			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentFolder, "account@mail.ru", new[] { email1 }, email1.Folder, false);
+			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentFolder, "account@mail.ru", new[] { email2 }, email2.Folder, false);
 
 			// act
 			var result = criteria1 == criteria2;
@@ -246,8 +246,8 @@ namespace EmailPingPong.Tests.ViewModel
 							   .WithFolder("1", "1", "1")
 							   .Build();
 
-			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentEmail, "account@mail.ru", new[] { email1 }, email1.Folder);
-			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentEmail, "account@mail.ru", new[] { email2 }, email2.Folder);
+			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentEmail, "account@mail.ru", new[] { email1 }, email1.Folder, false);
+			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentEmail, "account@mail.ru", new[] { email2 }, email2.Folder, false);
 
 			// act
 			var result = criteria1 == criteria2;
@@ -263,8 +263,8 @@ namespace EmailPingPong.Tests.ViewModel
 			var folder1 = new EmailFolder("1", "1", "1");
 			var folder2 = new EmailFolder("2", "2", "2");
 
-			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, "account@mail.ru", null, folder1);
-			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, "account@mail.ru", null, folder2);
+			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, "account@mail.ru", null, folder1, false);
+			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.AllFolders, "account@mail.ru", null, folder2, false);
 
 			// act
 			var result = criteria1 == criteria2;
@@ -280,8 +280,8 @@ namespace EmailPingPong.Tests.ViewModel
 			var folder1 = new EmailFolder("1", "1", "1");
 			var folder2 = new EmailFolder("2", "2", "2");
 
-			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentFolder, "account@mail.ru", null, folder1);
-			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentFolder, "account@mail.ru", null, folder2);
+			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentFolder, "account@mail.ru", null, folder1, false);
+			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentFolder, "account@mail.ru", null, folder2, false);
 
 			// act
 			var result = criteria1 == criteria2;
@@ -297,14 +297,31 @@ namespace EmailPingPong.Tests.ViewModel
 			var folder1 = new EmailFolder("1", "1", "1");
 			var folder2 = new EmailFolder("2", "2", "2");
 
-			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentEmail, "account@mail.ru", null, folder1);
-			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentEmail, "account@mail.ru", null, folder2);
+			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentEmail, "account@mail.ru", null, folder1, false);
+			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentEmail, "account@mail.ru", null, folder2, false);
 
 			// act
 			var result = criteria1 == criteria2;
 
 			// assert
 			result.Should().BeFalse();
+		}
+
+		[Fact]
+		public void should_not_compare_show_closed_conversations()
+		{
+			// arrange
+			const bool showClosedTrue = true;
+			const bool showClosedFalse = false;
+
+			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentEmail, "account@mail.ru", null, new EmailFolder("1", "1", "1"), showClosedTrue);
+			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentEmail, "account@mail.ru", null, new EmailFolder("1", "1", "1"), showClosedFalse);
+
+			// act
+			var result = criteria1 == criteria2;
+
+			// assert
+			result.Should().BeTrue();
 		}
 	}
 }

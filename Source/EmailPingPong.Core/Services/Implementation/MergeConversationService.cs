@@ -33,6 +33,12 @@ namespace EmailPingPong.Core.Services.Implementation
 
 			MergeComments(original, proposed);
 			MergeTopic(original, proposed);
+			ReopenConversation(original);
+		}
+
+		private void ReopenConversation(Conversation original)
+		{
+			original.Reopen();
 		}
 
 		private void MergeTopic(Conversation original, Conversation proposed)

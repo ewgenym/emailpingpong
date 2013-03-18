@@ -159,7 +159,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 
 		private ConversationViewCriteria GetViewCriteria()
 		{
-			return new ConversationViewCriteria(_groupBy, _searchIn, _accountId, _emails, _folder);
+			return new ConversationViewCriteria(_groupBy, _searchIn, _accountId, _emails, _folder, false);
 		}
 
 		public ReadOnlyCollection<TreeViewItemViewModel> Items

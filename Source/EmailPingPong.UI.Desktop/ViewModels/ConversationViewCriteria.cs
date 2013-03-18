@@ -13,14 +13,16 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		public readonly string AccountId;
 		public readonly IList<EmailItem> Emails;
 		public readonly EmailFolder Folder;
+		public readonly bool ShowClosedConversations;
 
-		public ConversationViewCriteria(GroupBy groupBy, SearchIn searchIn, string accountId, IList<EmailItem> emails, EmailFolder folder)
+		public ConversationViewCriteria(GroupBy groupBy, SearchIn searchIn, string accountId, IList<EmailItem> emails, EmailFolder folder, bool showClosedConversations)
 		{
 			GroupBy = groupBy;
 			SearchIn = searchIn;
 			AccountId = accountId;
 			Emails = emails;
 			Folder = folder;
+			ShowClosedConversations = showClosedConversations;
 		}
 
 		public override int GetHashCode()

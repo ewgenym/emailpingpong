@@ -462,6 +462,39 @@ namespace EmailPingPong.Tests.Core
 			original.Topic.Should().Be(expected);
 		}
 
+		[Fact]
+		public void should_reopen_conversation_on_merge()
+		{
+			var original = Create.Conversation()
+								 .WithConversationId("1")
+								 .WithTopic("Topic1")
+								 .WithEmail(Create.EmailItem()
+												  .WithAccountId("1")
+												  .WithItemId("1")
+												  .WithFolder("1", "1", "1")
+												  .WithCreationTime(new DateTime(2013, 1, 12))
+												  .Build())
+								 .WithIsClosed()
+								 .Build();
+
+			var proposed = Create.Conversation()
+								 .WithConversationId("1")
+								 .WithTopic("Topic1")
+								 .WithEmail(Create.EmailItem()
+												  .WithAccountId("1")
+												  .WithItemId("1")
+												  .WithFolder("1", "1", "1")
+												  .WithCreationTime(new DateTime(2013, 1, 12))
+												  .Build())
+								 .Build();
+
+			// act
+			MergeConversation(original, proposed);
+
+			// assert
+			original.IsClosed.Should().Be(false);
+		}
+
 		private void MergeConversation(Conversation target, Conversation source)
 		{
 			_mergeConversationService.Merge(target, source);

@@ -52,6 +52,9 @@ namespace EmailPingPong.Core.Model
 			get { return Emails.OrderByDescending(e => e.CreationTime).FirstOrDefault(); }
 		}
 
+		[Required]
+		public virtual bool IsClosed { get; set; }
+
 		public virtual bool IsNewerThanOrSame(Conversation conversation)
 		{
 			if (LatestEmail == null)
@@ -71,6 +74,16 @@ namespace EmailPingPong.Core.Model
 			}
 
 			return conversationEmail != null;
+		}
+
+		public virtual void Reopen()
+		{
+			IsClosed = false;
+		}
+
+		public virtual void Close()
+		{
+			IsClosed = true;
 		}
 	}
 }

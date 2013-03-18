@@ -117,10 +117,12 @@
     <Compile Include="Builders\EmailItemBuilder.cs" />
     <Compile Include="Builders\EntityBuilderBase.cs" />
     <Compile Include="Core\ConversationEmailsTests.cs" />
+    <Compile Include="Core\ConversationTests.cs" />
     <Compile Include="Core\MergeConversationTests.cs" />
     <Compile Include="Infrastructure\ConversationRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ConversationBinderTests.cs" />
+    <Compile Include="UI\ConversationTreeItemsBinderTests.cs" />
     <Compile Include="UI\TreeViewItemsStateTests.cs" />
     <Compile Include="ViewModel\ConversationTreeUnreadItemsTests.cs" />
     <Compile Include="ViewModel\ConversationTreeViewModelsBindingTests.cs" />

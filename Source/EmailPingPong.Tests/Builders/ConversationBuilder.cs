@@ -42,5 +42,11 @@ namespace EmailPingPong.Tests.Builders
 			EntityToBuild.AccountId = accountId;
 			return this;
 		}
+
+		public ConversationBuilder WithIsClosed()
+		{
+			EntityToBuild.IsClosed = true;
+			return this;
+		}
 	}
 }
