@@ -124,6 +124,7 @@
     <Compile Include="Services\ConversationBinderTests.cs" />
     <Compile Include="UI\ConversationTreeItemsBinderTests.cs" />
     <Compile Include="UI\TreeViewItemsStateTests.cs" />
+    <Compile Include="ViewModel\ConversationTreeClosedConversationTests.cs" />
     <Compile Include="ViewModel\ConversationTreeUnreadItemsTests.cs" />
     <Compile Include="ViewModel\ConversationTreeViewModelsBindingTests.cs" />
     <Compile Include="ViewModel\ConversationTreeViewModelStatePersistanceTests.cs" />

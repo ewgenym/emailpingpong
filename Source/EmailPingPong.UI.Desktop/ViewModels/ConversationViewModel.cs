@@ -17,6 +17,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			_comments =
 				new ReadOnlyCollection<CommentViewModel>(conversation.Comments.Select(c => new CommentViewModel(this, c)).ToList());
 			IsUnread = conversation.Emails.Any(e => e.IsUnread);
+			_isClosed = _conversation.IsClosed;
 		}
 
 		public override IEnumerable<TreeViewItemViewModel> Childs

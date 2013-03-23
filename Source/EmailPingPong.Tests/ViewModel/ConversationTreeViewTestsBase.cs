@@ -37,7 +37,7 @@ namespace EmailPingPong.Tests.ViewModel
 			
 			var treeViewItemsBinder = new ConversationTreeItemsBinder(ConversationRepository);
 
-			ViewModel = new ConversationTreeViewModel(treeViewItemsBinder, EventAggregator);
+			ViewModel = new ConversationTreeViewModel(treeViewItemsBinder, EventAggregator, null);
 		}
 	}
 }

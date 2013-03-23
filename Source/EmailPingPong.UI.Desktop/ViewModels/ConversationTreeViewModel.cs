@@ -1,21 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using EmailPingPong.Core.Commands;
 using EmailPingPong.Core.Model;
 using EmailPingPong.Core.Utils;
 using EmailPingPong.Infrastructure.Events;
+using EmailPingPong.UI.Desktop.Annotations;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Events;
+using ICommand = System.Windows.Input.ICommand;
 
 namespace EmailPingPong.UI.Desktop.ViewModels
 {
 	public class ConversationTreeViewModel : ViewModelBase
 	{
+		private readonly ICommandDispatcher _commands;
 		private ReadOnlyCollection<TreeViewItemViewModel> _items;
 		private GroupBy _groupBy;
 		private SearchIn _searchIn;
+		private bool _showClosedConversations;
 		private string _accountId;
 		private IList<EmailItem> _emails;
 		private EmailFolder _folder;
@@ -25,12 +31,16 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		private readonly IEventAggregator _eventAggregator;
 
 		public ConversationTreeViewModel(IConversationTreeItemsBinder treeViewItemsBinder,
-										 IEventAggregator eventAggregator)
+										 IEventAggregator eventAggregator,
+										 ICommandDispatcher commands)
 		{
 			_treeViewItemsBinder = treeViewItemsBinder;
 			_eventAggregator = eventAggregator;
+			_commands = commands;
 			_statePersister = new TreeViewItemsState<ConversationViewCriteria>();
 			OpenMailItem = new DelegateCommand<TreeViewItemViewModel>(OpenMailItemExecute);
+			CloseConversation = new DelegateCommand<TreeViewItemViewModel>(CloseConversationExecute);
+			ReopenConversation = new DelegateCommand<TreeViewItemViewModel>(ReopenConversationExecute);
 
 			ListenToEvents();
 		}
@@ -77,6 +87,8 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		}
 
 		public ICommand OpenMailItem { get; private set; }
+		public ICommand CloseConversation { get; private set; }
+		public ICommand ReopenConversation { get; private set; }
 
 		private void OpenMailItemExecute(TreeViewItemViewModel itemViewModel)
 		{
@@ -85,14 +97,55 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 				return;
 			}
 
-			var emailItem = GetEmailItem((dynamic) itemViewModel);
+			var emailItem = GetEmailItem((dynamic)itemViewModel);
 			if (emailItem != null)
 			{
 				_eventAggregator.GetEvent<OpenMailItemEvent>().Publish(new OpenMailItemArgs(emailItem));
 			}
 		}
 
+		private void CloseConversationExecute([NotNull] TreeViewItemViewModel itemViewModel)
+		{
+			if (itemViewModel == null) throw new ArgumentNullException("itemViewModel");
+
+			var conversation = GetConversation((dynamic)itemViewModel);
+			if (conversation != null)
+			{
+				_commands.Dispatch(new CloseConversation(conversation));
+				if (!ShowClosedConversations)
+				{
+					new Timer(_ => BindData(), null, 2000, Timeout.Infinite);
+				}
+			}
+		}
+
+		private void ReopenConversationExecute([NotNull] TreeViewItemViewModel itemViewModel)
+		{
+			if (itemViewModel == null) throw new ArgumentNullException("itemViewModel");
+
+			var conversation = GetConversation((dynamic)itemViewModel);
+			if (conversation != null)
+			{
+				_commands.Dispatch(new ReopenConversation(conversation));
+			}
+		}
+
 		private EmailItem GetEmailItem(CommentViewModel commentViewModel)
+		{
+			return GetConversation(commentViewModel).Return(c => c.LatestEmail);
+		}
+
+		private EmailItem GetEmailItem(ConversationViewModel conversationViewModel)
+		{
+			return GetConversation(conversationViewModel).LatestEmail;
+		}
+
+		private EmailItem GetEmailItem(FolderViewModel folderViewModel)
+		{
+			return null;
+		}
+
+		private Conversation GetConversation(CommentViewModel commentViewModel)
 		{
 			var comment = commentViewModel.Comment;
 			while (comment.Conversation == null)
@@ -104,15 +157,15 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 				}
 			}
 
-			return comment.With(c => c.Conversation).Return(c => c.LatestEmail);
+			return comment.Return(c => c.Conversation);
 		}
 
-		private EmailItem GetEmailItem(ConversationViewModel conversationViewModel)
+		private Conversation GetConversation(ConversationViewModel conversationViewModel)
 		{
-			return conversationViewModel.Conversation.LatestEmail;
+			return conversationViewModel.Conversation;
 		}
 
-		private EmailItem GetEmailItem(FolderViewModel folderViewModel)
+		private Conversation GetConversation(FolderViewModel folderViewModel)
 		{
 			return null;
 		}
@@ -143,6 +196,19 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 			}
 		}
 
+		public bool ShowClosedConversations
+		{
+			get { return _showClosedConversations; }
+			set
+			{
+				if (_showClosedConversations != value)
+				{
+					_showClosedConversations = value;
+					BindData();
+				}
+			}
+		}
+
 		public async Task BindData()
 		{
 			var currentCriteria = GetViewCriteria();
@@ -159,7 +225,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 
 		private ConversationViewCriteria GetViewCriteria()
 		{
-			return new ConversationViewCriteria(_groupBy, _searchIn, _accountId, _emails, _folder, false);
+			return new ConversationViewCriteria(_groupBy, _searchIn, _accountId, _emails, _folder, _showClosedConversations);
 		}
 
 		public ReadOnlyCollection<TreeViewItemViewModel> Items

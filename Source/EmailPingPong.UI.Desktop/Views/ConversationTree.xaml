@@ -18,6 +18,7 @@
 			<RowDefinition Height="*" />
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 		<TextBlock Text="Group by:" Grid.Row="0" Grid.Column="0" Padding="0,3,3,3"/>
 		<ComboBox Grid.Row="1" Grid.Column="0" Margin="0,0,3,3"
@@ -31,6 +32,8 @@
 				  DisplayMemberPath="Description"
 				  SelectedValue="{Binding Path=SearchIn}"
 				  SelectedValuePath="Value"/>
+		<CheckBox Grid.Row="5" Grid.Column="0" Padding="3,3,3,3"
+				  IsChecked="{Binding Path=ShowClosedConversations}">Show closed conversations</CheckBox>
 		<TreeView ItemsSource="{Binding Items}"
 		          Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" 
 				  PreviewMouseLeftButtonDown="TreeView_PreviewMouseLeftButtonDown"
@@ -155,6 +158,13 @@
 				</Style>
 			</TreeView.ItemContainerStyle>
 			<TreeView.Resources>
+				<ContextMenu x:Key="CloseConversationMenu">
+					<MenuItem Header="Close conversation" Click="CloseConversationMenuItem_OnClick"/>
+				</ContextMenu>
+				<ContextMenu x:Key="ReopenConversationMenu">
+					<MenuItem Header="Reopen conversation" Click="ReopenConversationMenuItem_OnClick"/>
+				</ContextMenu>
+				<!--<BooleanToVisibilityConverter x:Key="Converter"/>-->
 				<HierarchicalDataTemplate DataType="{x:Type local:CommentViewModel}" ItemsSource="{Binding Answers}">
 					<StackPanel Margin="0,3,3,3">
 					<Border BorderBrush="Black" Name="CommentBorder">
@@ -171,7 +181,7 @@
 							</Style>
 						</Border.Style>
 						<StackPanel Margin="3">
-							<TextBlock TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxHeight="38">
+							<TextBlock Name="CommentTextBlock"  TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxHeight="38">
 								<utils:BindableRun BoundText="{Binding Author}" FontWeight="Bold"/>
 								<Run Text=": "></Run>
 								<utils:BindableRun BoundText="{Binding Body}" />
@@ -187,6 +197,14 @@
 						</DataTrigger>
 						<DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
 							<Setter TargetName="CommentBorder" Property="BorderThickness" Value="0"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding Path=IsClosed}" Value="True">
+							<Setter TargetName="CommentTextBlock" Property="TextDecorations" Value="Strikethrough"></Setter>
+							<Setter Property="ContextMenu" Value="{StaticResource ReopenConversationMenu}"></Setter>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding Path=IsClosed}" Value="False">
+							<Setter TargetName="CommentTextBlock" Property="TextDecorations" Value=""></Setter>
+							<Setter Property="ContextMenu" Value="{StaticResource CloseConversationMenu}"></Setter>
 						</DataTrigger>
 						<MultiDataTrigger>
 							<MultiDataTrigger.Conditions>
@@ -205,6 +223,14 @@
 						<DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
 							<Setter TargetName="TopicTextBlock" Property="TextBlock.FontWeight" Value="Bold"/>
 							<Setter TargetName="TopicTextBlock" Property="TextBlock.Background" Value="#FFE1E1E1"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding Path=IsClosed}" Value="True">
+							<Setter TargetName="TopicTextBlock" Property="TextDecorations" Value="Strikethrough"></Setter>
+							<Setter Property="ContextMenu" Value="{StaticResource ReopenConversationMenu}"></Setter>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding Path=IsClosed}" Value="False">
+							<Setter TargetName="TopicTextBlock" Property="TextDecorations" Value=""></Setter>
+							<Setter Property="ContextMenu" Value="{StaticResource CloseConversationMenu}"></Setter>
 						</DataTrigger>
 					</HierarchicalDataTemplate.Triggers>
 				</HierarchicalDataTemplate>

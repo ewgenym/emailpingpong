@@ -17,7 +17,7 @@ namespace EmailPingPong.Tests.ViewModel
 	// TODO: avoid double binding in all theses tests
 	public class ConversationTreeViewModelStatePersistanceTests : ConversationTreeViewTestsBase
 	{
-		public ConversationTreeViewModelStatePersistanceTests() : base()
+		public ConversationTreeViewModelStatePersistanceTests()
 		{
 			var conversation = Create.Conversation()
 						 .WithComment(Create.Comment()

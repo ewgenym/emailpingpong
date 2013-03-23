@@ -29,6 +29,7 @@ namespace EmailPingPong.Core.Model
 
 		public virtual void AddComment(Comment comment)
 		{
+			comment.Conversation = this;
 			Comments.Add(comment);
 			var comments = new FlatCommentsIterator(comment).ToList();
 			foreach (var subComment in comments)

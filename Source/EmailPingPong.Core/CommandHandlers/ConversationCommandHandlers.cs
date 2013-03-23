@@ -7,7 +7,9 @@ namespace EmailPingPong.Core.CommandHandlers
 {
 	public class ConversationCommandHandlers : ICommandHandler<MergeConversation>,
 		ICommandHandler<UpdateMailItem>,
-		ICommandHandler<RemoveConversation>
+		ICommandHandler<RemoveConversation>,
+		ICommandHandler<CloseConversation>,
+		ICommandHandler<ReopenConversation>
 	{
 		private readonly IMergeConversationService _mergeConversationService;
 		private readonly IConversationRepository _conversationRepository;
@@ -49,6 +51,26 @@ namespace EmailPingPong.Core.CommandHandlers
 			else if (addNew)
 			{
 				_conversationRepository.Add(proposed);
+			}
+		}
+
+		public void Handle(CloseConversation command)
+		{
+			var conversation = _conversationRepository.GetByAccountIdAndConversationId(command.Conversation.AccountId,
+			                                                                           command.Conversation.ConversationId);
+			if (conversation != null)
+			{
+				conversation.Close();
+			}
+		}
+
+		public void Handle(ReopenConversation command)
+		{
+			var conversation = _conversationRepository.GetByAccountIdAndConversationId(command.Conversation.AccountId,
+																					   command.Conversation.ConversationId);
+			if (conversation != null)
+			{
+				conversation.Reopen();
 			}
 		}
 	}

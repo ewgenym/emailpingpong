@@ -9,7 +9,7 @@ v1.0
 	+ Refresh (add\update\remove) the conversation tree after send\receive\save
 	+ Locate (but not open in a separate window) e-mail on double click in the conversation tree
 	+ Monitor all the folders in all the accounts
-	- Add "Show\Hide conversation pane" button to View ribbon
+	+ Add "Show\Hide conversation pane" button to View ribbon
 	+ Group by (Mail subject, Folder)
 	+ Search In (All folders, current folder, current mail)
 	+ Preserve the tree nodes state per each folder\item (on each selection change). The history should be in memory. After the outlook is closed only the current state (for current selection) is persisted.
@@ -28,15 +28,15 @@ v1.0
 - Bugs:
 	+ Double click on the tree element has stopped working. Related to the grouping feature implementation
 	- Баг = когда на ответе клацаешь вопрос, после этого нельзя добавить вопрос вообще в письмо
-	- SearchIn dropdown: have to click it twice for the first time
+	+ SearchIn dropdown: have to click it twice for the first time
 - Technical:
 	+ Change terminology. Use ping\pong instead of q\a
 	+ database file location (use account profile folder)
-	- elementhost for WPF controls doesn't work correctly with ctors with arguments. Make use of service locator pattern instead of DI
+	+ elementhost for WPF controls doesn't work correctly with ctors with arguments. Make use of service locator pattern instead of DI
 	+ Separate emailpingpong features over Outlook specifics
 	- Signing key name - change
-	- Global refactoring after the prtototype phase but before the beta
-	- Support for multiple select in Outlook (when use selects several folders or e-mails we should filter accrodingly)
+	+ Global refactoring after the prtototype phase but before the beta
+	+ Support for multiple select in Outlook (when use selects several folders or e-mails we should filter accrodingly)
 
 vNext+
 ----

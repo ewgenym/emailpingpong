@@ -4,14 +4,16 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 {
 	public abstract class TreeViewItemViewModel : ViewModelBase
 	{
-		private readonly TreeViewItemViewModel _parent;
+		protected readonly TreeViewItemViewModel _parent;
 		private bool _isExpanded;
 		private bool _isSelected;
 		private bool _isUnread;
+		protected bool _isClosed;
 
 		protected TreeViewItemViewModel(TreeViewItemViewModel parent)
 		{
 			_parent = parent;
+			_isClosed = false;
 		}
 
 		public abstract IEnumerable<TreeViewItemViewModel> Childs { get; }
@@ -58,6 +60,33 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 					OnPropertyChanged("IsUnread");
 				}
 			}
+		}
+
+		public bool IsClosed
+		{
+			get { return _isClosed; }
+			set
+			{
+				if (value != _isClosed)
+				{
+					_isClosed = value;
+					if (_parent != null)
+					{
+						_parent.IsClosed = value;
+					}
+					foreach (var itemViewModel in Childs)
+					{
+						itemViewModel.IsClosed = value;
+					}
+					OnPropertyChanged("IsClosed");
+					OnPropertyChanged("IsOpened");
+				}
+			}
+		}
+
+		public bool IsOpened
+		{
+			get { return !_isClosed; }
 		}
 	}
 }

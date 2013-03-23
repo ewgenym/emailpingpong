@@ -21,15 +21,14 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 																	.Answers
 																	.Select(a => new CommentViewModel(this, a))
 																	.ToList());
+			var conversation = _comment.Conversation ?? _comment.Parent.Return(c => c.Conversation);
+			_isClosed = conversation.Return(c => c.IsClosed);
 			IsUnread = comment.With(c => c.OriginalEmail).Return(e => e.IsUnread);
 		}
 
 		public override IEnumerable<TreeViewItemViewModel> Childs
 		{
-			get
-			{
-				return _answers;
-			}
+			get { return _answers; }
 		}
 
 		public string Author
@@ -49,7 +48,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 
 		public bool IsOdd
 		{
-			get { return _comment.Index%2 == 0; }
+			get { return _comment.Index % 2 == 0; }
 		}
 
 		public ReadOnlyCollection<CommentViewModel> Answers
