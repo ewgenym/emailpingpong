@@ -5,16 +5,28 @@ beta:
 + (Big) Tree representation (make it look like in iOS\Android chat)
 + (Medium) Support for Outlook 2013
 + (Small) Add a button to ribbon that toggle conversation panel
-- (Medium) Security: consider generating password for database or prefrably use Windows Authentication if possible (Windows Authentication not supported in SQL CE).
-- (Big) Install package with new installer engine
++ (Big) Install package with new installer engine
++ (Medium) Add 'Close conversation' functionality (High priority)
++ (Medium) Add "Show\Hide conversation pane"
++ (Small) Consider moving "Search in" combobox somewhere because it doesn't work correctly because of Outlook
 
 After beta release:
-- (Medium) Add 'Close conversation' functionality (High priority)
+- (Small) Start using DB migrations
+- (Medium) Use ConversationId generation logic like in native Outlook conversations as a fallback option for e-mail tracking. (The purpose is to make its optional to have EmailPingPong installed on both sides)
+- (Big) When content controls are getting lost try restoring them from metadata attachment
+- (Big) Tag the entire mail as the one conversation (like the native outlook conversation feature)
+- (Medium) Security: consider generating password for database or prefrably use Windows Authentication if possible (Windows Authentication not supported in SQL CE).
+- (Medium) Persist the selected settings, so user get them loaded when Outlook starts
+- (Big) Stop here and make a technical improvements (see technical backlog)
 
 vNext:
-- (Big) When content controls are getting lost try restoring them from metadata attachment
-- (Medium) Add "Show\Hide conversation pane", the same as for To-Do bar in Outlook
-- (Small) Consider moving "Search in" combobox somewhere because it doesn't work correctly because of Outlook
-- (Medium) Persist the selected settings, so user get them loaded when Outlook starts
-- (Big) Tag the entire mail as the one conversation (like the native outlook conversation feature)
 - (Big) Final answer (add a checkbox to each question, when user checks the box it means that last answer is final, show it somehow in the tree)
+
+
+
+Technical backlog:
+- Merge EmailPingPong.Outlook.Common and EmailPingPong.Outlook into one assembly
+- sqllite (consider using it instead of SQL CE?)
+- setup framework (InstallShield looks ugly)
+-.net 4.5 + ef 6 (async operations)
+- Single repository + specifications as extension methods
