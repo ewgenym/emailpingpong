@@ -15,8 +15,8 @@
 			</tab>
 			<tab idMso="TabNewMailMessage">
 				<group id="GroupEmailPingPong" insertAfterMso="GroupIncludeMainTab" label="Email ping pong">
-					<button id="btnQuestion" onAction="btnQuestion_Click" label="Question" size="large" getImage="GetImage"/>
-					<button id="btnAnswer" onAction="btnAnswer_Click" label="Answer" size="large" getImage="GetImage"/>
+					<button id="btnQuestion" onAction="btnQuestion_Click" label="Question" size="large" getImage="GetImage" screentip="Add question tag (Ctrl+1)" supertip="Mark selection as question tag or adds empty question if nothing is selected"/>
+					<button id="btnAnswer" onAction="btnAnswer_Click" label="Answer" size="large" getImage="GetImage" screentip="Add answer tag (Ctrl+2)" supertip="Add answer tag for selected question"/>
 				</group>
 			</tab>
 		</tabs>
@@ -24,8 +24,8 @@
 			<tabSet idMso="TabComposeTools">
 				<tab idMso="TabMessage">
 					<group label="Email ping pong" insertAfterMso="GroupIncludeMainTab" id="GroupEmailPingPong2">
-						<button id="btnQuestion2" onAction="btnQuestion_Click" label="Question" size="large" getImage="GetImage"/>
-						<button id="btnAnswer2" onAction="btnAnswer_Click" label="Answer" size="large" getImage="GetImage"/>
+						<button id="btnQuestion2" onAction="btnQuestion_Click" label="Question" size="large" getImage="GetImage" screentip="Add question tag (Ctrl+1)" supertip="Mark selection as question tag or adds empty question if nothing is selected"/>
+						<button id="btnAnswer2" onAction="btnAnswer_Click" label="Answer" size="large" getImage="GetImage" screentip="Add answer tag (Ctrl+2)" supertip="Add answer tag for selected question"/>
 					</group>
 				</tab>
 			</tabSet>
