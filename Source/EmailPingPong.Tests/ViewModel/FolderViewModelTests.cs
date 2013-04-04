@@ -6,8 +6,10 @@ using EmailPingPong.Core.Model;
 using EmailPingPong.Tests.Builders;
 using EmailPingPong.UI.Desktop.ViewModels;
 using FluentAssertions;
+using Microsoft.Office.Interop.Outlook;
 using NSubstitute;
 using Xunit;
+using Conversation = EmailPingPong.Core.Model.Conversation;
 
 namespace EmailPingPong.Tests.ViewModel
 {
@@ -64,6 +66,23 @@ namespace EmailPingPong.Tests.ViewModel
 			folderViewModel.Childs.Should().HaveCount(2);
 			folderViewModel.Childs.ElementAt(0).Should().BeAssignableTo<ConversationViewModel>();
 			folderViewModel.Childs.ElementAt(1).Should().BeAssignableTo<ConversationViewModel>();
+		}
+
+		[Fact]
+		public void folder_view_models_should_be_equal_when_underlying_folders_equal()
+		{
+			// arrange
+			var folder1 = new EmailFolder("1", "1", "1");
+			var viewModel1 = new FolderViewModel(null, folder1, Enumerable.Empty<Conversation>());
+
+			var folder2 = new EmailFolder("1", "1", "1");
+			var viewModel2 = new FolderViewModel(null, folder2, Enumerable.Empty<Conversation>());
+
+			// act
+			var result = viewModel1 == viewModel2;
+
+			// assert
+			result.Should().BeTrue();
 		}
 	}
 }

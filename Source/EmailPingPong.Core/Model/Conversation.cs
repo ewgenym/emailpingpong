@@ -86,5 +86,15 @@ namespace EmailPingPong.Core.Model
 		{
 			IsClosed = true;
 		}
+
+		protected override int GetEntityHashCode()
+		{
+			return ConversationId.GetHashCode();
+		}
+
+		protected override bool EntityEquals(ModelEntityWithLongId other)
+		{
+			return ConversationId == ((Conversation) other).ConversationId;
+		}
 	}
 }

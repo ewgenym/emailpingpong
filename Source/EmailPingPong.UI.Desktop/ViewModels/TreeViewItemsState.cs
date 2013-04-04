@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace EmailPingPong.UI.Desktop.ViewModels
 {
@@ -25,16 +26,12 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 
 		private IDictionary<TreeViewItemViewModel, ItemState> GetState(IEnumerable<TreeViewItemViewModel> items)
 		{
-			var result = new Dictionary<TreeViewItemViewModel, ItemState>();
-			foreach (var item in new TreeViewItemsIterator(items))
-			{
-				result.Add(item, new ItemState
-					{
-						IsExpanded = item.IsExpanded,
-						IsSelected = item.IsSelected
-					});
-			}
-			return result;
+			return new TreeViewItemsIterator(items)
+				.ToDictionary(item => item, item => new ItemState
+				{
+					IsExpanded = item.IsExpanded,
+					IsSelected = item.IsSelected
+				});
 		}
 
 		public void RestoreState(TKey key, IEnumerable<TreeViewItemViewModel> items)

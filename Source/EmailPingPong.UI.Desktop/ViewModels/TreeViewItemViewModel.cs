@@ -88,5 +88,21 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		{
 			get { return !_isClosed; }
 		}
+
+		public static bool operator ==(TreeViewItemViewModel viewModel1, TreeViewItemViewModel viewModel2)
+		{
+			var obj1 = (object)viewModel1;
+			if (obj1 == null && ((object)viewModel2) == null)
+			{
+				return true;
+			}
+
+			return obj1 != null && viewModel1.Equals(viewModel2);
+		}
+
+		public static bool operator !=(TreeViewItemViewModel viewModel1, TreeViewItemViewModel viewModel2)
+		{
+			return !(viewModel1 == viewModel2);
+		}
 	}
 }

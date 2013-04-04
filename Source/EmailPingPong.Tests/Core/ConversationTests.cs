@@ -1,4 +1,5 @@
-﻿using EmailPingPong.Tests.Builders;
+﻿using EmailPingPong.Core.Model;
+using EmailPingPong.Tests.Builders;
 using FluentAssertions;
 using Xunit;
 
@@ -35,6 +36,21 @@ namespace EmailPingPong.Tests.Core
 
 			// assert
 			conversation.IsClosed.Should().BeFalse();
+		}
+
+		[Fact]
+		public void conversations_with_the_same_conversation_ids_should_be_equal()
+		{
+			// arrange
+			const string conversationId = "1";
+			var conversation1 = new Conversation {Id = 1, ConversationId = conversationId};
+			var conversation2 = new Conversation {Id = 2, ConversationId = conversationId};
+
+			// act
+			var result = conversation1 == conversation2;
+
+			// assert
+			result.Should().BeTrue();
 		}
 	}
 }
