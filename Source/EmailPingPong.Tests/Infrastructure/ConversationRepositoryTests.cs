@@ -2,6 +2,8 @@
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using EmailPingPong.Core.CommandHandlers;
+using EmailPingPong.Core.Commands;
 using EmailPingPong.Core.Model;
 using EmailPingPong.Core.Repositories;
 using EmailPingPong.Core.Services;
@@ -25,6 +27,7 @@ namespace EmailPingPong.Tests.Infrastructure
 		private readonly IRepository<Comment> _commentsRepository;
 		private readonly IRepository<EmailItem> _emailsRepository;
 		private readonly IMergeConversationService _mergeConversationService;
+		private readonly ConversationCommandHandlers _conversationCommandHandlers;
 
 		public ConversationRepositoryTests()
 		{
@@ -42,6 +45,7 @@ namespace EmailPingPong.Tests.Infrastructure
 			_commentsRepository = new DbRepository<Comment>(_context);
 			_emailsRepository = new DbRepository<EmailItem>(_context);
 			_mergeConversationService = new MergeConversationService(_emailsRepository, _commentsRepository);
+			_conversationCommandHandlers = new ConversationCommandHandlers(_mergeConversationService, _conversationRepository);
 		}
 
 		[Fact]
@@ -610,7 +614,129 @@ namespace EmailPingPong.Tests.Infrastructure
 			var actual = _conversationRepository.GetByAccountIdAndConversationId(conversation.AccountId, conversation.ConversationId);
 			actual.Comments[0].Conversation.Should().BeSameAs(conversation);
 		}
-		
+
+		[Fact]
+		public void conversation_happy_flow()
+		{
+			// 1. ema sends to yma (merge on send)
+			var conversation1 = Create.Conversation()
+			                          .WithAccountId("ema@scalepoint.com")
+			                          .WithConversationId("9deecb111d36479b8ddb6a22a7596a0e")
+			                          .WithTopic("gg")
+			                          .WithEmail(Create.EmailItem()
+													   .WithAccountId("ema@scalepoint.com")
+			                                           .WithCreationTime(new DateTime(2013, 4, 8, 21, 06, 0))
+			                                           .WithSubject("gg")
+			                                           .WithItemId("2fd")
+			                                           .WithFolder("1", "1", "Sent Items")
+			                                           .Build())
+			                          .WithComment(Create.Comment()
+			                                             .WithAuthor("Evgeniy Maksak")
+			                                             .WithId(new Guid("{95CEA027-A50F-4530-95CC-672BE7B2CDC8}"))
+			                                             .WithBody("gg")
+			                                             .WithOrder(0)
+			                                             .Build()
+				)
+			                          .Build();
+
+			HandleMergeConversationCommand(conversation1);
+
+			// 2. yma receives (merge on receive)
+			var conversation2 = Create.Conversation()
+									  .WithAccountId("yma@ciklum.com")
+									  .WithConversationId("9deecb111d36479b8ddb6a22a7596a0e")
+									  .WithTopic("gg")
+									  .WithEmail(Create.EmailItem()
+													   .WithAccountId("yma@ciklum.com")
+													   .WithCreationTime(new DateTime(2013, 4, 8, 21, 06, 59))
+													   .WithSubject("gg")
+													   .WithItemId("b50")
+													   .WithFolder("b50", "b5042", "Inbox")
+													   .Build())
+									  .WithComment(Create.Comment()
+														 .WithAuthor("Evgeniy Maksak")
+														 .WithId(new Guid("{95CEA027-A50F-4530-95CC-672BE7B2CDC8}"))
+														 .WithBody("gg")
+														 .WithOrder(0)
+														 .Build()
+				)
+									  .Build();
+			HandleMergeConversationCommand(conversation2);
+			
+			//3. UpdateMaiilItem
+			var conversation3 = Create.Conversation()
+			                          .WithAccountId("yma@ciklum.com")
+			                          .WithConversationId("9deecb111d36479b8ddb6a22a7596a0e")
+			                          .WithTopic("gg")
+			                          .WithEmail(Create.EmailItem()
+			                                           .WithAccountId("yma@ciklum.com")
+			                                           .WithCreationTime(new DateTime(2013, 4, 8, 21, 06, 59))
+			                                           .WithSubject("gg")
+			                                           .WithItemId("b50")
+			                                           .WithFolder("b50", "b5042", "Inbox")
+			                                           .Build())
+			                          .WithComment(Create.Comment()
+			                                             .WithAuthor("Evgeniy Maksak")
+			                                             .WithId(new Guid("{95CEA027-A50F-4530-95CC-672BE7B2CDC8}"))
+			                                             .WithBody("gg")
+			                                             .WithOrder(0)
+			                                             .Build()
+				)
+			                          .Build();
+
+			HandleUpdateEmailCommand(conversation3);
+			
+
+			//4. MergeConversation
+			var conversation4 = Create.Conversation()
+			                          .WithAccountId("yma@ciklum.com")
+			                          .WithConversationId("9deecb111d36479b8ddb6a22a7596a0e")
+			                          .WithTopic("gg")
+			                          .WithEmail(Create.EmailItem()
+			                                           .WithAccountId("yma@ciklum.com")
+			                                           .WithCreationTime(new DateTime(2013, 4, 8, 21, 00, 00))
+			                                           .WithSubject("RE: gg")
+			                                           .WithItemId("b50")
+			                                           .WithFolder("121212", "b50421212", "Sent Items")
+			                                           .Build())
+			                          .WithComment(Create.Comment()
+			                                             .WithAuthor("Evgeniy Maksak")
+			                                             .WithId(new Guid("{95CEA027-A50F-4530-95CC-672BE7B2CDC8}"))
+			                                             .WithBody("gg")
+			                                             .WithOrder(0)
+			                                             .WithAnswer(Create.Comment()
+			                                                               .WithAuthor("Yma")
+			                                                               .WithId(
+				                                                               new Guid("{DA3E09BA-3032-41B4-8A8E-EFB5BD56D0AD}"))
+			                                                               .WithOrder(1)
+			                                                               .Build()
+				                                       )
+			                                             .Build()
+				)
+			                          .Build();
+
+			HandleMergeConversationCommand(conversation4);
+		}
+
+		private Conversation _binding;
+		private void HandleMergeConversationCommand(Conversation conversation)
+		{
+			using (new UnitOfWork(_context))
+			{
+				_conversationCommandHandlers.Handle(new MergeConversation(conversation));
+			}
+			_binding = _conversationRepository.GetByAccountIdAndConversationId(conversation.AccountId, conversation.ConversationId);
+		}
+
+		private void HandleUpdateEmailCommand(Conversation conversation)
+		{
+			using (new UnitOfWork(_context))
+			{
+				_conversationCommandHandlers.Handle(new UpdateMailItem(conversation));
+			}
+			_binding = _conversationRepository.GetByAccountIdAndConversationId(conversation.AccountId, conversation.ConversationId);
+		}
+
 		private void AddConversation(Conversation conversation)
 		{
 			_conversationRepository.Add(conversation);
