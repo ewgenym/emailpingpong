@@ -116,7 +116,8 @@
     <Compile Include="Builders\DocumentBuilder.cs" />
     <Compile Include="Builders\EmailItemBuilder.cs" />
     <Compile Include="Builders\EntityBuilderBase.cs" />
-    <Compile Include="Core\CommentEntityTests.cs" />
+    <Compile Include="Core\CommentComparerTests.cs" />
+    <Compile Include="Core\ConversationComparerTests.cs" />
     <Compile Include="Core\ConversationEmailsTests.cs" />
     <Compile Include="Core\ConversationTests.cs" />
     <Compile Include="Core\MergeConversationTests.cs" />

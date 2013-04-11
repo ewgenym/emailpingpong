@@ -323,5 +323,17 @@ namespace EmailPingPong.Tests.ViewModel
 			// assert
 			result.Should().BeTrue();
 		}
+
+		[Fact]
+		public void should_report_equal_when_account_id_is_null()
+		{
+			var criteria1 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentEmail, null, null, new EmailFolder("1", "1", "1"), true);
+			var criteria2 = new ConversationViewCriteria(GroupBy.None, SearchIn.CurrentEmail, null, null, new EmailFolder("1", "1", "1"), true);
+
+			var result = criteria1 == criteria2;
+
+			result.Should().BeTrue();
+
+		}
 	}
 }

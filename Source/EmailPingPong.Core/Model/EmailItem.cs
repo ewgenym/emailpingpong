@@ -32,11 +32,6 @@ namespace EmailPingPong.Core.Model
 
 		public override bool Equals(object other)
 		{
-			if (ReferenceEquals(this, other))
-			{
-				return true;
-			}
-
 			if ((other == null) || !(other is EmailItem))
 			{
 				return false;

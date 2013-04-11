@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using EmailPingPong.Core.Comparers;
 using EmailPingPong.Core.Model;
 using EmailPingPong.Core.Utils;
 
@@ -11,12 +12,14 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 	{
 		private readonly Comment _comment;
 		private readonly ReadOnlyCollection<CommentViewModel> _answers;
+		private readonly CommentComparer _comparer;
 
 		public CommentViewModel(TreeViewItemViewModel parent,
 								Comment comment)
 			: base(parent)
 		{
 			_comment = comment;
+			_comparer = new CommentComparer();
 			_answers = new ReadOnlyCollection<CommentViewModel>(comment
 																	.Answers
 																	.Select(a => new CommentViewModel(this, a))
@@ -63,7 +66,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 
 		public override int GetHashCode()
 		{
-			return _comment.GetHashCode();
+			return _comparer.GetHashCode(_comment);
 		}
 
 		public override bool Equals(object other)
@@ -86,7 +89,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 				return false;
 			}
 
-			return Comment == (other as CommentViewModel).Comment;
+			return _comparer.Equals(Comment, (other as CommentViewModel).Comment);
 		}
 	}
 }

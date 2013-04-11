@@ -640,6 +640,8 @@ namespace EmailPingPong.Tests.Infrastructure
 			                          .Build();
 
 			HandleMergeConversationCommand(conversation1);
+			HandleUpdateEmailCommand(conversation1);
+			HandleUpdateEmailCommand(conversation1);
 
 			// 2. yma receives (merge on receive)
 			var conversation2 = Create.Conversation()

@@ -20,8 +20,11 @@ namespace EmailPingPong.Tests.ViewModel
 		public ConversationTreeViewModelStatePersistanceTests()
 		{
 			var conversation = Create.Conversation()
+						 .WithConversationId("1")
 						 .WithComment(Create.Comment()
+											.WithId(new Guid("{88D31BF4-E459-4812-9D89-5C9D6683E765}"))
 											.WithAnswer(Create.Comment()
+															  .WithId(new Guid("{1F9852E8-86C4-4A2A-B6F3-B81030DC7E40}"))
 															  .Build())
 											.Build())
 						 .Build();
@@ -33,8 +36,8 @@ namespace EmailPingPong.Tests.ViewModel
 		[Fact]
 		public async Task should_save_items_state_when_group_by_changes()
 		{
-			var groupBy1 = GroupBy.None;
-			var groupBy2 = GroupBy.Email;
+			const GroupBy groupBy1 = GroupBy.None;
+			const GroupBy groupBy2 = GroupBy.Email;
 			
 			// arrage
 			ViewModel.GroupBy = groupBy1;
@@ -45,8 +48,6 @@ namespace EmailPingPong.Tests.ViewModel
 			// act
 			ViewModel.GroupBy = groupBy2;
 			await ViewModel.BindData();
-
-			ViewModel.Items[0].Childs.ElementAt(0).IsExpanded.Should().BeFalse();
 
 			ViewModel.GroupBy = groupBy1;
 			await ViewModel.BindData();

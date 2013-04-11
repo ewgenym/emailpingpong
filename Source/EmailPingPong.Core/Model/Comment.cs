@@ -44,13 +44,5 @@ namespace EmailPingPong.Core.Model
 				answer.OriginalEmail = OriginalEmail;
 			}
 		}
-		protected override int GetEntityHashCode()
-		{
-			return Guid.GetHashCode();
-		}
-		protected override bool EntityEquals(ModelEntityWithLongId other)
-		{
-			return Guid == ((Comment) other).Guid;
-		}
 	}
 }

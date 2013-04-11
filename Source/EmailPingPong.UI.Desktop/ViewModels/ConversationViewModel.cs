@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using EmailPingPong.Core.Comparers;
 using EmailPingPong.Core.Model;
 
 namespace EmailPingPong.UI.Desktop.ViewModels
@@ -8,12 +9,14 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 	public class ConversationViewModel : TreeViewItemViewModel
 	{
 		private readonly Conversation _conversation;
+		private readonly ConversationComparer _comparer;
 		private readonly ReadOnlyCollection<CommentViewModel> _comments;
 
 		public ConversationViewModel(TreeViewItemViewModel parent, Conversation conversation)
 			: base(parent)
 		{
 			_conversation = conversation;
+			_comparer = new ConversationComparer();
 			_comments =
 				new ReadOnlyCollection<CommentViewModel>(conversation.Comments.Select(c => new CommentViewModel(this, c)).ToList());
 			IsUnread = conversation.Emails.Any(e => e.IsUnread);
@@ -45,7 +48,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 
 		public override int GetHashCode()
 		{
-			return _conversation.GetHashCode();
+			return _comparer.GetHashCode(_conversation);
 		}
 
 		public override bool Equals(object other)
@@ -68,7 +71,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 				return false;
 			}
 
-			return Conversation == (other as ConversationViewModel).Conversation;
+			return _comparer.Equals(Conversation, (other as ConversationViewModel).Conversation);
 		}
 	}
 }
