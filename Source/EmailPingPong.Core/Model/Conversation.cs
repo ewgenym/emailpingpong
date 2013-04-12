@@ -68,7 +68,7 @@ namespace EmailPingPong.Core.Model
 
 		public virtual bool UpdateEmail(EmailItem targetEmail)
 		{
-			var conversationEmail = Emails.SingleOrDefault(e => e == targetEmail);
+			var conversationEmail = Emails.ToList().SingleOrDefault(e => e == targetEmail);
 			if (conversationEmail != null)
 			{
 				conversationEmail.IsUnread = targetEmail.IsUnread;

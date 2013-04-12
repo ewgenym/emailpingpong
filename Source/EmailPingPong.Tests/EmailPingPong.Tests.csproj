@@ -120,6 +120,7 @@
     <Compile Include="Core\ConversationComparerTests.cs" />
     <Compile Include="Core\ConversationEmailsTests.cs" />
     <Compile Include="Core\ConversationTests.cs" />
+    <Compile Include="Core\EmailItemComparer.cs" />
     <Compile Include="Core\MergeConversationTests.cs" />
     <Compile Include="Infrastructure\ConversationRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
