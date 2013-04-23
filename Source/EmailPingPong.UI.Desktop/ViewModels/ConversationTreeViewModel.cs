@@ -57,7 +57,9 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 		private void OnEmailItemSwitched(EmailItemSwitchedArgs args)
 		{
 			_accountId = args.AccountId;
-			_emails = args.Emails.Return(e => e.ToList());
+
+			_emails = args.Emails != null ? args.Emails.ToList() : null;
+			
 			if (_searchIn == SearchIn.CurrentEmail)
 			{
 				BindData();

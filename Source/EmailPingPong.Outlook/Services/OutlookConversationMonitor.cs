@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.InteropServices;
 using EmailPingPong.Core.Commands;
+using EmailPingPong.Core.Model;
 using EmailPingPong.Infrastructure.Events;
 using EmailPingPong.Outlook.Common.Conversation.Implementation;
 using Microsoft.Office.Interop.Outlook;
@@ -175,9 +176,17 @@ namespace EmailPingPong.Outlook2010.Services
 			if (_explorer.Selection.Count > 0)
 			{
 				var folder = (Folder)_explorer.CurrentFolder;
-				var emails = _explorer.Selection.Cast<MailItem>().Select(e => _emailItemBinder.Bind(e));
-				_eventAggregator.GetEvent<EmailItemSwitchedEvent>()
-								.Publish(new EmailItemSwitchedArgs(folder.Store.DisplayName, emails));
+				var emails = new List<EmailItem>();
+				foreach (var selection in _explorer.Selection)
+				{
+					var mailItem = selection as MailItem;
+					if (mailItem != null)
+					{
+						var boundEmail = _emailItemBinder.Bind(mailItem);
+						emails.Add(boundEmail);
+					}
+				}
+				_eventAggregator.GetEvent<EmailItemSwitchedEvent>().Publish(new EmailItemSwitchedArgs(folder.Store.DisplayName, emails));
 			}
 		}
 

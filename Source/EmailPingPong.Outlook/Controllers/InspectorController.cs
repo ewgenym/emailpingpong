@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using EmailPingPong.Infrastructure.Events;
 using EmailPingPong.Outlook.Common.Controllers;
 using EmailPingPong.Outlook.Common.Utils;
@@ -92,10 +91,16 @@ namespace EmailPingPong.Outlook2010.Controllers
 			{
 				if (explorer.IsItemSelectableInView(item))
 				{
+					var view = explorer.CurrentView as Microsoft.Office.Interop.Outlook.View;
+					if (view == null || view.ViewType != OlViewType.olTableView)
+					{
+						return;
+					}
+					
 					explorer.ClearSelection();
 					explorer.AddToSelection(item);
 					explorer.ScrollToSelection();
-					Marshal.ReleaseComObject(item);
+					//Marshal.ReleaseComObject(item);
 				}
 				else
 				{
@@ -113,7 +118,7 @@ namespace EmailPingPong.Outlook2010.Controllers
 			}
 			finally
 			{
-				Marshal.ReleaseComObject(olns);
+				//Marshal.ReleaseComObject(olns);
 			}
 		}
 
