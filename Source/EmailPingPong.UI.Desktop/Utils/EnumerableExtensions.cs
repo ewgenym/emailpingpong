@@ -5,7 +5,7 @@ namespace EmailPingPong.UI.Desktop.Utils
 {
 	public static class EnumerableExtensions
 	{
-		public static bool ElementsEqual<T>(this IEnumerable<T> list1, IEnumerable<T> list2)
+		public static bool ElementsEqual<T>(this IEnumerable<T> list1, IEnumerable<T> list2, IEqualityComparer<T> comparer)
 			where T: class
 		{
 			if (list1 == null && list2 == null)
@@ -36,7 +36,7 @@ namespace EmailPingPong.UI.Desktop.Utils
 				T element1 = lst1[i];
 				T element2 = lst2[i];
 
-				if (!element1.Equals(element2))
+				if (!comparer.Equals(element1, element2))
 				{
 					return false;
 				}

@@ -1,11 +1,12 @@
 ﻿using System;
+using EmailPingPong.Core.Comparers;
 using EmailPingPong.Core.Model;
 using FluentAssertions;
 using Xunit;
 
 namespace EmailPingPong.Tests.Core
 {
-	public class EmailItemComparer
+	public class EmailItemComparerTests
 	{
 		[Fact]
 		public void should_report_two_emails_are_equal()
@@ -32,7 +33,8 @@ namespace EmailPingPong.Tests.Core
 				Subject = "RE: wertyuiolp;"
 			};
 
-			var result = email1 == email2;
+			var comparer = new EmailItemComparer();
+			var result = comparer.Equals(email1, email2);
 
 			result.Should().BeTrue();
 		}

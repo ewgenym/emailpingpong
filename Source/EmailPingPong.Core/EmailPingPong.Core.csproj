@@ -51,6 +51,7 @@
     <Compile Include="Commands\UpdateMailItem.cs" />
     <Compile Include="Comparers\CommentComparer.cs" />
     <Compile Include="Comparers\ConversationComparer.cs" />
+    <Compile Include="Comparers\EmailItemComparer.cs" />
     <Compile Include="Comparers\EntityComparer.cs" />
     <Compile Include="Events\IDomainEvent.cs" />
     <Compile Include="Commands\ICommandHandler.cs" />

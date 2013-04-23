@@ -23,48 +23,48 @@ namespace EmailPingPong.Core.Model
 		[Required]
 		public virtual bool IsUnread { get; set; }
 
-		public override int GetHashCode()
-		{
-			return (((AccountId.GetHashCode() << 5)
-					 ^ ItemId.GetHashCode() << 5)
-					^ Folder.GetHashCode() << 5);
-		}
+		//public override int GetHashCode()
+		//{
+		//	return (((AccountId.GetHashCode() << 5)
+		//			 ^ ItemId.GetHashCode() << 5)
+		//			^ Folder.GetHashCode() << 5);
+		//}
 
-		public override bool Equals(object other)
-		{
-			if ((other == null) || !(other is EmailItem))
-			{
-				return false;
-			}
+		//public override bool Equals(object other)
+		//{
+		//	if ((other == null) || !(other is EmailItem))
+		//	{
+		//		return false;
+		//	}
 
-			var thisType = GetType();
-			var otherType = other.GetType();
+		//	var thisType = GetType();
+		//	var otherType = other.GetType();
 
-			if (thisType != otherType)
-			{
-				return false;
-			}
+		//	if (thisType != otherType)
+		//	{
+		//		return false;
+		//	}
 
-			return AccountId == (other as EmailItem).AccountId
-				&& ItemId == (other as EmailItem).ItemId
-				&& Folder == (other as EmailItem).Folder;
-		}
+		//	return AccountId == (other as EmailItem).AccountId
+		//		&& ItemId == (other as EmailItem).ItemId
+		//		&& Folder == (other as EmailItem).Folder;
+		//}
 
-		public static bool operator ==(EmailItem entity1, EmailItem entity2)
-		{
-			var obj1 = (object)entity1;
-			var obj2 = (object)entity2;
-			if (obj1 == null && obj2 == null)
-			{
-				return true;
-			}
+		//public static bool operator ==(EmailItem entity1, EmailItem entity2)
+		//{
+		//	var obj1 = (object)entity1;
+		//	var obj2 = (object)entity2;
+		//	if (obj1 == null && obj2 == null)
+		//	{
+		//		return true;
+		//	}
 
-			return !(obj1 == null) && entity1.Equals(entity2);
-		}
+		//	return !(obj1 == null) && entity1.Equals(entity2);
+		//}
 
-		public static bool operator !=(EmailItem entity1, EmailItem entity2)
-		{
-			return !(entity1 == entity2);
-		}
+		//public static bool operator !=(EmailItem entity1, EmailItem entity2)
+		//{
+		//	return !(entity1 == entity2);
+		//}
 	}
 }

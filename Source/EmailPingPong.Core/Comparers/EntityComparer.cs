@@ -33,14 +33,6 @@ namespace EmailPingPong.Core.Comparers
 				return false;
 			}
 
-			var thisType = x.GetType();
-			var otherType = y.GetType();
-
-			if (thisType != otherType)
-			{
-				return false;
-			}
-
 			return EntitiesEqual(x, y);
 		}
 

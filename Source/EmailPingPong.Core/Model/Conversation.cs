@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using EmailPingPong.Core.Comparers;
 using EmailPingPong.Core.Utils;
 
 namespace EmailPingPong.Core.Model
@@ -68,7 +69,7 @@ namespace EmailPingPong.Core.Model
 
 		public virtual bool UpdateEmail(EmailItem targetEmail)
 		{
-			var conversationEmail = Emails.ToList().SingleOrDefault(e => e == targetEmail);
+			var conversationEmail = Emails.ToList().SingleOrDefault(e => new EmailItemComparer().Equals(e, targetEmail));
 			if (conversationEmail != null)
 			{
 				conversationEmail.IsUnread = targetEmail.IsUnread;

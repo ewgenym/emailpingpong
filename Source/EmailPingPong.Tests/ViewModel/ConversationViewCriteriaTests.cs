@@ -1,4 +1,5 @@
-﻿using EmailPingPong.Core.Model;
+﻿using EmailPingPong.Core.Comparers;
+using EmailPingPong.Core.Model;
 using EmailPingPong.Tests.Builders;
 using EmailPingPong.UI.Desktop.ViewModels;
 using FluentAssertions;
@@ -74,7 +75,7 @@ namespace EmailPingPong.Tests.ViewModel
 			var email2 = new EmailItem();
 
 			// act
-			var result = email1 == email2;
+			var result = new EmailItemComparer().Equals(email1, email2);
 
 			// assert
 			result.Should().BeTrue();
@@ -83,6 +84,7 @@ namespace EmailPingPong.Tests.ViewModel
 		[Fact]
 		public void should_report_email_items_are_equal()
 		{
+			//TODO: remove this test. Duplicate
 			// arrange
 			var email1 = Create.EmailItem()
 			                   .WithAccountId("1")
@@ -97,7 +99,7 @@ namespace EmailPingPong.Tests.ViewModel
 			                   .Build();
 
 			// act
-			var result = email1 == email2;
+			var result = new EmailItemComparer().Equals(email1, email2);
 
 			// assert
 			result.Should().BeTrue();

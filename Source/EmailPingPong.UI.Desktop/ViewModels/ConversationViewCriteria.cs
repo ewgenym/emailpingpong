@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using EmailPingPong.Core.Comparers;
 using EmailPingPong.Core.Model;
 using EmailPingPong.Core.Utils;
 using EmailPingPong.UI.Desktop.Utils;
@@ -82,7 +83,7 @@ namespace EmailPingPong.UI.Desktop.ViewModels
 
 		private bool EmailListsAreEqual(IEnumerable<EmailItem> list1, IEnumerable<EmailItem> list2)
 		{
-			return SearchIn != SearchIn.CurrentEmail || list1.ElementsEqual(list2);
+			return SearchIn != SearchIn.CurrentEmail || list1.ElementsEqual(list2, new EmailItemComparer());
 		}
 
 		public static bool operator ==(ConversationViewCriteria criteria1, ConversationViewCriteria criteria2)
